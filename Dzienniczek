@@ -1,0 +1,16 @@
+Od tej pory proponował bym tutaj pisać co kto zrobił żeby można było to wszystko ogarnąć, żeby wiedzieć co Ty zrobiłeś a co ja jak bierzemy się za jakieś zmiany. I w razie jak coś się zjebie to naprawić 
+ag 12.10.2014: 
+skonfigurowanie hibernate(nowe pliki hibernate.cfg.xml, hibernateContext.xml, spring.properties + zmiany applicationContext) 
+log4j + konfiguracja(log4j.properties) 
+dependecies: log4j, junit, hibernate, javax persistence
+rejestracja: registercontroller, user-register.jsp + validacja w jquery . 
+nowe package: dao, implDao, model, service i klasy do 'komunikacji z baza danych' 
+dodanie jquery w classic.jsp
+
+ag 18.10.2014: 
+troche zmian w plikach konfiguracyjnych beans
+stworzenie nowych polik�w np beansService i roz�o�enie konfiguracji na wi�cej plik�w - Katalog spring
+My�le �e to pomorze w edytowaniu i zarzadzaniu. 
+test
+
+

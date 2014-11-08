@@ -1,0 +1,13 @@
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+	<persistence-unit name="busiki">
+		<class>com.busiki.model.Bus</class>
+		<class>com.busiki.model.Przystanek</class>
+		<class>com.busiki.model.Role</class>
+		<class>com.busiki.model.Rozklad</class>
+		<class>com.busiki.model.TrasaInfo</class>
+		<class>com.busiki.model.User</class>
+		<class>com.busiki.model.Kurs</class>
+		<class>com.busiki.model.Rezerwacja</class>
+		<class>com.busiki.model.News</class>
+	</persistence-unit>
+</persistence>

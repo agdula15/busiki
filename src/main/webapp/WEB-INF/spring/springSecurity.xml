@@ -1,0 +1,22 @@
+<beans:beans xmlns="http://www.springframework.org/schema/security" xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd  
+ http://www.springframework.org/schema/security  
+ http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+
+	<http auto-config="true" use-expressions="true">
+		<access-denied-handler error-page="/403page" />
+		<intercept-url pattern="/admin**" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/users**" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/news**" access="hasRole('ROLE_ADMIN')" />
+		<form-login login-page='/index' default-target-url="/loginok"
+			authentication-failure-url="/loginfailed" />
+		<logout logout-success-url="/logoutok" />
+	</http>
+	<beans:bean id="userLoginService" class="com.busiki.service.UserLoginService" />
+	<authentication-manager>
+		<authentication-provider user-service-ref="userLoginService">
+		</authentication-provider>
+	</authentication-manager>
+</beans:beans>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+	<definition name="common" template="/WEB-INF/layouts/classic.jsp">
+		<put-attribute name="nav-form" value="/WEB-INF/layouts/nav-form.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/layouts/footer.jsp" />
+	</definition>
+	<definition name="index" extends="common">
+		<put-attribute name="title" value="Busiki" />
+		<put-attribute name="body" value="/WEB-INF/jsp/index.jsp" />
+		<put-attribute name="current" value="index" />
+	</definition>
+	<definition name="login" extends="common">
+		<put-attribute name="title" value="Loguj" />
+		<put-attribute name="body" value="/WEB-INF/jsp/login.jsp" />
+		<put-attribute name="current" value="login" />
+	</definition>
+	<definition name="user-register" extends="common">
+		<put-attribute name="title" value="Rejestracja" />
+		<put-attribute name="body" value="/WEB-INF/jsp/user-register.jsp" />
+		<put-attribute name="current" value="register" />
+	</definition>
+	<definition name="registrationok" extends="common">
+		<put-attribute name="title" value="Pomyślna rejestracja" />
+		<put-attribute name="body" value="/WEB-INF/jsp/registrationok.jsp" />
+		<put-attribute name="current" value="registrationok" />
+	</definition>
+	<definition name="logoutok" extends="common">
+		<put-attribute name="title" value="Wylogowałeś się" />
+		<put-attribute name="body" value="/WEB-INF/jsp/logoutok.jsp" />
+		<put-attribute name="current" value="logoutok" />
+	</definition>
+	<definition name="loginfailed" extends="common">
+		<put-attribute name="title" value="Błędny login." />
+		<put-attribute name="body" value="/WEB-INF/jsp/loginfailed.jsp" />
+		<put-attribute name="current" value="loginfailed" />
+	</definition>
+	<definition name="contact" extends="common">
+		<put-attribute name="title" value="Kontakt" />
+		<put-attribute name="body" value="/WEB-INF/jsp/contact.jsp" />
+		<put-attribute name="current" value="contact" />
+	</definition>
+</tiles-definitions>

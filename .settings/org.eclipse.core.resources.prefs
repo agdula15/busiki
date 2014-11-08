@@ -1,0 +1,8 @@
+eclipse.preferences.version=1
+encoding//src/main/webapp/WEB-INF/jsp/admin.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/jsp/news.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/jsp/user-register.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/jsp/users.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/layouts/adminTemplate.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/layouts/nav-form.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/layouts/taglib.jsp=UTF-8

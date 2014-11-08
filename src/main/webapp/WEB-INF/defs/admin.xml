@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+	<definition name="common2" template="/WEB-INF/layouts/adminTemplate.jsp">
+		<put-attribute name="footer" value="/WEB-INF/layouts/footer.jsp" />
+	</definition>
+
+	<definition name="admin" extends="common2">
+		<put-attribute name="title" value="Busiki Admin" />
+		<put-attribute name="body" value="/WEB-INF/jsp/admin.jsp" />
+		<put-attribute name="current" value="admin" />
+	</definition>
+	<definition name="users" extends="common2">
+		<put-attribute name="title" value="Użytkownicy" />
+		<put-attribute name="body" value="/WEB-INF/jsp/users.jsp" />
+		<put-attribute name="current" value="users" />
+	</definition>
+	<definition name="news" extends="common2">
+		<put-attribute name="title" value="Aktualności" />
+		<put-attribute name="body" value="/WEB-INF/jsp/news.jsp" />
+		<put-attribute name="current" value="news" />
+	</definition>
+<!-- 	<definition name="newsCreation" extends="common2"> -->
+<!-- 		<put-attribute name="title" value="Aktualności" /> -->
+<!-- 		<put-attribute name="body" value="/WEB-INF/jsp/news.jsp" /> -->
+<!-- 		<put-attribute name="current" value="news" /> -->
+<!-- 	</definition> -->
+</tiles-definitions>

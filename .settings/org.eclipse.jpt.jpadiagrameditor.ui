@@ -1,0 +1,11 @@
+#This file contains JPA Diagram Editor settings
+#Fri Oct 31 11:31:25 CET 2014
+supportOrmXml=false
+accessType=field
+defaultTableNamePrefix=
+defaultPackage=com.busiki.model
+directEditAffectsClass=true
+diagramFolder=diagrams
+ormXmlFileName=META-INF/orm.xml
+collectionType=collection
+oneToManyOldStyle=false
