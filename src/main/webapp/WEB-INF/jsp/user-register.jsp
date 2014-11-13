@@ -99,18 +99,27 @@
 	padding: 10px;
 }
 
+.panel {
+	background-color: rgba(167, 209, 241, 0.14);
+}
+
 </style>
 
 <br>
 <br>
 <div class="container">
-	<div class="well well-sm">
+<!-- 	<div class="well well-sm"> -->
+		<div class="panel">
 			<form:form commandName="user"
 				cssClass="form-vertical registrationForm">
-				<h3 class="text-center header" style="font-family: 'The Times New Roman';">
-					<spring:message code="registration.message.info" />
-					<%-- <legend class="text-center header"><spring:message code="registration.message.info"/></legend> --%>
-				</h3>
+<!-- 				<h3 class="text-center header" style="font-family: 'The Times New Roman';"> -->
+<%-- 					<spring:message code="registration.message.info" /> --%>
+<!-- 				</h3> -->
+					<div class="panel-heading">
+						<h3 class="text-center">
+							<spring:message code="registration.message.info" />
+						</h3>
+					</div>
 				<div class="form-group">
 					<div class="">
 						<form:input path="email" class="form-control" placeholder="Email:" />
@@ -121,7 +130,7 @@
 					<div class="row">
 						<div class="col-sm-6">
 							<form:input path="firstName" class="form-control"
-								placeholder="Imie:" />
+								placeholder="Imię:" />
 							<form:errors path="firstName" />
 
 						</div>
@@ -169,7 +178,9 @@
 					<input type="submit" value="Zarejestruj"
 						class="btn btn-primary col-sm-offset-5-2" />
 				</div>
+				<br>
 			</form:form>
-	</div>
+			</div>
+<!-- 	</div> -->
 </div>
 <br>

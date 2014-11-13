@@ -1,8 +1,13 @@
 eclipse.preferences.version=1
+encoding//src/main/webapp/WEB-INF/jsp/addTrasa.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/jsp/admin.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/jsp/index.jsp=ISO-8859-2
 encoding//src/main/webapp/WEB-INF/jsp/news.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/jsp/przystanek.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/jsp/trasa.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/jsp/user-register.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/jsp/users.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/layouts/adminTemplate.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/layouts/footer.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/layouts/nav-form.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/layouts/taglib.jsp=UTF-8

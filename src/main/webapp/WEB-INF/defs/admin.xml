@@ -22,9 +22,24 @@
 		<put-attribute name="body" value="/WEB-INF/jsp/news.jsp" />
 		<put-attribute name="current" value="news" />
 	</definition>
-<!-- 	<definition name="newsCreation" extends="common2"> -->
-<!-- 		<put-attribute name="title" value="Aktualności" /> -->
-<!-- 		<put-attribute name="body" value="/WEB-INF/jsp/news.jsp" /> -->
-<!-- 		<put-attribute name="current" value="news" /> -->
-<!-- 	</definition> -->
+	<definition name="trasa" extends="common2">
+		<put-attribute name="title" value="Trasy" />
+		<put-attribute name="body" value="/WEB-INF/jsp/trasa.jsp" />
+		<put-attribute name="current" value="trasa" />
+	</definition>
+	<definition name="przystanek" extends="common2">
+		<put-attribute name="title" value="Przystanki" />
+		<put-attribute name="body" value="/WEB-INF/jsp/przystanek.jsp" />
+		<put-attribute name="current" value="przystanek" />
+	</definition>
+	<definition name="addTrasa" extends="common2">
+		<put-attribute name="title" value="Dodaj Trasę" />
+		<put-attribute name="body" value="/WEB-INF/jsp/addTrasa.jsp" />
+		<put-attribute name="current" value="addTrasa" />
+	</definition>
+	<definition name="promocje" extends="common2">
+		<put-attribute name="title" value="Promocje dla klientów" />
+		<put-attribute name="body" value="/WEB-INF/jsp/promocje.jsp" />
+		<put-attribute name="current" value="promocje" />
+	</definition>
 </tiles-definitions>

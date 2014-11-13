@@ -42,4 +42,9 @@
 		<put-attribute name="body" value="/WEB-INF/jsp/contact.jsp" />
 		<put-attribute name="current" value="contact" />
 	</definition>
+	<definition name="timetable" extends="common">
+		<put-attribute name="title" value="Rozkład" />
+		<put-attribute name="body" value="/WEB-INF/jsp/timetable.jsp" />
+		<put-attribute name="current" value="timetable" />
+	</definition>
 </tiles-definitions>

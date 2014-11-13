@@ -7,7 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.busiki.service.BusStopService;
 import com.busiki.service.NewsService;
+import com.busiki.service.TrasaPrzystanekService;
+import com.busiki.service.UlgaService;
 
 @Controller
 public class IndexController {
@@ -16,6 +19,15 @@ public class IndexController {
 
 	@Autowired
 	private NewsService newsService;
+	
+	@Autowired
+	private BusStopService busStopService;
+	
+	@Autowired
+	private TrasaPrzystanekService trasaPrzystanekService;
+	
+	@Autowired
+	private UlgaService ulgaService;
 	
 	@RequestMapping("index")
 	public String index(Model model) {
@@ -27,5 +39,12 @@ public class IndexController {
 	public String contact(){
 		return "contact";
 	}
-
+	
+	@RequestMapping("timetable")
+	public String timetable(Model model){
+		model.addAttribute("przystanki", trasaPrzystanekService.getAllPrzystanek());
+		model.addAttribute("ulgi", ulgaService.getAll());
+		return "timetable";
+	}
+	
 }

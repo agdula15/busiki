@@ -7,7 +7,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Busiki- Panel Administratora</title>
+<title>Panel Administratora</title>
 
 <!-- Bootstrap Core CSS -->
 <link href="resources/admin/css/bootstrap.css" rel="stylesheet">
@@ -30,6 +30,10 @@
 
 <!-- jQuery -->
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+
+
+<script type="text/javascript"
+	src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.12.0/jquery.validate.min.js"></script>
 
 <!-- Bootstrap Core JavaScript -->
 <script src="resources/js/bootstrap.min.js"></script>
@@ -124,10 +128,13 @@
 						</a></li>
 						<li><a href="users"><i class="fa fa-user fa-fw"></i>
 								Użytkownicy</a></li>
-						<li><a href="#"> <i class="fa fa-table fa-fw"></i>
-								Rozkład
+						<li><a href="trasa"> <i class="fa fa-table fa-fw"></i>
+								Trasy
 						</a></li>
-						<li><a href="#"> <i class="fa fa-shopping-cart fa-fw"></i>
+						<li><a href="przystanek"> <i class="fa fa-table fa-fw"></i>
+								Przystanki
+						</a></li>
+						<li><a href="promocje"> <i class="fa fa-shopping-cart fa-fw"></i>
 								Promocje dla klientów
 						</a></li>
 						<li><a href="index"><i class="fa fa-sign-out fa-fw"></i>

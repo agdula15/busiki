@@ -24,8 +24,8 @@ public class UserService {
 	@Autowired
 	private UserDaoImpl userDaoImpl;
 
-	
-	@Autowired private RoleDao roleDao;
+	@Autowired 
+	private RoleDao roleDao;
 	 
 
 	public void createNewCustomer(User user, String password) {
@@ -40,6 +40,7 @@ public class UserService {
 		userDaoImpl.create(user, password);
 	}
 
+	//getByUsername i podaje siê email?
 	public User getAccountByUsername(String email) {
 		User user = userDaoImpl.findByEmail(email);
 		if (user != null) {
@@ -67,5 +68,9 @@ public class UserService {
 	
 	public void delete(long id){
 		userDaoImpl.deleteCustomer(id);
+	}
+
+	public void updateUser(User t) {
+		userDaoImpl.update(t);
 	}
 }

@@ -1,8 +1,11 @@
 package com.busiki.model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import com.busiki.model.TrasaInfo;
+
 import java.util.Collection;
 
 @Entity
@@ -15,12 +18,14 @@ public class Przystanek implements Serializable {
 	}
 
 	@Id
+	@GeneratedValue
+	@Column(name = "ID")
 	private long id;
 	private String numer;
 	private String nazwa;
 	@ManyToMany
 	private Collection<TrasaInfo> trasaInfo;
-	
+
 	public long getId() {
 		return id;
 	}
@@ -46,11 +51,11 @@ public class Przystanek implements Serializable {
 	}
 
 	public Collection<TrasaInfo> getTrasaInfo() {
-	    return trasaInfo;
+		return trasaInfo;
 	}
 
 	public void setTrasaInfo(Collection<TrasaInfo> param) {
-	    this.trasaInfo = param;
+		this.trasaInfo = param;
 	}
 
 }

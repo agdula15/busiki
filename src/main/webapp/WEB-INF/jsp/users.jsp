@@ -12,11 +12,11 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">×</button>
+				<button type="button" class="close" data-dismiss="modal">X</button>
 				<h3>Użytkownik</h3>
 			</div>
 			<div class="modal-body">
-				<form id="formEdit">
+				<form id="formEdit" action="users/update" method="POST">
 					<div class="form-group">
 						<label>Id: </label> <input class="form-control" id="id"
 							type='text' name='id' readonly />
@@ -38,7 +38,7 @@
 							id="phoneNumber" type='text' name='phoneNumber' />
 					</div>
 					<div class="form-group">
-						<label>Numer dokumentu potwierdzającego: </label> <input
+						<label>Numer dokumentu potwierdzającego: </label> <input
 							class="form-control" id="idCardNumber" type='text'
 							name='idCardNumber' />
 					</div>
@@ -55,15 +55,15 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">×</button>
+				<button type="button" class="close" data-dismiss="modal">X</button>
 				<h3>Użytkownik</h3>
 			</div>
 			<div class="modal-body">
+				<h4>Czy na pewno usunąć?</h4><br>			
 				<form id="formEdit">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<a id="confirmbutton" href="" class="btn btn-danger">Usuń</a>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Anuluj</button>
+					<a id="confirmbutton" href="" class="btn btn-danger">Usuń</a>
 				</form>
-
 			</div>
 		</div>
 	</div>
@@ -80,7 +80,7 @@
 <div class="row">
 	<div class="col-lg-12">
 		<div class="panel panel-default">
-			<!-- 		  	<div class="panel-heading">Użytkownicy</div>  -->
+			<!-- 		  	<div class="panel-heading">UÃÂ¼ytkownicy</div>  -->
 			<!-- /.panel-heading -->
 			<div class="panel-body">
 				<div class="table-responsive">
@@ -93,12 +93,11 @@
 								<th>Imię</th>
 								<th>Nazwisko</th>
 								<th>Telefon</th>
-								<th>Numer dokumentu potwierdzającego</th>
+								<th>Numer dokumentu potwierdzającego</th>
 								<th>Opcje</th>
 							</tr>
 						</thead>
 						<tbody>
-
 							<c:forEach items="${users}" var="user">
 								<tr class="even gradeC" id="${user.id}">
 									<td class="id">${user.id}</td>
@@ -108,7 +107,7 @@
 									<td class="phoneNumber">${user.phoneNumber}</td>
 									<td class="idCardNumber">${user.idCardNumber}</td>
 									<td id="test2"><a
-										class="btn-sm btn-warning btn-primary edit" id="">Edytuj</a><a
+										class="btn-sm btn-warning btn-primary edit" id="">Edytuj</a>  <a
 										class="btn-sm btn-danger remove">Usuń</a></td>
 								</tr>
 
@@ -127,8 +126,6 @@
 </div>
 <!-- /.row -->
 
-<script type="text/javascript"
-	src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.12.0/jquery.validate.min.js"></script>
 <script>
 	$(document)
 			.ready(
@@ -214,31 +211,31 @@
 											},
 											messages : {
 												email : {
-													required : "Wprowadź email",
-													email : "Wprowadź prawidłowy email",
-													remote : "Taki email już istnieje w bazie"
+													required : "WprowadÃÂº email",
+													email : "WprowadÃÂº prawidÃÂowy email",
+													remote : "Taki email juÃÂ¼ istnieje w bazie"
 												},
-												firstName : "Prosze wprowadzić przynajmniej 2 znaki",
-												lastName : "Prosze wprowadzić przynajmniej 2 znaki",
-												idCardNumber : "Numer dokumentu potwierdzającego twoją tożsamość"
+												firstName : "Prosze wprowadziÃÂ przynajmniej 2 znaki",
+												lastName : "Prosze wprowadziÃÂ przynajmniej 2 znaki",
+												idCardNumber : "Numer dokumentu potwierdzajÃÂcego twojÃÂ toÃÂ¼samoÃÂÃÂ"
 											}
 										});
 					});
 	function postData() {
 		var form = $("#formEdit");
-		if ($("#firstName").val() === $('.' + $("#id").val())
+		if ($("#firstName").val() === $('#' + $("#id").val())
 				.find('.firstName').text()
-				&& $("#lastName").val() === $('.' + $("#id").val()).find(
+				&& $("#lastName").val() === $('#' + $("#id").val()).find(
 						'.lastName').text()
-				&& $("#email").val() === $('.' + $("#id").val()).find('.email')
+				&& $("#email").val() === $('#' + $("#id").val()).find('.email')
 						.text()
-				&& $("#phoneNumber").val() === $('.' + $("#id").val()).find(
+				&& $("#phoneNumber").val() === $('#' + $("#id").val()).find(
 						'.phoneNumber').text()
-				&& $("#idCardNumber").val() === $('.' + $("#id").val()).find(
+				&& $("#idCardNumber").val() === $('#' + $("#id").val()).find(
 						'.idCardNumber').text()) {
 			alert("Nic niezmieniłeś!");
 		} else {
-			alert("Nao foi possivel deletar!");
+			alert("Wyedytowałeś dane użytkownika o id = " +  $("#id").val());
 			form.submit();
 		}
 	}

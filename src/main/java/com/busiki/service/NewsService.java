@@ -27,5 +27,12 @@ public class NewsService {
 	public List<News> getAll(){
 		return newsDaoImpl.getAll();
 	}
+	public News getNewsById(long id){
+		return newsDaoImpl.getById(id);
+	}
+
+	public void update(News t) {
+		newsDaoImpl.update(t);
+	}
 	
 }
