@@ -12,7 +12,7 @@
 	</div>
 </div>
 
-<a class="btn btn-lg btn-primary" id="">Dodaj</a>
+<a class="btn btn-primary add" id="">Dodaj</a>
 <br></br>
 <!-- /.row -->
 <div class="row">
