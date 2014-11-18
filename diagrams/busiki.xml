@@ -11,17 +11,6 @@
 	</entity>
 
 	<entity>
-		<entity-name>com.busiki.model.Bus</entity-name>
-		<entity-width>111</entity-width>
-		<entity-height>148</entity-height>
-		<entity-X-Coordinate>0</entity-X-Coordinate>
-		<entity-Y-Coordinate>490</entity-Y-Coordinate>
-		<primary-collapsed>false</primary-collapsed>
-		<relation-collapsed>false</relation-collapsed>
-		<basic-collapsed>false</basic-collapsed>
-	</entity>
-
-	<entity>
 		<entity-name>com.busiki.model.Role</entity-name>
 		<entity-width>120</entity-width>
 		<entity-height>108</entity-height>
@@ -33,11 +22,22 @@
 	</entity>
 
 	<entity>
+		<entity-name>com.busiki.model.Bus</entity-name>
+		<entity-width>111</entity-width>
+		<entity-height>168</entity-height>
+		<entity-X-Coordinate>0</entity-X-Coordinate>
+		<entity-Y-Coordinate>490</entity-Y-Coordinate>
+		<primary-collapsed>false</primary-collapsed>
+		<relation-collapsed>false</relation-collapsed>
+		<basic-collapsed>false</basic-collapsed>
+	</entity>
+
+	<entity>
 		<entity-name>com.busiki.model.Przystanek</entity-name>
 		<entity-width>151</entity-width>
 		<entity-height>141</entity-height>
 		<entity-X-Coordinate>626</entity-X-Coordinate>
-		<entity-Y-Coordinate>439</entity-Y-Coordinate>
+		<entity-Y-Coordinate>517</entity-Y-Coordinate>
 		<primary-collapsed>true</primary-collapsed>
 		<relation-collapsed>false</relation-collapsed>
 		<basic-collapsed>false</basic-collapsed>

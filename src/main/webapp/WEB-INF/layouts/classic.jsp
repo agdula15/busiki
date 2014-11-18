@@ -77,7 +77,8 @@
 						</a>
 							<ul class="dropdown-menu" aria-labelledby="account">
 								<security:authorize url="/admin">
-									<li><a href="/busiki/admin">Panel administratora</a></li>
+<!-- 									<li><a href="/busiki/admin">Panel administratora</a></li> -->
+									<li><a href="admin">Panel administratora</a></li>
 								</security:authorize>
 								<li><a href='#'><c:out value="${user.firstName}" /> <c:out
 											value="${user.lastName}" /></a></li>

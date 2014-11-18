@@ -1,3 +1,9 @@
+<%@page import="com.busiki.model.User"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.busiki.model.TrasaInfo"%>
+<%@page import="com.busiki.model.Przystanek"%>
+<%@page import="java.util.List"%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -33,32 +39,39 @@
 						</tr>
 					</thead>
 					<tbody>
-					<%-- 	<c:forEach items="${trasy.przystanek}" var="t">
- --%><%-- 						<c:forEach items="${t.przystanki}" var="t2">
- --%>
-								<tr>
-										<td><i class="fa fa-list" onclick="rozwin()"></i></td>
-										<%-- <td><c:out value="${t.numer}" /></td>
-										<td><c:out value="${t.numer}" /></td>
-										<td><c:out value="${t.numer}" /></td> --%>
+						<%
+							List<TrasaInfo> t2 = new ArrayList<TrasaInfo>();
+							t2 = (ArrayList<TrasaInfo>)request.getAttribute("trasy");
+							for (TrasaInfo t: t2){
+								 List<Przystanek> p = new ArrayList<Przystanek>(t.getPrzystanek());
+						%>
+
+						<tr>
+							<td><i class="fa fa-list"
+								onclick="rozwin(<%=t.getNumer()%>)"></i></td>
+							<td><%=t.getNumer()%></td>
+							<td><%=p.get(0).getNazwa()%></td>
+							<td><%=p.get(p.size()-1).getNazwa()%></td>
+							<td></td>
+						</tr>
+						<%
+							for(int i = 0; i<p.size(); i++){
+						%>
+						<tr class="collapse out <%=t.getNumer()%>" id="row1">
+							<td colspan="5">
+								<table>
+									<tr>
+										<td width="20px;"><%=(i+1)%></td>
+										<td><%=p.get(i).getNazwa()%></td>
+										<td></td>
 									</tr>
-								<tr class="collapse out" id="row1">
-									<td colspan="5">
-										<table class="table table-striped table-bordered table-hover">
-											<tr>
-												<td>test</td>
-												<td>test</td>
-												<td>test</td>
-											</tr>
-											<tr>
-												<td>test</td>
-												<td>test</td>
-												<td>test</td>
-											</tr>
-										</table>
-									</td>
-								</tr>
-						<%-- </c:forEach> --%>
+								</table>
+							</td>
+						</tr>
+						<%
+							}}
+						%>
+						<%-- 	</c:forEach> --%>
 						<%-- </c:forEach> --%>
 					</tbody>
 				</table>
@@ -75,13 +88,13 @@
 	$(document).ready(function() {
 
 	});
-	function rozwin() {
-		if ($(".collapse").hasClass("out")) {
-			$(".collapse").addClass("in");
-			$(".collapse").removeClass("out");
+	function rozwin(numer) {
+		if ($("."+numer).hasClass("out")) {
+			$("."+numer).addClass("in");
+			$("."+numer).removeClass("out");
 		} else {
-			$(".collapse").addClass("out");
-			$(".collapse").removeClass("in");
+			$("."+numer).addClass("out");
+			$("."+numer).removeClass("in");
 		}
 	}
 </script>

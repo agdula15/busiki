@@ -1,5 +1,6 @@
 package com.busiki.service;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -72,5 +73,17 @@ public class UserService {
 
 	public void updateUser(User t) {
 		userDaoImpl.update(t);
+	}
+	
+	public List<User> getPracownicy(){
+		List<User> l = userDaoImpl.getAll();
+		List<User> l2 = new ArrayList<User>();
+		for (int i = 0; i < l.size(); i++) {
+			if(!findRoleByName(l.get(i), "ROLE_USER"));
+			{
+				l2.add(l.get(i));
+			}
+		}
+		return l2;
 	}
 }

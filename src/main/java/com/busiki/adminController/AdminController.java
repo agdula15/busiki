@@ -14,11 +14,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.busiki.model.Bus;
 import com.busiki.model.News;
 import com.busiki.model.Przystanek;
 import com.busiki.model.TrasaInfo;
 import com.busiki.model.Ulga;
 import com.busiki.model.User;
+import com.busiki.service.BusService;
 import com.busiki.service.NewsService;
 import com.busiki.service.TrasaPrzystanekService;
 import com.busiki.service.UlgaService;
@@ -40,6 +42,9 @@ public class AdminController {
 	
 	@Autowired
 	private UlgaService ulgaService;
+	
+	@Autowired
+	private BusService busService;
 
 	@RequestMapping("admin")
 	public String index() {
@@ -93,6 +98,12 @@ public class AdminController {
 		u.setPhoneNumber(phoneNumber);
 		userService.updateUser(u);
 		return "redirect:/users";
+	}
+	
+	@RequestMapping("pracownicy")
+	public String pracownicy(Model model) {
+		model.addAttribute("pracownicy ", userService.getPracownicy());
+		return "pracownicy";
 	}
 
 	@RequestMapping("news")
@@ -160,8 +171,44 @@ public class AdminController {
 	
 	@RequestMapping("przystanek/delete/{id}")
 	public String removePrzystanek(@PathVariable long id) {
-		trasaPrzystanekService.deletePrzystanek(id);
+		if (trasaPrzystanekService.isPrzystanekRemovable(id))
+			trasaPrzystanekService.deletePrzystanek(id);
+		
 		return "redirect:/przystanek";
+	}
+	
+	@RequestMapping("bus")
+	public String bus(Model model) {
+		model.addAttribute("bus",
+				busService.getAll());
+		return "bus";
+	}
+	
+	@RequestMapping(value = "bus/addorupdate", method = RequestMethod.POST)
+	public String addorupdatebus(@ModelAttribute("bus") Bus b) {
+		if (busService.getById(b.getId()) != null) {
+			Bus b2 = busService.getById(b.getId());
+			b2.setNazwa(b.getNazwa());
+			b2.setNr(b.getNr());
+			b2.setMiejscaSiedzace(b.getMiejscaSiedzace());
+			b2.setMiejscaStojace(b.getMiejscaStojace());
+			busService.updateBus(b2);
+
+		} else {
+			Bus b3 = new Bus();
+			b3.setNazwa(b.getNazwa());
+			b3.setNr(b.getNr());
+			b3.setMiejscaSiedzace(b.getMiejscaSiedzace());
+			b3.setMiejscaStojace(b.getMiejscaStojace());
+			busService.create(b3);
+		}
+
+		return "redirect:/bus";
+	}
+	@RequestMapping("bus/delete/{id}")
+	public String removeBus(@PathVariable long id) {
+		busService.delete(busService.getById(id));
+		return "redirect:/bus";
 	}
 	
 	@RequestMapping("promocje")

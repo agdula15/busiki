@@ -42,4 +42,9 @@
 		<put-attribute name="body" value="/WEB-INF/jsp/promocje.jsp" />
 		<put-attribute name="current" value="promocje" />
 	</definition>
+		<definition name="bus" extends="common2">
+		<put-attribute name="title" value="Busy" />
+		<put-attribute name="body" value="/WEB-INF/jsp/bus.jsp" />
+		<put-attribute name="current" value="bus" />
+	</definition>
 </tiles-definitions>

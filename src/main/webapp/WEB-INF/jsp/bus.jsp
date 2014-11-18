@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -8,7 +8,7 @@
 
 <div class="row">
 	<div class="col-lg-12">
-		<h1 class="page-header">Przystanki</h1>
+		<h1 class="page-header">Busy</h1>
 	</div>
 </div>
 
@@ -28,20 +28,24 @@
 							<tr>
 								<th>ID</th>
 								<td>Numer</td>
-								<th>Nazwa</th>
+								<th>Marka</th>
+								<th>Miejsca siędzące</th>
+								<th>Miejsca stojące</th>
 								<th>Opcje</th>
 							</tr>
 						</thead>
 						<tbody>
 
-							<c:forEach items="${przystanki}" var="p">
-								<tr class="even gradeC" id="${p.id}">
-									<td class="id">${p.id}</td>
-									<td class="numer">${p.numer}</td>
-									<td class="nazwa">${p.nazwa}</td>
+							<c:forEach items="${bus}" var="b">
+								<tr class="even gradeC" id="${b.id}">
+									<td class="id">${b.id}</td>
+									<td class="numer">${b.nr}</td>
+									<td class="nazwa">${b.nazwa}</td>
+									<td class="siedzace">${b.miejscaSiedzace}</td>
+									<td class="stojące">${b.miejscaStojace}</td>
 									<td id="opcje"><a
 										class="btn-sm btn-warning btn-primary edit" id="">Edytuj</a><a
-										href="<spring:url value="/przystanek/delete/${p.id}" />"
+										href="<spring:url value="/bus/delete/${b.id}" />"
 										class="btn-sm btn-danger">Usuń</a></td>
 								</tr>
 
@@ -68,8 +72,8 @@
 				<h4 title="ad" class="modal-title" id="myModalLabel"></h4>
 			</div>
 			<div class="modal-body">
-				<form:form method="POST" action="przystanek/addorupdate"
-					commandName="przystanek">
+				<form:form method="POST" action="bus/addorupdate"
+					commandName="bus">
 					<label class="readOnlyId">Id: </label>
 					<div class="form-group readOnlyId">
 						<input id="readOnlyId" class="form-control" type='text' name='id'
@@ -77,10 +81,16 @@
 					</div>
 					<div class="form-group">
 						<label>Numer: </label> <input class="form-control" type='text'
-							name='numer' />
+							name='nr' />
 					</div>
 					<div class="form-group">
 						<label>Nazwa: </label> <input class="form-control" type='text' name="nazwa" ></input>
+					</div>
+					<div class="form-group">
+						<label>Miejsca siedzące: </label> <input class="form-control" type='text' name="miejscaSiedzace" ></input>
+					</div>
+					<div class="form-group">
+						<label>Miejsca stojące: </label> <input class="form-control" type='text' name="miejscaStojace" ></input>
 					</div>
 					<div style="width: 200px; margin: auto;">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Anuluj</button>
@@ -97,7 +107,7 @@
 		$('.edit').click(function() {
 			$('h4').text('Edytuj');
 			$('#readOnlyId').val(
-					$(this).closest('tr').find('.id').text());
+					$(this).closest('.panel').find('.id').text());
 			$('#addorupdate').modal('show');
 		});
 		$('.add').click(function() {

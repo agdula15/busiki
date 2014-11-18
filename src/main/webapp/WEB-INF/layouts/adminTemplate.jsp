@@ -110,17 +110,6 @@
 			<div class="navbar-default sidebar" role="navigation">
 				<div class="sidebar-nav navbar-collapse">
 					<ul class="nav" id="side-menu">
-						<!-- <li class="sidebar-search">
-							<div class="input-group custom-search-form">
-								<input type="text" class="form-control" placeholder="Search...">
-								<span class="input-group-btn">
-									<button class="btn btn-default" type="button">
-										<i class="fa fa-search"></i>
-									</button>
-								</span>
-							</div> 
-						</li>   
-					-->
 						<li><a href="admin"><i class="fa fa-dashboard fa-fw"></i>Strona
 								główna</a></li>
 						<li><a href="news"> <i class="fa fa-comment fa-fw"></i>
@@ -133,6 +122,8 @@
 						</a></li>
 						<li><a href="przystanek"> <i class="fa fa-table fa-fw"></i>
 								Przystanki
+						</a></li>
+						<li><a href="bus"> <i class="fa fa-table fa-fw"></i> Busy
 						</a></li>
 						<li><a href="promocje"> <i class="fa fa-shopping-cart fa-fw"></i>
 								Promocje dla klientów
@@ -150,16 +141,9 @@
 			<div>
 				<tiles:insertAttribute name="body" />
 			</div>
-
-
 		</div>
 		<!-- /#page-wrapper -->
-
 	</div>
 	<!-- /#wrapper -->
-
-
-
 </body>
-
 </html>

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.busiki.service.BusStopService;
 import com.busiki.service.NewsService;
 import com.busiki.service.TrasaPrzystanekService;
 import com.busiki.service.UlgaService;
@@ -19,10 +18,7 @@ public class IndexController {
 
 	@Autowired
 	private NewsService newsService;
-	
-	@Autowired
-	private BusStopService busStopService;
-	
+		
 	@Autowired
 	private TrasaPrzystanekService trasaPrzystanekService;
 	

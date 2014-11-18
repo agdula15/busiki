@@ -1,8 +1,11 @@
 package com.busiki.service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,9 +14,6 @@ import com.busiki.implDao.PrzystanekDaoImpl;
 import com.busiki.implDao.TrasaDaoImpl;
 import com.busiki.model.Przystanek;
 import com.busiki.model.TrasaInfo;
-
-import org.apache.log4j.Logger;
-import org.hibernate.Hibernate;
 
 @Service
 @Transactional
@@ -72,4 +72,18 @@ public class TrasaPrzystanekService {
 		}
 		return trasaDaoImpl.getAll();
 	}
+	
+	public Collection<Przystanek> getAllPrzystankiTrasy(TrasaInfo t) {
+		
+		return t.getPrzystanek();
+	}
+	
+	public boolean isPrzystanekRemovable(long id) { //sprawdza czy któraœ z utworzonych tras nie zawiera danego przystanku. metoda u¿ywana podczas usuwania przystanków
+		//... przeszukanie tabeli przystanki_trasy w poszukiwaniu id
+		// jesli wystepuje -> return false
+		// else -> return true
+		
+		return true;
+	}
+	
 }
