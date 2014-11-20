@@ -1,4 +1,3 @@
-<%@page import="com.busiki.model.User"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.busiki.model.TrasaInfo"%>
 <%@page import="com.busiki.model.Przystanek"%>

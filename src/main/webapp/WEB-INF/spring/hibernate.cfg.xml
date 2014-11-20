@@ -22,5 +22,7 @@
 		<mapping class="com.busiki.model.Rezerwacja" />
 		<mapping class="com.busiki.model.News" />
 		<mapping class="com.busiki.model.Ulga" />
+		<mapping class="com.busiki.model.RozkladInfo" />
+		<mapping class="com.busiki.model.DniKursu" />
 	</session-factory>
 </hibernate-configuration>

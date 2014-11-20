@@ -117,17 +117,19 @@
 						</a></li>
 						<li><a href="users"><i class="fa fa-user fa-fw"></i>
 								Użytkownicy</a></li>
-						<li><a href="trasa"> <i class="fa fa-table fa-fw"></i>
-								Trasy
+						<li><a href="promocje"> <i
+								class="fa fa-shopping-cart fa-fw"></i> Promocje dla klientów
+						</a></li>
+						<li><a href="bus"> <i class="fa fa-table fa-fw"></i> Busy
 						</a></li>
 						<li><a href="przystanek"> <i class="fa fa-table fa-fw"></i>
 								Przystanki
 						</a></li>
-						<li><a href="bus"> <i class="fa fa-table fa-fw"></i> Busy
+						<li><a href="trasa"> <i class="fa fa-table fa-fw"></i>
+								Trasy
 						</a></li>
-						<li><a href="promocje"> <i class="fa fa-shopping-cart fa-fw"></i>
-								Promocje dla klientów
-						</a></li>
+						<li><a href="schedule"> <i class="fa fa-table fa-fw"></i> Rozkład</a>
+						</li>
 						<li><a href="index"><i class="fa fa-sign-out fa-fw"></i>
 								Powrót na stronę</a></li>
 					</ul>

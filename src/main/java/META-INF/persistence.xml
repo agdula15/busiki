@@ -12,6 +12,8 @@
 		<class>com.busiki.model.Rezerwacja</class>
 		<class>com.busiki.model.News</class>
 		<class>com.busiki.model.Ulga</class>
+		<class>com.busiki.model.RozkladInfo</class>
+		<class>com.busiki.model.DniKursu</class>
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 	</persistence-unit>
 </persistence>

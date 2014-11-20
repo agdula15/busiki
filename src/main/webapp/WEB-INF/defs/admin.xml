@@ -42,9 +42,24 @@
 		<put-attribute name="body" value="/WEB-INF/jsp/promocje.jsp" />
 		<put-attribute name="current" value="promocje" />
 	</definition>
-		<definition name="bus" extends="common2">
+	<definition name="bus" extends="common2">
 		<put-attribute name="title" value="Busy" />
 		<put-attribute name="body" value="/WEB-INF/jsp/bus.jsp" />
 		<put-attribute name="current" value="bus" />
+	</definition>
+	<definition name="schedule" extends="common2">
+		<put-attribute name="title" value="Tworzenie rozkładu" />
+		<put-attribute name="body" value="/WEB-INF/jsp/rozklad.jsp" />
+		<put-attribute name="current" value="schedule" />
+	</definition>
+	<definition name="scheduleSelectTrasa" extends="common2">
+		<put-attribute name="title" value="Tworzenie rozkładu" />
+		<put-attribute name="body" value="/WEB-INF/jsp/scheduleSelectTrasa.jsp" />
+		<put-attribute name="current" value="scheduleSelectTrasa" />
+	</definition>
+	<definition name="scheduleConfigure" extends="common2">
+		<put-attribute name="title" value="Tworzenie rozkładu" />
+		<put-attribute name="body" value="/WEB-INF/jsp/scheduleConfigure.jsp" />
+		<put-attribute name="current" value="scheduleConfigure" />
 	</definition>
 </tiles-definitions>

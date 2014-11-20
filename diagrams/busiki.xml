@@ -2,12 +2,89 @@
 	<entity>
 		<entity-name>com.busiki.model.Rozklad</entity-name>
 		<entity-width>176</entity-width>
-		<entity-height>148</entity-height>
-		<entity-X-Coordinate>280</entity-X-Coordinate>
+		<entity-height>206</entity-height>
+		<entity-X-Coordinate>443</entity-X-Coordinate>
 		<entity-Y-Coordinate>480</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
 		<relation-collapsed>false</relation-collapsed>
 		<basic-collapsed>false</basic-collapsed>
+	</entity>
+
+	<entity>
+		<entity-name>com.busiki.model.Rezerwacja</entity-name>
+		<entity-width>121</entity-width>
+		<entity-height>166</entity-height>
+		<entity-X-Coordinate>540</entity-X-Coordinate>
+		<entity-Y-Coordinate>44</entity-Y-Coordinate>
+		<primary-collapsed>false</primary-collapsed>
+		<relation-collapsed>false</relation-collapsed>
+		<basic-collapsed>false</basic-collapsed>
+	</entity>
+
+	<entity>
+		<entity-name>com.busiki.model.Przystanek</entity-name>
+		<entity-width>151</entity-width>
+		<entity-height>166</entity-height>
+		<entity-X-Coordinate>843</entity-X-Coordinate>
+		<entity-Y-Coordinate>517</entity-Y-Coordinate>
+		<primary-collapsed>false</primary-collapsed>
+		<relation-collapsed>false</relation-collapsed>
+		<basic-collapsed>false</basic-collapsed>
+	</entity>
+
+	<entity>
+		<entity-name>com.busiki.model.Kurs</entity-name>
+		<entity-width>147</entity-width>
+		<entity-height>206</entity-height>
+		<entity-X-Coordinate>780</entity-X-Coordinate>
+		<entity-Y-Coordinate>51</entity-Y-Coordinate>
+		<primary-collapsed>false</primary-collapsed>
+		<relation-collapsed>false</relation-collapsed>
+		<basic-collapsed>false</basic-collapsed>
+	</entity>
+
+	<entity>
+		<entity-name>com.busiki.model.TrasaInfo</entity-name>
+		<entity-width>161</entity-width>
+		<entity-height>146</entity-height>
+		<entity-X-Coordinate>1010</entity-X-Coordinate>
+		<entity-Y-Coordinate>230</entity-Y-Coordinate>
+		<primary-collapsed>false</primary-collapsed>
+		<relation-collapsed>false</relation-collapsed>
+		<basic-collapsed>false</basic-collapsed>
+	</entity>
+
+	<entity>
+		<entity-name>com.busiki.model.RozkladInfo</entity-name>
+		<entity-width>120</entity-width>
+		<entity-height>128</entity-height>
+		<entity-X-Coordinate>183</entity-X-Coordinate>
+		<entity-Y-Coordinate>584</entity-Y-Coordinate>
+		<primary-collapsed>false</primary-collapsed>
+		<relation-collapsed>false</relation-collapsed>
+		<basic-collapsed>false</basic-collapsed>
+	</entity>
+
+	<entity>
+		<entity-name>com.busiki.model.Bus</entity-name>
+		<entity-width>111</entity-width>
+		<entity-height>168</entity-height>
+		<entity-X-Coordinate>577</entity-X-Coordinate>
+		<entity-Y-Coordinate>256</entity-Y-Coordinate>
+		<primary-collapsed>false</primary-collapsed>
+		<relation-collapsed>false</relation-collapsed>
+		<basic-collapsed>false</basic-collapsed>
+	</entity>
+
+	<entity>
+		<entity-name>com.busiki.model.User</entity-name>
+		<entity-width>120</entity-width>
+		<entity-height>141</entity-height>
+		<entity-X-Coordinate>204</entity-X-Coordinate>
+		<entity-Y-Coordinate>-7</entity-Y-Coordinate>
+		<primary-collapsed>false</primary-collapsed>
+		<relation-collapsed>false</relation-collapsed>
+		<basic-collapsed>true</basic-collapsed>
 	</entity>
 
 	<entity>
@@ -22,66 +99,11 @@
 	</entity>
 
 	<entity>
-		<entity-name>com.busiki.model.Bus</entity-name>
-		<entity-width>111</entity-width>
-		<entity-height>168</entity-height>
-		<entity-X-Coordinate>0</entity-X-Coordinate>
-		<entity-Y-Coordinate>490</entity-Y-Coordinate>
-		<primary-collapsed>false</primary-collapsed>
-		<relation-collapsed>false</relation-collapsed>
-		<basic-collapsed>false</basic-collapsed>
-	</entity>
-
-	<entity>
-		<entity-name>com.busiki.model.Przystanek</entity-name>
-		<entity-width>151</entity-width>
-		<entity-height>141</entity-height>
-		<entity-X-Coordinate>626</entity-X-Coordinate>
-		<entity-Y-Coordinate>517</entity-Y-Coordinate>
-		<primary-collapsed>true</primary-collapsed>
-		<relation-collapsed>false</relation-collapsed>
-		<basic-collapsed>false</basic-collapsed>
-	</entity>
-
-	<entity>
-		<entity-name>com.busiki.model.User</entity-name>
+		<entity-name>com.busiki.model.DniKursu</entity-name>
 		<entity-width>120</entity-width>
-		<entity-height>141</entity-height>
-		<entity-X-Coordinate>207</entity-X-Coordinate>
-		<entity-Y-Coordinate>3</entity-Y-Coordinate>
-		<primary-collapsed>false</primary-collapsed>
-		<relation-collapsed>false</relation-collapsed>
-		<basic-collapsed>true</basic-collapsed>
-	</entity>
-
-	<entity>
-		<entity-name>com.busiki.model.Rezerwacja</entity-name>
-		<entity-width>121</entity-width>
-		<entity-height>166</entity-height>
-		<entity-X-Coordinate>470</entity-X-Coordinate>
-		<entity-Y-Coordinate>20</entity-Y-Coordinate>
-		<primary-collapsed>false</primary-collapsed>
-		<relation-collapsed>false</relation-collapsed>
-		<basic-collapsed>false</basic-collapsed>
-	</entity>
-
-	<entity>
-		<entity-name>com.busiki.model.TrasaInfo</entity-name>
-		<entity-width>161</entity-width>
-		<entity-height>146</entity-height>
-		<entity-X-Coordinate>621</entity-X-Coordinate>
-		<entity-Y-Coordinate>230</entity-Y-Coordinate>
-		<primary-collapsed>false</primary-collapsed>
-		<relation-collapsed>false</relation-collapsed>
-		<basic-collapsed>false</basic-collapsed>
-	</entity>
-
-	<entity>
-		<entity-name>com.busiki.model.Kurs</entity-name>
-		<entity-width>147</entity-width>
-		<entity-height>186</entity-height>
-		<entity-X-Coordinate>200</entity-X-Coordinate>
-		<entity-Y-Coordinate>230</entity-Y-Coordinate>
+		<entity-height>108</entity-height>
+		<entity-X-Coordinate>240</entity-X-Coordinate>
+		<entity-Y-Coordinate>370</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
 		<relation-collapsed>false</relation-collapsed>
 		<basic-collapsed>false</basic-collapsed>

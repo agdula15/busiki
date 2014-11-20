@@ -85,5 +85,9 @@ public class TrasaPrzystanekService {
 		
 		return true;
 	}
+
+	public TrasaInfo getByIdTrasaInfo(long tid) {
+		return trasaDaoImpl.getById(tid);
+	}
 	
 }

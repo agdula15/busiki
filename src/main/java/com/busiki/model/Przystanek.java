@@ -23,8 +23,9 @@ public class Przystanek implements Serializable {
 	private long id;
 	private String numer;
 	private String nazwa;
-	@ManyToMany
-	private Collection<TrasaInfo> trasaInfo;
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinTable(name = "przystanki_trasy", joinColumns = { @JoinColumn(name = "TRASA_INFO_ID", referencedColumnName = "ID") }, inverseJoinColumns = { @JoinColumn(name = "PRZYSTANEK_ID", referencedColumnName = "ID") })
+		private Collection<TrasaInfo> trasaInfo;
 
 	public long getId() {
 		return id;
