@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -20,13 +21,16 @@ public class Kurs implements Serializable {
 
 	@Id
 	private long id;
-	@OneToOne
-	private TrasaInfo trasaInfo;
 	private String wolneSiedzace;
 	private String wolneStojace;
 	@OneToMany
-	@JoinTable(name = "kurs_srezerwacje", joinColumns = { @JoinColumn(name = "kurs_id") }, inverseJoinColumns = @JoinColumn(name = "rezerwacjas_id"))
+	@JoinTable(name = "kurs_rezerwacje", joinColumns = { @JoinColumn(name = "kurs_id") }, inverseJoinColumns = @JoinColumn(name = "rezerwacjas_id"))
 	private Collection<Rezerwacja> rezerwacja;
+	@OneToOne
+	@MapsId("id")
+	@JoinColumn(name = "bus_ID", referencedColumnName = "ID")
+	private Bus bus;
+	private String dataKursu;
 
 	public long getId() {
 		return id;
@@ -34,14 +38,6 @@ public class Kurs implements Serializable {
 
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	public TrasaInfo getTrasaInfo() {
-		return trasaInfo;
-	}
-
-	public void setTrasaInfo(TrasaInfo param) {
-		this.trasaInfo = param;
 	}
 
 	public String getWolneSiedzace() {
@@ -66,6 +62,22 @@ public class Kurs implements Serializable {
 
 	public void setRezerwacja(Collection<Rezerwacja> param) {
 		this.rezerwacja = param;
+	}
+
+	public Bus getBus() {
+		return bus;
+	}
+
+	public void setBus(Bus param) {
+		this.bus = param;
+	}
+
+	public String getDataKursu() {
+		return dataKursu;
+	}
+
+	public void setDataKursu(String param) {
+		this.dataKursu = param;
 	}
 
 }

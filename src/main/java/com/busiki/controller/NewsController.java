@@ -14,27 +14,28 @@ import com.busiki.service.NewsService;
 
 @Controller
 public class NewsController {
-	
+
 	protected static Logger logger = Logger.getLogger(UserDaoImpl.class);
-	
+
 	@Autowired
 	private NewsService newsService;
 
-	@RequestMapping(value="/news", method=RequestMethod.POST)
-	public String newsCreation(@RequestParam("tytul") String tytul, @RequestParam("tresc") String tresc){ 
-		logger.debug(tytul + " " + tresc); 
+	@RequestMapping(value = "/news", method = RequestMethod.POST)
+	public String newsCreation(@RequestParam("tytul") String tytul,
+			@RequestParam("tresc") String tresc) {
 		News news = new News();
 		news.setTresc(tresc);
 		news.setTytul(tytul);
-		newsService.create(news); 
-		
-		return "redirect:/news"; 
-	}
-	
-	@RequestMapping("news/delete/{id}")
-	public String deleteNews(@PathVariable int id){
-		newsService.delete(id);
-		
+		newsService.create(news);
+
 		return "redirect:/news";
 	}
+
+	@RequestMapping("news/delete/{id}")
+	public String deleteNews(@PathVariable int id) {
+		newsService.delete(id);
+		return "redirect:/news";
+	}
+
+	
 }

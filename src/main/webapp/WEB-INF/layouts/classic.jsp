@@ -34,9 +34,6 @@
 <script src="resources/js/bootstrap.min.js"></script>
 <script src="resources/js/bootswatch.js"></script>
 
-
-<style>
-</style>
 </head>
 <body>
 
@@ -58,7 +55,7 @@
 			</div>
 			<div class="navbar-collapse collapse" id="navbar-main">
 				<ul class="nav navbar-nav">
-					<li><a href="#">Rozkład</a></li>
+					<li><a href="timetable">Rozkład</a></li>
 					<li><a href="contact">Kontakt</a></li>
 					<li><a href="register">Rejestracja</a></li>
 				</ul>
@@ -80,7 +77,8 @@
 						</a>
 							<ul class="dropdown-menu" aria-labelledby="account">
 								<security:authorize url="/admin">
-									<li><a href="/busiki/admin">Panel administratora</a></li>
+<!-- 									<li><a href="/busiki/admin">Panel administratora</a></li> -->
+									<li><a href="admin">Panel administratora</a></li>
 								</security:authorize>
 								<li><a href='#'><c:out value="${user.firstName}" /> <c:out
 											value="${user.lastName}" /></a></li>

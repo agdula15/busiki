@@ -1,5 +1,6 @@
 package com.busiki.service;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -24,8 +25,8 @@ public class UserService {
 	@Autowired
 	private UserDaoImpl userDaoImpl;
 
-	
-	@Autowired private RoleDao roleDao;
+	@Autowired 
+	private RoleDao roleDao;
 	 
 
 	public void createNewCustomer(User user, String password) {
@@ -40,6 +41,7 @@ public class UserService {
 		userDaoImpl.create(user, password);
 	}
 
+	//getByUsername i podaje siê email?
 	public User getAccountByUsername(String email) {
 		User user = userDaoImpl.findByEmail(email);
 		if (user != null) {
@@ -67,5 +69,21 @@ public class UserService {
 	
 	public void delete(long id){
 		userDaoImpl.deleteCustomer(id);
+	}
+
+	public void updateUser(User t) {
+		userDaoImpl.update(t);
+	}
+	
+	public List<User> getPracownicy(){
+		List<User> l = userDaoImpl.getAll();
+		List<User> l2 = new ArrayList<User>();
+		for (int i = 0; i < l.size(); i++) {
+			if(!findRoleByName(l.get(i), "ROLE_USER"));
+			{
+				l2.add(l.get(i));
+			}
+		}
+		return l2;
 	}
 }
