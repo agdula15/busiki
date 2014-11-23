@@ -1734,6 +1734,9 @@ pre code {
   .col-sm-offset-1 {
     margin-left: 8.33333333%;
   }
+  .col-sm-offset-05 {
+		margin-left: 3.165%;
+	}
   .col-sm-offset-0 {
     margin-left: 0;
   }
