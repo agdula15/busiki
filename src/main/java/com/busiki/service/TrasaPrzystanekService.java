@@ -73,21 +73,17 @@ public class TrasaPrzystanekService {
 		return trasaDaoImpl.getAll();
 	}
 	
-	public Collection<Przystanek> getAllPrzystankiTrasy(TrasaInfo t) {
-		
-		return t.getPrzystanek();
+	public List<Przystanek> getAllPrzystankiTrasy(TrasaInfo t) {
+		return (List<Przystanek>) t.getPrzystanek();
 	}
 	
-	public boolean isPrzystanekRemovable(long id) { //sprawdza czy któraœ z utworzonych tras nie zawiera danego przystanku. metoda u¿ywana podczas usuwania przystanków
-		//... przeszukanie tabeli przystanki_trasy w poszukiwaniu id
-		// jesli wystepuje -> return false
-		// else -> return true
-		
-		return true;
-	}
 
 	public TrasaInfo getByIdTrasaInfo(long tid) {
 		return trasaDaoImpl.getById(tid);
+	}
+
+	public Object getByNumerTrasaInfo(long tid) {
+		return trasaDaoImpl.getByNumer(tid);
 	}
 	
 }

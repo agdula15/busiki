@@ -11,6 +11,11 @@
 		<intercept-url pattern="/users**" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/news**" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/trasa**" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/promocje**" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/bus**" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/przystanek**" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/schedule**" access="hasRole('ROLE_ADMIN')" />
+		
 		<form-login login-page='/index' default-target-url="/loginok"
 			authentication-failure-url="/loginfailed" />
 		<logout logout-success-url="/logoutok" />

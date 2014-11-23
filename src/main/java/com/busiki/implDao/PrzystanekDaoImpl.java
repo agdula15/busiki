@@ -19,4 +19,10 @@ public class PrzystanekDaoImpl extends AbstractDaoImpl<Przystanek> {
 		return p;
 	}
 
+	/*public boolean isPrzystanekUsed(long id) {
+		if (getSession().createQuery("from przystanki_trasy where przystanek_id = :przystanek_id").setParameter("przystanek_id", id).uniqueResult() != null) 
+			return true;
+		else
+			return false;
+	}*/
 }
