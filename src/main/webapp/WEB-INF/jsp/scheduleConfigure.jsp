@@ -38,11 +38,12 @@
 	<!-- /.col-lg-12 -->
 </div>
 <script type='text/javascript'>
-	var dni = [];
-	var tb = 1;
-	var przystanki = [];
-	var wr = 1;
-	var godziny = [];
+	var dni = []; //wszystki dni dla który usupełniam rozkład
+	var dniLabel = []; //dni wyświetlane w kolejnym polu checkboxów
+	var tb = 1; //numer tabeli
+	var przystanki = []; //wszystkie przystanki 
+	var wr = 0; //numer wiersza
+	var godziny = []; //godziny odjazdów
 	<c:forEach var="d" items="${dni}">
 	dni.push('${d.dzien}');
 	</c:forEach>
@@ -64,15 +65,13 @@
 								for (var i = 0; i < d.length; i++) {
 									$("#checkbox" + numer)
 											.append(
-													"<label><input name='checkboxDzien" + numer + "' type='checkbox'  value='" + d[i] +"' /> "
+													"<label class='col-sm-offset-015'><input name='checkboxDzien" + numer + "' type='checkbox'  class='col-sm-offset-015' value='" + d[i] +"' /> "
 															+ d[i]
 															+ " </label>");
 								}
-
 								$("#checkbox" + numer)
 										.append(
 												"<a class='btn btn-info dalej col-sm-offset-05 ' id='btnDalej"+numer+"' type='button'>Dalej</a>");
-
 								$("#panel-body").append("</div></fieldset>");
 								$("#btnDalej" + numer).bind(
 										"click",
@@ -84,9 +83,9 @@
 												alert("Wybierz dni!");
 												return false;
 											}
-											buttonDalej(numer);
+											uzupełniajDni(numer);
+											$(this).slideUp("slow");
 											wypisztabele(przystanki, tb);
-											
 										});
 							}
 						}
@@ -94,8 +93,11 @@
 							$("#fieldset" + numer).prop("disabled", true);
 							$("#panel-body")
 									.append(
-											"<div class='table-responsive'><table id='table" + numer + "' class='table table-hover'><thead><tr id='trthead" + numer + "'><th>#</th>");
-
+											"<div class='table-responsive'><label id='labeltable" + numer + "'></label><table id='table" + numer + "' class='table table-hover'><thead><tr id='trthead" + numer + "'><th>#</th>");
+							for (var i = 0; i < dniLabel.length; i++) {
+								$("#labeltable" + numer).append(
+										dniLabel[i] + " ");
+							}
 							for (var i = 0; i < p.length; i++) {
 								$("#trthead" + numer).append(
 										"<th>" + p[i] + " </th> ");
@@ -105,10 +107,12 @@
 											"</tr></thead></table><button class='btn btn-success col-sm-offset-10 zakoncz' id='zakoncz" + numer + "'type='button'>Dalej</button></div>");
 							$("#table" + numer).append(
 									"<tbody id='tbody" + numer + "'></tbody>");
+							wr += 1;
 							dodajwiersz(p, numer, wr);
 							$("#zakoncz" + numer).bind("click", function() {
-								buttonNastepnaTabela()
-								$( this ).hide("fast");
+								tb = tb + 1;
+								wypiszChecBoxy(dniDalej, tb)
+								$(this).hide("fast");
 							});
 
 						}
@@ -117,7 +121,7 @@
 									.append(
 											"<tr id='trbody" + numer + numerwiersza + "'><td><button class='btn btn-default btn-circle' id='dodajwiersz" + numer + numerwiersza + "' type='button'><i class='fa fa-plus'></i></button></td>");
 							for (var i = 0; i < p.length; i++) {
-								$("#trbody"  +numer + numerwiersza)
+								$("#trbody" + numer + numerwiersza)
 										.append(
 												"<td><input name='godzina"
 														+ numer
@@ -141,9 +145,6 @@
 
 																	godziny
 																			.push(this.value);
-
-																	/*  */
-
 																});
 												for (var i = 0; i < godziny.length; i++) {
 													if (!pattern
@@ -154,36 +155,69 @@
 														return false;
 													}
 												}
-												wr += 1;
-												dodajwiersz(p, numer,
-														wr);
+												var r = confirm("Czy jesteś pewien ? ");
+												var hash = {};
+												hash['bob'] = 123;
+												hash['joe'] = 456;
+												alert(hash);
+												if (r == true) {
+													$
+															.ajax({
+																type : "POST",
+																url : "serviceConfigureDynamic",
+																data: {
+																	
+																	godz: hash
+																	
+																},
+																success : function(
+																		data) {
+																	alert(data);
+																},
+																error : function(
+																		e) {
+																	alert('Error: '
+																			+ e);
+																}
+															});
+													wr += 1;
+													dodajwiersz(p, numer, wr);
+													$(this).hide("slow");
+													$(
+															'input[name="godzina'
+																	+ numer
+																	+ numerwiersza
+																	+ '"]')
+															.each(
+																	function() {
+
+																		$(this)
+																				.prop(
+																						"disabled",
+																						true);
+																	});
+
+												} else {
+
+												}
+
 											});
 
 						}
 
-						function buttonDalej(numer) {
+						function uzupełniajDni(numer) {
 							dniDalej = [];
+							dniLabel = [];
 							$(
 									'input[name="checkboxDzien' + numer
 											+ '"]:unchecked').each(function() {
 								dniDalej.push(this.value);
 							});
-
-							alert(dniDalej);
-							//$("#btnDalej"+j);
-							/* $.ajax({
-								type : "POST",
-								url : "serviceConfigureDynamic",
-								success : function(data) {
-									$("#firstCheckBox").append(data);
-								}
-							}); */
-
+							$(
+									'input[name="checkboxDzien' + numer
+											+ '"]:checked').each(function() {
+								dniLabel.push(this.value);
+							});
 						}
-						function buttonNastepnaTabela() {
-							tb = tb + 1;
-							wypiszChecBoxy(dniDalej, tb)
-						}
-
 					});
 </script>
