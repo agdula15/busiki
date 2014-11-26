@@ -1,18 +1,15 @@
 package com.busiki.model;
 
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.Map;
 
-import javax.persistence.ElementCollection;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.MapsId;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import com.busiki.model.RozkladInfo;
 
 @Entity
 @Table(name = "Rozklad")
@@ -24,27 +21,31 @@ public class Rozklad implements Serializable {
 	}
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "ID")
 	private long id;
 
-	@OneToOne
-	@MapsId("id")
-	@JoinColumn(name = "Przystanek_id", referencedColumnName = "id")
-	private Przystanek przystanek;
-	@OneToOne
-	@MapsId("id")
-	@JoinColumn(name = "Trasa_Info_id", referencedColumnName = "id")
-	private TrasaInfo trasaInfo;
+	private String godzina;
 
-	@ElementCollection
-	private Map<Integer, String> godziny;
+	@ManyToOne
+	//@MapsId("id")
+	@JoinColumn(name = "DniKursu_ID", referencedColumnName = "ID")
+	private DniKursu dniKursu;
 
-	@OneToMany
-	private Collection<DniKursu> dniKursu;
-
-	@OneToOne
-	@MapsId("id")
+	@ManyToOne
+	//@MapsId("id")
 	@JoinColumn(name = "RozkladInfo_ID", referencedColumnName = "ID")
 	private RozkladInfo rozkladInfo;
+
+	@ManyToOne
+	//@MapsId("id")
+	@JoinColumn(name = "Trasa_Info_ID", referencedColumnName = "ID")
+	private TrasaInfo trasaInfo;
+
+	@ManyToOne
+	//@MapsId("id")
+	@JoinColumn(name = "Przystanek_ID", referencedColumnName = "ID")
+	private Przystanek przystanek;
 
 	public long getId() {
 		return id;
@@ -54,35 +55,19 @@ public class Rozklad implements Serializable {
 		this.id = id;
 	}
 
-	public Przystanek getPrzystanek() {
-		return przystanek;
+	public String getGodzina() {
+		return godzina;
 	}
 
-	public void setPrzystanek(Przystanek param) {
-		this.przystanek = param;
+	public void setGodzina(String param) {
+		this.godzina = param;
 	}
 
-	public TrasaInfo getTrasaInfo() {
-		return trasaInfo;
-	}
-
-	public void setTrasaInfo(TrasaInfo param) {
-		this.trasaInfo = param;
-	}
-
-	public Map<Integer,String> getGodziny() {
-		return godziny;
-	}
-
-	public void setGodziny(Map<Integer,String> param) {
-		this.godziny = param;
-	}
-
-	public Collection<DniKursu> getDniKursu() {
+	public DniKursu getDniKursu() {
 	    return dniKursu;
 	}
 
-	public void setDniKursu(Collection<DniKursu> param) {
+	public void setDniKursu(DniKursu param) {
 	    this.dniKursu = param;
 	}
 
@@ -92,6 +77,22 @@ public class Rozklad implements Serializable {
 
 	public void setRozkladInfo(RozkladInfo param) {
 	    this.rozkladInfo = param;
+	}
+
+	public TrasaInfo getTrasaInfo() {
+	    return trasaInfo;
+	}
+
+	public void setTrasaInfo(TrasaInfo param) {
+	    this.trasaInfo = param;
+	}
+
+	public Przystanek getPrzystanek() {
+	    return przystanek;
+	}
+
+	public void setPrzystanek(Przystanek param) {
+	    this.przystanek = param;
 	}
 
 }

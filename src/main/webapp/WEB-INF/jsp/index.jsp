@@ -4,11 +4,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
-
+ <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 <style>
 .mybackground {
-	background: url('resources/img/7.png') no-repeat scroll center center/cover
-		transparent;
+	background: url('resources/img/7.png') no-repeat scroll center center/cover transparent;
 	margin-top: 30px;
 	min-height: 600px;
 }
@@ -67,11 +68,13 @@
 				<div class="form-horizontal ">
 
 					<form>
-						<div class="form-group " style="margin-right: 5%;">
-							<input class="form-control" type="search" placeholder="Z:"></input>
+						<div class="form-group" style="margin-right: 5%;">
+							<input class="form-control" id="searchFrom" type="search"
+								placeholder="Z:"></input>
 						</div>
 						<div class="form-group" style="margin-right: 5%;">
-							<input class="form-control" type="search" placeholder="Do:"></input>
+							<input class="form-control" id="searchTo" type="search"
+								placeholder="Do:"></input>
 						</div>
 						<div class="form-group" style="margin-right: 5%;">
 							<input type="text" class="form-control" placeholder="Data:"
@@ -104,6 +107,22 @@
 		$('#dp1').datepicker({
 			format : "dd-mm-yyyy",
 			language : "pl"
+		});
+		var availableTags = [ "ActionScript", "AppleScript", "Asp", "BASIC",
+				"C", "C++", "Clojure", "COBOL", "ColdFusion", "Erlang",
+				"Fortran", "Groovy", "Haskell", "Java", "JavaScript", "Lisp",
+				"Perl", "PHP", "Python", "Ruby", "Scala", "Scheme" ];
+		$("#searchFrom").autocomplete({
+			source: function( request, response ) {
+	            $.ajax({
+	            	method: "POST",
+	                url: "autocomplete",
+	                dataType: "json",
+	                data: {'term':request.term},
+	                success: response
+	            });
+	        },
+	        minLength: 2
 		});
 	});
 </script>

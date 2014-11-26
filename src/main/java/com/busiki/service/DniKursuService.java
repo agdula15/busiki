@@ -23,8 +23,9 @@ public class DniKursuService {
 		return dniKursuDaoImpl.getAll();
 	}
 
-	/*public Bus getById(long id) {
-		return busDaoImpl.getById(id);
-	}*/
+	public DniKursu getByName(String string) {
+		return dniKursuDaoImpl.getByName(string);
+	}
+
 
 }

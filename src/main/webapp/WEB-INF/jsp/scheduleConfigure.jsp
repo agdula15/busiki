@@ -38,26 +38,26 @@
 	<!-- /.col-lg-12 -->
 </div>
 <script type='text/javascript'>
-	var dni = []; //wszystki dni dla który usupełniam rozkład
-	var dniLabel = []; //dni wyświetlane w kolejnym polu checkboxów
-	var tb = 1; //numer tabeli
-	var przystanki = []; //wszystkie przystanki 
-	var wr = 0; //numer wiersza
-	var godziny = []; //godziny odjazdów
-	<c:forEach var="d" items="${dni}">
-	dni.push('${d.dzien}');
-	</c:forEach>
-	<c:forEach var="p" items="${przystanki}">
-	przystanki.push('${p.nazwa}');
-	</c:forEach>
-	var dniDalej = dni;
-	var pattern = /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/i;
-
 	$(document)
 			.ready(
 					function() {
-						wypiszChecBoxy(dni, tb);
+						var dni = []; //wszystki dni dla który usupełniam rozkład
+						var dniLabel = []; //dni wyświetlane w kolejnym polu checkboxów
+						var tb = 1; //numer tabeli
+						var przystanki = []; //wszystkie przystanki 
+						var wr = 0; //numer wiersza
+						var godziny = []; //godziny odjazdów
+						<c:forEach var="d" items="${dni}">
+						dni.push('${d.dzien}');
+						</c:forEach>
+						<c:forEach var="p" items="${przystanki}">
+						przystanki.push('${p.nazwa}');
+						</c:forEach>
+						var dniDalej = dni;
+						var pattern = /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/i;
+						wypiszChecBoxy(dni, tb); //pierwsze checkboxy
 						function wypiszChecBoxy(d, numer) {
+
 							if (!dniDalej.length == 0) {
 								$("#panel-body")
 										.append(
@@ -132,7 +132,6 @@
 							$("#dodajwiersz" + numer + numerwiersza)
 									.bind(
 											"click",
-
 											function() {
 												godziny = [];
 												$(
@@ -156,33 +155,14 @@
 													}
 												}
 												var r = confirm("Czy jesteś pewien ? ");
-												var hash = {};
-												hash['bob'] = 123;
-												hash['joe'] = 456;
-												alert(hash);
+
 												if (r == true) {
-													$
-															.ajax({
-																type : "POST",
-																url : "serviceConfigureDynamic",
-																data: {
-																	
-																	godz: hash
-																	
-																},
-																success : function(
-																		data) {
-																	alert(data);
-																},
-																error : function(
-																		e) {
-																	alert('Error: '
-																			+ e);
-																}
-															});
-													wr += 1;
-													dodajwiersz(p, numer, wr);
-													$(this).hide("slow");
+
+													$(
+															"#dodajwiersz"
+																	+ numer
+																	+ numerwiersza)
+															.hide("slow");
 													$(
 															'input[name="godzina'
 																	+ numer
@@ -196,6 +176,65 @@
 																						"disabled",
 																						true);
 																	});
+													var dniTemp = [];
+													$(
+															'input[name="checkboxDzien'
+																	+ numer
+																	+ '"]:checked')
+															.each(
+																	function() {
+																		dniTemp
+																				.push(this.value);
+																	});
+													var daneInfo = {
+														"godz" : godziny,
+														"dni" : dniTemp
+													}
+													$
+															.ajax({
+																type : "POST",
+																url : "serviceConfigureDynamic/dodajGodzine",
+																data : {
+																	godz : godziny,
+																	dni : dniTemp,
+																	trasa : "<c:out value='${trasa.id}' />",
+																	r_info : "<c:out value='${r_info.id}' />"
+																},
+																success : function() {
+																	wr += 1;
+																	dodajwiersz(
+																			p,
+																			numer,
+																			wr);
+
+																},
+																error : function(
+																		e) {
+																	alert('Błąd: '
+																			+ e);
+																	$(
+																			"#dodajwiersz"
+																					+ numer
+																					+ numerwiersza)
+																			.show(
+																					"slow");
+																	$(
+																			'input[name="godzina'
+																					+ numer
+																					+ numerwiersza
+																					+ '"]')
+																			.each(
+																					function() {
+
+																						$(
+																								this)
+																								.prop(
+																										"disabled",
+																										false);
+																					});
+
+																}
+															});
 
 												} else {
 

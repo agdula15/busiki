@@ -23,6 +23,8 @@
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script type="text/javascript"
 	src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.12.0/jquery.validate.min.js"></script>
+	 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 <link rel="stylesheet" href="resources/css/bootstrap.css" media="screen">
 <link rel="stylesheet" href="resources/css/bootswatch.min.css">
 <link rel="stylesheet" href="resources/css/datepicker3.css"></link>

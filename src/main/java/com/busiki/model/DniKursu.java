@@ -1,7 +1,13 @@
 package com.busiki.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "DniKursu")
@@ -17,7 +23,6 @@ public class DniKursu implements Serializable {
 	@Column(name = "ID")
 	private long id;
 	private String dzien;
-
 	public long getId() {
 		return id;
 	}
