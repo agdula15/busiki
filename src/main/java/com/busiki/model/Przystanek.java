@@ -1,12 +1,16 @@
 package com.busiki.model;
 
 import java.io.Serializable;
-
-import javax.persistence.*;
-
-import com.busiki.model.TrasaInfo;
-
 import java.util.Collection;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "Przystanek")
@@ -23,9 +27,8 @@ public class Przystanek implements Serializable {
 	private long id;
 	private String numer;
 	private String nazwa;
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinTable(name = "przystanki_trasy", joinColumns = { @JoinColumn(name = "TRASA_INFO_ID", referencedColumnName = "ID") }, inverseJoinColumns = { @JoinColumn(name = "PRZYSTANEK_ID", referencedColumnName = "ID") })
-		private Collection<TrasaInfo> trasaInfo;
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy="przystanki")
+	private Collection<TrasaInfo> trasaInfo;
 
 	public long getId() {
 		return id;

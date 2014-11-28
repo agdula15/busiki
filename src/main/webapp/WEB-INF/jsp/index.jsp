@@ -4,11 +4,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
-
+ <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 <style>
 .mybackground {
-	background: url('resources/img/7.png') no-repeat scroll center center/cover
-		transparent;
+	background: url('resources/img/7.png') no-repeat scroll center center/cover transparent;
 	margin-top: 30px;
 	min-height: 600px;
 }
@@ -66,20 +67,22 @@
 				</p>
 				<div class="form-horizontal ">
 
-					<form>
-						<div class="form-group " style="margin-right: 5%;">
-							<input class="form-control" type="search" placeholder="Z:"></input>
+					<form action="search" method="post" >
+						<div class="form-group search" style="margin-right: 5%;">
+							<input class="form-control" name="searchFrom" id="searchFrom" type="search"
+								placeholder="Z:" required="required"></input>
+						</div>
+						<div class="form-group search" style="margin-right: 5%;">
+							<input class="form-control" name="searchTo" id="searchTo" type="search"
+								placeholder="Do:" required="required"></input>
 						</div>
 						<div class="form-group" style="margin-right: 5%;">
-							<input class="form-control" type="search" placeholder="Do:"></input>
+							<input type="text"  class="form-control"  name="data"placeholder="Data:"
+								id="dp1" required="required">
 						</div>
 						<div class="form-group" style="margin-right: 5%;">
-							<input type="text" class="form-control" placeholder="Data:"
-								id="dp1">
-						</div>
-						<div class="form-group" style="margin-right: 5%;">
-							<input type="text" class="form-control" placeholder="Godzina:"
-								id="dp2">
+							<input type="text" class="form-control" pattern="^([01]?[0-9]|2[0-3]):[0-5][0-9]$"  name="godzina" placeholder="Godzina:"
+								id="dp2" required="required">
 						</div>
 
 						<div class="form-group" style="margin-right: 5%;">
@@ -104,6 +107,30 @@
 		$('#dp1').datepicker({
 			format : "dd-mm-yyyy",
 			language : "pl"
+		});
+		$("#searchTo").autocomplete({
+			source: function( request, response ) {
+	            $.ajax({
+	            	method: "POST",
+	                url: "autocomplete",
+	                dataType: "json",
+	                data: {'term':request.term},
+	                success: response
+	            });
+	        },
+	        minLength: 2
+		});
+		$("#searchFrom").autocomplete({
+			source: function( request, response ) {
+	            $.ajax({
+	            	method: "POST",
+	                url: "autocomplete",
+	                dataType: "json",
+	                data: {'term':request.term},
+	                success: response
+	            });
+	        },
+	        minLength: 2
 		});
 	});
 </script>

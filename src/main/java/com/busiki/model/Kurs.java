@@ -2,8 +2,11 @@ package com.busiki.model;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -20,6 +23,7 @@ public class Kurs implements Serializable {
 	}
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	private String wolneSiedzace;
 	private String wolneStojace;
@@ -30,7 +34,7 @@ public class Kurs implements Serializable {
 	@MapsId("id")
 	@JoinColumn(name = "bus_ID", referencedColumnName = "ID")
 	private Bus bus;
-	private String dataKursu;
+	private Date dataKursu;
 
 	public long getId() {
 		return id;
@@ -72,11 +76,11 @@ public class Kurs implements Serializable {
 		this.bus = param;
 	}
 
-	public String getDataKursu() {
+	public Date getDataKursu() {
 		return dataKursu;
 	}
 
-	public void setDataKursu(String param) {
+	public void setDataKursu(Date param) {
 		this.dataKursu = param;
 	}
 

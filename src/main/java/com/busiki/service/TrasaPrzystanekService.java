@@ -1,7 +1,6 @@
 package com.busiki.service;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -73,14 +72,17 @@ public class TrasaPrzystanekService {
 		return trasaDaoImpl.getAll();
 	}
 	
-	public Collection<Przystanek> getAllPrzystankiTrasy(TrasaInfo t) {
-		
-		return t.getPrzystanek();
+	public List<Przystanek> getAllPrzystankiTrasy(TrasaInfo t) {
+		return (List<Przystanek>) t.getPrzystanek();
 	}
 	
 
 	public TrasaInfo getByIdTrasaInfo(long tid) {
 		return trasaDaoImpl.getById(tid);
+	}
+
+	public Object getByNumerTrasaInfo(long tid) {
+		return trasaDaoImpl.getByNumer(tid);
 	}
 	
 }

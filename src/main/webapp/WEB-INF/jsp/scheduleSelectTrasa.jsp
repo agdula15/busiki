@@ -43,7 +43,8 @@
 							<td><%=p.get(0).getNazwa()%></td>
 							<td><%=p.get(p.size() - 1).getNazwa()%></td>
 							<td><a href="scheduleConfigure?rid=${r_info.id}&tid=<%=t.getNumer()%>"
-								class="btn btn-sm btn-warning">Konfiguruj</a></td>
+								class="btn btn-sm btn-warning">Konfiguruj</a> 
+							<a href="scheduleGenerateCourses?rid=${r_info.id}" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="right" title="Generuj skonfigurowany rozkład">Generuj kursy</a></td>
 						</tr>
 						<%
 							}
@@ -58,3 +59,10 @@
 	<!-- /.col-lg-12 -->
 </div>
 <!-- /.row -->
+
+<script>
+$('.panel-body').tooltip({
+    selector: "[data-toggle=tooltip]",
+    container: "body"
+})
+</script>
