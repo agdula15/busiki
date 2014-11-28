@@ -29,7 +29,6 @@ public class Przystanek implements Serializable {
 	private String nazwa;
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy="przystanki")
 	private Collection<TrasaInfo> trasaInfo;
-
 	public long getId() {
 		return id;
 	}

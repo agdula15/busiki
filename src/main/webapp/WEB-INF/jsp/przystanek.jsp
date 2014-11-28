@@ -42,8 +42,7 @@
 									<td id="opcje"><a
 										class="btn-sm btn-warning btn-primary edit" id="">Edytuj</a><a
 										href="<spring:url value="/przystanek/delete/${p.id}" />"
-										class="btn-sm btn-danger" data-toggle="tooltip" data-placement="right" title="Tylko przystanki, które nie są przypisane do trasy">Usuń</a></td>
-										
+										class="btn-sm btn-danger">Usuń</a></td>
 								</tr>
 
 
@@ -108,10 +107,4 @@
 		});
 
 	});
-	
-    $('.table-responsive').tooltip({
-        selector: "[data-toggle=tooltip]",
-        container: "body"
-    })
-
 </script>

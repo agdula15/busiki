@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -9,11 +8,9 @@
 <%@page import="com.busiki.model.Przystanek"%>
 <%@page import="java.util.List"%>
 <br></br>
-
 <p>
 	Rozklad od:
 	<fmt:formatDate pattern="yyyy-MM-dd" value="${r_info.dataOd}" />
-
 	do:
 	<fmt:formatDate pattern="yyyy-MM-dd" value="${r_info.dataDo}" />
 	<!-- /.row -->
@@ -33,18 +30,22 @@
 					<tbody>
 						<%
 							List<TrasaInfo> t2 = new ArrayList<TrasaInfo>();
-							t2 = (ArrayList<TrasaInfo>) request.getAttribute("trasy");
-							for (TrasaInfo t : t2) {
-								List<Przystanek> p = new ArrayList<Przystanek>(
-										t.getPrzystanek());
+						t2 = (ArrayList<TrasaInfo>) request.getAttribute("trasy");
+						for (TrasaInfo t : t2) {
+						List<Przystanek> p = new ArrayList<Przystanek>(
+						t.getPrzystanek());
 						%>
 						<tr>
 							<td><%=t.getNumer()%></td>
 							<td><%=p.get(0).getNazwa()%></td>
 							<td><%=p.get(p.size() - 1).getNazwa()%></td>
-							<td><a href="scheduleConfigure?rid=${r_info.id}&tid=<%=t.getNumer()%>"
-								class="btn btn-sm btn-warning">Konfiguruj</a> 
-							<a href="scheduleGenerateCourses?rid=${r_info.id}" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="right" title="Generuj skonfigurowany rozkład">Generuj kursy</a></td>
+							<td><a
+								href="scheduleConfigure?rid=${r_info.id}&tid=<%=t.getNumer()%>"
+								class="btn btn-sm btn-warning">Konfiguruj</a> <a
+								href="scheduleGenerateCourses?rid=${r_info.id}"
+								class="btn btn-sm btn-success" data-toggle="tooltip"
+								data-placement="right" title="Generuj skonfigurowany rozkład">Generuj
+									kursy</a></td>
 						</tr>
 						<%
 							}
@@ -59,10 +60,9 @@
 	<!-- /.col-lg-12 -->
 </div>
 <!-- /.row -->
-
 <script>
-$('.panel-body').tooltip({
-    selector: "[data-toggle=tooltip]",
-    container: "body"
-})
+	$('.panel-body').tooltip({
+		selector : "[data-toggle=tooltip]",
+		container : "body"
+	})
 </script>

@@ -68,4 +68,5 @@ public class IndexController {
 		logger.debug("Dane: "  + req.getParameter("searchFrom") + req.getParameter("searchTo")+ req.getParameter("data") + req.getParameter("godzina"));
 		return "timetable";
 	}
+	
 }

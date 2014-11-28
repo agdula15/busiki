@@ -1,5 +1,6 @@
 package com.busiki.adminController;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -22,11 +23,11 @@ import com.busiki.model.Bus;
 import com.busiki.model.Kurs;
 import com.busiki.model.News;
 import com.busiki.model.Przystanek;
+import com.busiki.model.Rozklad;
 import com.busiki.model.RozkladInfo;
 import com.busiki.model.TrasaInfo;
 import com.busiki.model.Ulga;
 import com.busiki.model.User;
-import com.busiki.model.Rozklad;
 import com.busiki.service.BusService;
 import com.busiki.service.DniKursuService;
 import com.busiki.service.KursService;
@@ -62,12 +63,12 @@ public class AdminController {
 
 	@Autowired
 	private DniKursuService dniKursuService;
-
-	@Autowired
-	private KursService kursService;
-
+	
 	@Autowired
 	private RozkladService rozkladService;
+	
+	@Autowired
+	private KursService kursService;
 
 	@RequestMapping("admin")
 	public String index() {
@@ -197,9 +198,9 @@ public class AdminController {
 	@RequestMapping("przystanek/delete/{id}")
 	public String removePrzystanek(@PathVariable long id) {
 		Przystanek p = trasaPrzystanekService.getByIdPrzystanek(id);
+		logger.debug("Próba usuniêcia przystanka");
 		if (p.getTrasaInfo().isEmpty())
 			trasaPrzystanekService.deletePrzystanek(id);
-
 		return "redirect:/przystanek";
 	}
 
@@ -325,21 +326,28 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "scheduleGenerateCourses", method = RequestMethod.GET)
-	public String scheduleGenerateCourses(@RequestParam(value = "rid") long rid){
+	public String scheduleGenerateCourses(@RequestParam(value = "rid") long rid) {
 		Kurs kurs = new Kurs();
 		
-		Date data = rozkladInfoService.getById(rid).getDataOd();
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(data);
+		Date dataPoczatku = rozkladInfoService.getById(rid).getDataOd();
+		DateFormat df = DateFormat.getDateInstance();
+		Date dataKonca = rozkladInfoService.getById(rid).getDataDo(); 		
+		Calendar start = Calendar.getInstance();	Calendar end = Calendar.getInstance(); 
+		start.setTime(dataPoczatku); 	end.setTime(dataKonca);
 		
-		do {
-			for (Rozklad r : rozkladService.getAllByRozkladInfoID(rid)) {//rozklady ktore posiadaja okreslone RozkladInfoID (tzn. ktore sa ustawione na okreslona date)
-				//sprawdzaj czy rozklad przeznaczony jest na dany dzien, jesli tak to tworz kursy
+		for (Date date = start.getTime(); !start.after(end); start.add(Calendar.DATE, 1), date = start.getTime()) { //dla kazdego dnia na ktory trzeba stworzyc kursy
+			for (Rozklad r : rozkladService.getAllByRozkladInfoID(rid)) {
+				if (r.getDniKursu().getNumerDnia() == date.getDay()){ //sprawdza czy rozklad przeznaczony jest dla danego dnia tygodnia
+					String dat = df.format(date); 	
+					dat += (" " + r.getGodzina());
+					kurs.setDataKursu(dat);	
+					
+					kursService.create(kurs);
+				}
+				logger.debug("Numer dnia: " + r.getDniKursu().getNumerDnia() + " getday: " + date.getDay());
 			}
-			cal.add(Calendar.DATE, 1); data = cal.getTime();
 		}
-		while (!data.equals(rozkladInfoService.getById(rid).getDataDo()));//dopoki nie przelecisz wszystkich dni z RozkladInfo na ktore trzeba wygenerowac kursy
-
+		
 		return "redirect:/scheduleEdit?rid=" + rid;
 	}
 }

@@ -14,7 +14,7 @@ import com.busiki.model.Bus;
 @Transactional
 public class BusService {
 
-	protected static Logger logger = Logger.getLogger(UserService.class);
+	protected static Logger logger = Logger.getLogger(BusService.class);
 
 	@Autowired
 	private BusDaoImpl busDaoImpl;

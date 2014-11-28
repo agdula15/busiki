@@ -9,6 +9,8 @@ import com.busiki.model.Rozklad;
 @Repository
 public class RozkladDaoImpl extends AbstractDaoImpl<Rozklad> {
 	public List<Rozklad> getAllByRozkladInfoID(long riid) {
-		return getSession().createQuery("from Rozklad where rozkladinfo_id = :riid").setParameter("riid", riid).list();
+		return getSession()
+				.createQuery("from Rozklad where rozkladinfo_id = :riid")
+				.setParameter("riid", riid).list();
 	}
 }

@@ -26,7 +26,6 @@ public class RozkladInfo implements Serializable {
 	private long id;
 	private Date dataOd;
 	private Date dataDo;
-
 	public long getId() {
 		return id;
 	}

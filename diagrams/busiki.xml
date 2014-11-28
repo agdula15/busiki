@@ -35,7 +35,7 @@
 	<entity>
 		<entity-name>com.busiki.model.Kurs</entity-name>
 		<entity-width>147</entity-width>
-		<entity-height>206</entity-height>
+		<entity-height>186</entity-height>
 		<entity-X-Coordinate>780</entity-X-Coordinate>
 		<entity-Y-Coordinate>51</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
@@ -101,7 +101,7 @@
 	<entity>
 		<entity-name>com.busiki.model.DniKursu</entity-name>
 		<entity-width>120</entity-width>
-		<entity-height>108</entity-height>
+		<entity-height>128</entity-height>
 		<entity-X-Coordinate>240</entity-X-Coordinate>
 		<entity-Y-Coordinate>370</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>

@@ -22,12 +22,9 @@ public class RozkladService {
 	public void create(Rozklad r) {
 		rozkladDaoImpl.create(r);
 	}
-	
-	public List<Rozklad> getAll () {
-		return rozkladDaoImpl.getAll();
-	}
-	
+
 	public List<Rozklad> getAllByRozkladInfoID(long riid) {
 		return rozkladDaoImpl.getAllByRozkladInfoID(riid);
 	}
+
 }

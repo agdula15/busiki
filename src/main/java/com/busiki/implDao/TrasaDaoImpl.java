@@ -16,4 +16,6 @@ public class TrasaDaoImpl extends AbstractDaoImpl<TrasaInfo> {
 				.setParameter("numer",Long.toString(tid) ).uniqueResult();
 		return t;
 	}
+
+	
 }
