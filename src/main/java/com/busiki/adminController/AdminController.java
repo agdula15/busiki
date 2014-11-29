@@ -285,7 +285,23 @@ public class AdminController {
 	public String dodajRozklad(@RequestParam("dp1") String dataPoczatku,
 			@RequestParam("dp2") String dataKonca) {
 		RozkladInfo rozkladInfo = new RozkladInfo();
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
+		DateFormat df = DateFormat.getDateInstance();
+		
+		try {
+			rozkladInfo.setDataOd(df.parse(dataPoczatku));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+		try {
+			rozkladInfo.setDataDo(df.parse(dataKonca));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		/*SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
 		Date d1;
 		try {
 			d1 = formatter.parse(dataPoczatku);
@@ -300,7 +316,7 @@ public class AdminController {
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 		rozkladInfoService.create(rozkladInfo);
 		return "redirect:/schedule";
 	}
@@ -335,16 +351,16 @@ public class AdminController {
 		Calendar start = Calendar.getInstance();	Calendar end = Calendar.getInstance(); 
 		start.setTime(dataPoczatku); 	end.setTime(dataKonca);
 		
-		for (Date date = start.getTime(); !start.after(end); start.add(Calendar.DATE, 1), date = start.getTime()) { //dla kazdego dnia na ktory trzeba stworzyc kursy
+		for (Date date = start.getTime(); !start.after(end); start.add(Calendar.DATE, 1), date = start.getTime()) { //dla kazdego dnia na ktory trzeba stworzyc kursy			
 			for (Rozklad r : rozkladService.getAllByRozkladInfoID(rid)) {
-				if (r.getDniKursu().getNumerDnia() == date.getDay()){ //sprawdza czy rozklad przeznaczony jest dla danego dnia tygodnia
+				if (r.getDniKursu().getId() == start.get(Calendar.DAY_OF_WEEK)) { //sprawdza czy rozklad przeznaczony jest dla danego dnia tygodnia
 					String dat = df.format(date); 	
 					dat += (" " + r.getGodzina());
 					kurs.setDataKursu(dat);	
+					//kurs.setTrasaInfo(r.getTrasaInfo());
 					
 					kursService.create(kurs);
 				}
-				logger.debug("Numer dnia: " + r.getDniKursu().getNumerDnia() + " getday: " + date.getDay());
 			}
 		}
 		

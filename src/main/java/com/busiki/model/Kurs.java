@@ -28,7 +28,6 @@ public class Kurs implements Serializable {
 	@JoinTable(name = "kurs_rezerwacje", joinColumns = { @JoinColumn(name = "kurs_id") }, inverseJoinColumns = @JoinColumn(name = "rezerwacjas_id"))
 	private Collection<Rezerwacja> rezerwacja;
 	private String dataKursu;
-
 	public long getId() {
 		return id;
 	}

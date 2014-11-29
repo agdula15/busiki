@@ -101,7 +101,7 @@
 	<entity>
 		<entity-name>com.busiki.model.DniKursu</entity-name>
 		<entity-width>120</entity-width>
-		<entity-height>128</entity-height>
+		<entity-height>108</entity-height>
 		<entity-X-Coordinate>240</entity-X-Coordinate>
 		<entity-Y-Coordinate>370</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
