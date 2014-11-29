@@ -1,7 +1,9 @@
 package com.busiki.adminController;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -17,18 +19,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.busiki.implDao.PrzystanekDaoImpl;
 import com.busiki.model.Bus;
+import com.busiki.model.Kurs;
 import com.busiki.model.News;
 import com.busiki.model.Przystanek;
+import com.busiki.model.Rozklad;
 import com.busiki.model.RozkladInfo;
 import com.busiki.model.TrasaInfo;
 import com.busiki.model.Ulga;
 import com.busiki.model.User;
 import com.busiki.service.BusService;
 import com.busiki.service.DniKursuService;
+import com.busiki.service.KursService;
 import com.busiki.service.NewsService;
 import com.busiki.service.RozkladInfoService;
+import com.busiki.service.RozkladService;
 import com.busiki.service.TrasaPrzystanekService;
 import com.busiki.service.UlgaService;
 import com.busiki.service.UserService;
@@ -55,9 +60,15 @@ public class AdminController {
 
 	@Autowired
 	private RozkladInfoService rozkladInfoService;
-	
+
 	@Autowired
 	private DniKursuService dniKursuService;
+	
+	@Autowired
+	private RozkladService rozkladService;
+	
+	@Autowired
+	private KursService kursService;
 
 	@RequestMapping("admin")
 	public String index() {
@@ -125,9 +136,8 @@ public class AdminController {
 		return "news";
 	}
 
-	// nazwa metody addStudent? :P
 	@RequestMapping(value = "news/edit", method = RequestMethod.POST)
-	public String addStudent(@ModelAttribute("news") News n) {
+	public String addNews(@ModelAttribute("news") News n) {
 		News news = newsService.getNewsById(n.getId());
 		news.setTresc(n.getTresc());
 		news.setTytul(n.getTytul());
@@ -188,9 +198,9 @@ public class AdminController {
 	@RequestMapping("przystanek/delete/{id}")
 	public String removePrzystanek(@PathVariable long id) {
 		Przystanek p = trasaPrzystanekService.getByIdPrzystanek(id);
-		logger.debug("Próba usuniêcia przystanka" );
-		// trasaPrzystanekService.deletePrzystanek(id);
-		
+		logger.debug("Próba usuniêcia przystanka");
+		if (p.getTrasaInfo().isEmpty())
+			trasaPrzystanekService.deletePrzystanek(id);
 		return "redirect:/przystanek";
 	}
 
@@ -218,7 +228,6 @@ public class AdminController {
 			b3.setMiejscaStojace(b.getMiejscaStojace());
 			busService.create(b3);
 		}
-
 		return "redirect:/bus";
 	}
 
@@ -276,22 +285,22 @@ public class AdminController {
 	public String dodajRozklad(@RequestParam("dp1") String dataPoczatku,
 			@RequestParam("dp2") String dataKonca) {
 		RozkladInfo rozkladInfo = new RozkladInfo();
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
-		Date d1;
+		DateFormat df = DateFormat.getDateInstance();
+		
 		try {
-			d1 = formatter.parse(dataPoczatku);
-			rozkladInfo.setDataOd(d1);
+			rozkladInfo.setDataOd(df.parse(dataPoczatku));
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	
 		try {
-			Date d2 = formatter.parse(dataKonca);
-			rozkladInfo.setDataDo(d2);
+			rozkladInfo.setDataDo(df.parse(dataKonca));
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		rozkladInfoService.create(rozkladInfo);
 		return "redirect:/schedule";
 	}
@@ -309,8 +318,36 @@ public class AdminController {
 		m.addAttribute("r_info", rozkladInfoService.getById(rid));
 		m.addAttribute("dni", dniKursuService.getAll());
 		m.addAttribute("trasa", trasaPrzystanekService.getByNumerTrasaInfo(tid));
-		m.addAttribute("przystanki", trasaPrzystanekService.getAllPrzystankiTrasy((TrasaInfo) trasaPrzystanekService.getByNumerTrasaInfo(tid)));
+		m.addAttribute("przystanki", trasaPrzystanekService
+				.getAllPrzystankiTrasy((TrasaInfo) trasaPrzystanekService
+						.getByNumerTrasaInfo(tid)));
 		logger.debug("Trasa: ");
 		return "scheduleConfigure";
+	}
+
+	@RequestMapping(value = "scheduleGenerateCourses", method = RequestMethod.GET)
+	public String scheduleGenerateCourses(@RequestParam(value = "rid") long rid) {
+		Kurs kurs = new Kurs();
+		
+		Date dataPoczatku = rozkladInfoService.getById(rid).getDataOd();
+		DateFormat df = DateFormat.getDateInstance();
+		Date dataKonca = rozkladInfoService.getById(rid).getDataDo(); 		
+		Calendar start = Calendar.getInstance();	Calendar end = Calendar.getInstance(); 
+		start.setTime(dataPoczatku); 	end.setTime(dataKonca);
+		
+		for (Date date = start.getTime(); !start.after(end); start.add(Calendar.DATE, 1), date = start.getTime()) { //dla kazdego dnia na ktory trzeba stworzyc kursy			
+			for (Rozklad r : rozkladService.getAllByRozkladInfoID(rid)) {
+				if (r.getDniKursu().getId() == start.get(Calendar.DAY_OF_WEEK)) { //sprawdza czy rozklad przeznaczony jest dla danego dnia tygodnia
+					String dat = df.format(date); 	
+					dat += (" " + r.getGodzina());
+					kurs.setDataKursu(dat);	
+					//kurs.setTrasaInfo(r.getTrasaInfo());
+					
+					kursService.create(kurs);
+				}
+			}
+		}
+		
+		return "redirect:/scheduleEdit?rid=" + rid;
 	}
 }

@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -25,13 +26,13 @@ public class TrasaInfo implements Serializable {
 	}
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID")
 	private long id;
 	private String numer;
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(name = "przystanki_trasy", joinColumns = { @JoinColumn(name = "TRASA_INFO_ID", referencedColumnName = "ID") }, inverseJoinColumns = { @JoinColumn(name = "PRZYSTANEK_ID", referencedColumnName = "ID") })
-	private Collection<Przystanek> przystanki = new ArrayList <Przystanek>();
+	private Collection<Przystanek> przystanki = new ArrayList<Przystanek>();
 
 	public long getId() {
 		return id;

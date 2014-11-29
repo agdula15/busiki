@@ -1,5 +1,7 @@
 package com.busiki.service;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,9 @@ public class RozkladService {
 	public void create(Rozklad r) {
 		rozkladDaoImpl.create(r);
 	}
-	
-	
+
+	public List<Rozklad> getAllByRozkladInfoID(long riid) {
+		return rozkladDaoImpl.getAllByRozkladInfoID(riid);
+	}
+
 }

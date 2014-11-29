@@ -2,7 +2,7 @@
 	<entity>
 		<entity-name>com.busiki.model.Rozklad</entity-name>
 		<entity-width>176</entity-width>
-		<entity-height>188</entity-height>
+		<entity-height>206</entity-height>
 		<entity-X-Coordinate>443</entity-X-Coordinate>
 		<entity-Y-Coordinate>480</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>

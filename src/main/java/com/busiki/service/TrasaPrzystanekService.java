@@ -71,18 +71,29 @@ public class TrasaPrzystanekService {
 		}
 		return trasaDaoImpl.getAll();
 	}
-	
+
 	public List<Przystanek> getAllPrzystankiTrasy(TrasaInfo t) {
 		return (List<Przystanek>) t.getPrzystanek();
 	}
-	
 
 	public TrasaInfo getByIdTrasaInfo(long tid) {
 		return trasaDaoImpl.getById(tid);
 	}
 
-	public Object getByNumerTrasaInfo(long tid) {
+	public TrasaInfo getByNumerTrasaInfo(long tid) {
 		return trasaDaoImpl.getByNumer(tid);
 	}
-	
+
+	public List<String> dajPrzystankiDo(String p1, String p2) {
+		List<String> result = new ArrayList<String>();
+		for (TrasaInfo t : getAllTrasy()) {
+			if (t.getPrzystanek().contains(getPrzystanekByName(p1))) {
+				for (Przystanek p : t.getPrzystanek()) {
+					result.add(p.getNazwa());
+				}
+			}
+		}
+		return result;
+	}
+
 }

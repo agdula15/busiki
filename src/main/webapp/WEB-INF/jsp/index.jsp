@@ -67,22 +67,22 @@
 				</p>
 				<div class="form-horizontal ">
 
-					<form>
-						<div class="form-group" style="margin-right: 5%;">
-							<input class="form-control" id="searchFrom" type="search"
-								placeholder="Z:"></input>
+					<form action="search" method="post" >
+						<div class="form-group search" style="margin-right: 5%;">
+							<input class="form-control" name="searchFrom" id="searchFrom" type="search"
+								placeholder="Z:" required="required"></input>
+						</div>
+						<div class="form-group search" style="margin-right: 5%;">
+							<input class="form-control" name="searchTo" id="searchTo" type="search"
+								placeholder="Do:" required="required"></input>
 						</div>
 						<div class="form-group" style="margin-right: 5%;">
-							<input class="form-control" id="searchTo" type="search"
-								placeholder="Do:"></input>
+							<input type="text"  class="form-control"  name="data"placeholder="Data:"
+								id="dp1" required="required">
 						</div>
 						<div class="form-group" style="margin-right: 5%;">
-							<input type="text" class="form-control" placeholder="Data:"
-								id="dp1">
-						</div>
-						<div class="form-group" style="margin-right: 5%;">
-							<input type="text" class="form-control" placeholder="Godzina:"
-								id="dp2">
+							<input type="text" class="form-control" pattern="^([01]?[0-9]|2[0-3]):[0-5][0-9]$"  name="godzina" placeholder="Godzina:"
+								id="dp2" required="required">
 						</div>
 
 						<div class="form-group" style="margin-right: 5%;">
@@ -105,13 +105,21 @@
 <script>
 	$(function() {
 		$('#dp1').datepicker({
-			format : "dd-mm-yyyy",
+			format : "yyyy-mm-dd",
 			language : "pl"
 		});
-		var availableTags = [ "ActionScript", "AppleScript", "Asp", "BASIC",
-				"C", "C++", "Clojure", "COBOL", "ColdFusion", "Erlang",
-				"Fortran", "Groovy", "Haskell", "Java", "JavaScript", "Lisp",
-				"Perl", "PHP", "Python", "Ruby", "Scala", "Scheme" ];
+		$("#searchTo").autocomplete({
+			source: function( request, response ) {
+	            $.ajax({
+	            	method: "POST",
+	                url: "autocomplete",
+	                dataType: "json",
+	                data: {'term':request.term},
+	                success: response
+	            });
+	        },
+	        minLength: 2
+		});
 		$("#searchFrom").autocomplete({
 			source: function( request, response ) {
 	            $.ajax({

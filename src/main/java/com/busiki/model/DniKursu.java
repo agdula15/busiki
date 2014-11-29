@@ -23,6 +23,7 @@ public class DniKursu implements Serializable {
 	@Column(name = "ID")
 	private long id;
 	private String dzien;
+	
 	public long getId() {
 		return id;
 	}
