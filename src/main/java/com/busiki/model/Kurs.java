@@ -4,9 +4,10 @@ import java.io.Serializable;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import com.busiki.model.Bus;
+import com.busiki.model.Rezerwacja;
 
 @Entity
 public class Kurs implements Serializable {
@@ -17,15 +18,18 @@ public class Kurs implements Serializable {
 	}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue
 	private long id;
 	private String wolneSiedzace;
 	private String wolneStojace;
 	private String dataKursu;
 	@ManyToOne
 	private Rozklad rozklad;
-/*	@ManyToOne
-	private Rezerwacja rezerwacja;*/
+	@ManyToOne
+	private Bus bus;
+	@ManyToOne
+	private Rezerwacja rezerwacja;
+
 	public long getId() {
 		return id;
 	}
@@ -64,6 +68,22 @@ public class Kurs implements Serializable {
 
 	public void setRozklad(Rozklad param) {
 	    this.rozklad = param;
+	}
+
+	public Bus getBus() {
+	    return bus;
+	}
+
+	public void setBus(Bus param) {
+	    this.bus = param;
+	}
+
+	public Rezerwacja getRezerwacja() {
+	    return rezerwacja;
+	}
+
+	public void setRezerwacja(Rezerwacja param) {
+	    this.rezerwacja = param;
 	}
 
 /*	public Rezerwacja getRezerwacja() {

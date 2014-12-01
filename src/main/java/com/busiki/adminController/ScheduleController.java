@@ -58,8 +58,9 @@ public class ScheduleController {
 		trasa = Long.parseLong(req.getParameter("trasa"));
 		r_info = Long.parseLong(req.getParameter("r_info"));
 		d.clear();
-
+		
 		// Kursy:
+		kurs = new Kurs();
 		Date dataPoczatku = rozkladInfoService.getById(r_info).getDataOd();
 		DateFormat df = DateFormat.getDateInstance();
 		Date dataKonca = rozkladInfoService.getById(r_info).getDataDo();
@@ -71,8 +72,7 @@ public class ScheduleController {
 				+ dataKonca + " start" + start + " end" + end);
 
 		// kursy end;
-		
-		
+
 		for (int i = 0; i < dni.length; i++) {
 			d.add(dniKursuService.getByName(dni[i]));
 		}
@@ -94,9 +94,8 @@ public class ScheduleController {
 				r.setGodzina(godz[i]);
 				r.setNumer(numerKursuDanegoDnia);
 				rozkladService.create(r);
-				
-				
-				//kursy
+
+				// kursy
 				if (dniKursu.getId() == 1) {
 					dniDlaKursu.clear();
 					dniDlaKursu.add(2);
@@ -121,25 +120,18 @@ public class ScheduleController {
 						+ " endTime " + end.getTime() + " start day "
 						+ start.get(Calendar.DAY_OF_WEEK));
 				for (Date date = start.getTime(); !start.after(end); start.add(
-						Calendar.DATE, 1), date = start.getTime()) { 
-					logger.debug("Wchodze z pêtli czasu");
-					/*
-					 * if
-					 * (dniDlaKursu.contains(start.get(Calendar.DAY_OF_WEEK))) {
-					 * logger.debug("dniDlaKursu 4 size " + dniDlaKursu.size());
-					 * kurs = new Kurs(); String dat = df.format(date); dat +=
-					 * (" " + r.getGodzina()); kurs.setDataKursu(dat);
-					 * kurs.setRozklad(r); kursService.create(kurs);
-					 * 
-					 * logger.debug("Kurs: " + kurs.getDataKursu() +
-					 * kurs.getId() + kurs.getRozklad().getId()); }
-					 */
-					logger.debug("Wychodze z pêtli czasu");
+						Calendar.DATE, 1), date = start.getTime()) {
+					if (dniDlaKursu.contains(start.get(Calendar.DAY_OF_WEEK))) {
+						String dat = df.format(date);
+						dat += (" " + r.getGodzina());
+						kurs.setDataKursu(dat);
+						kurs.setRozklad(r);
+						kursService.create(kurs);
+					}
 				}
-				
-				//kursy end
+				start.setTime(dataPoczatku);
+				end.setTime(dataKonca);
 			}
-
 		}
 		logger.debug("Jestem w Schedule 6" + dataKonca);
 		logger.debug("Jestem w Schedule 7" + dataPoczatku);

@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.GenericGenerator;
+
 @Entity
 @Table(name = "Rozklad")
 public class Rozklad implements Serializable {
@@ -21,8 +23,8 @@ public class Rozklad implements Serializable {
 	}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "ID")
+	@GeneratedValue
+	@Column(name = "ID", unique = true, nullable = false, precision = 15, scale = 0)
 	private long id;
 
 	private String godzina;
