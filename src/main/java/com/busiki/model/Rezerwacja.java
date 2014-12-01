@@ -25,11 +25,7 @@ public class Rezerwacja implements Serializable {
 	private long id;
 	private String data_rezerwacji;
 	@ManyToOne
-	private Kurs kurs;
-
-	@ManyToOne
 	private User user;
-
 	public long getId() {
 		return id;
 	}
@@ -44,14 +40,6 @@ public class Rezerwacja implements Serializable {
 
 	public void setData_rezerwacji(String param) {
 		this.data_rezerwacji = param;
-	}
-
-	public Kurs getKurs() {
-		return kurs;
-	}
-
-	public void setKurs(Kurs param) {
-		this.kurs = param;
 	}
 
 }

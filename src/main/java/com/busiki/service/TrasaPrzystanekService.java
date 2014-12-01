@@ -96,4 +96,8 @@ public class TrasaPrzystanekService {
 		return result;
 	}
 
+	public long getIdByNumerTrasy(long tid) {
+		return trasaDaoImpl.getByNumer(tid).getId();
+	}
+
 }

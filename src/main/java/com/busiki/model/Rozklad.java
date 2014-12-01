@@ -28,24 +28,26 @@ public class Rozklad implements Serializable {
 	private String godzina;
 
 	@ManyToOne
-	//@MapsId("id")
+	// @MapsId("id")
 	@JoinColumn(name = "DniKursu_ID", referencedColumnName = "ID")
 	private DniKursu dniKursu;
 
 	@ManyToOne
-	//@MapsId("id")
+	// @MapsId("id")
 	@JoinColumn(name = "RozkladInfo_ID", referencedColumnName = "ID")
 	private RozkladInfo rozkladInfo;
 
 	@ManyToOne
-	//@MapsId("id")
+	// @MapsId("id")
 	@JoinColumn(name = "Trasa_Info_ID", referencedColumnName = "ID")
 	private TrasaInfo trasaInfo;
 
 	@ManyToOne
-	//@MapsId("id")
+	// @MapsId("id")
 	@JoinColumn(name = "Przystanek_ID", referencedColumnName = "ID")
 	private Przystanek przystanek;
+
+	private int numer;
 
 	public long getId() {
 		return id;
@@ -64,35 +66,43 @@ public class Rozklad implements Serializable {
 	}
 
 	public DniKursu getDniKursu() {
-	    return dniKursu;
+		return dniKursu;
 	}
 
 	public void setDniKursu(DniKursu param) {
-	    this.dniKursu = param;
+		this.dniKursu = param;
 	}
 
 	public RozkladInfo getRozkladInfo() {
-	    return rozkladInfo;
+		return rozkladInfo;
 	}
 
 	public void setRozkladInfo(RozkladInfo param) {
-	    this.rozkladInfo = param;
+		this.rozkladInfo = param;
 	}
 
 	public TrasaInfo getTrasaInfo() {
-	    return trasaInfo;
+		return trasaInfo;
 	}
 
 	public void setTrasaInfo(TrasaInfo param) {
-	    this.trasaInfo = param;
+		this.trasaInfo = param;
 	}
 
 	public Przystanek getPrzystanek() {
-	    return przystanek;
+		return przystanek;
 	}
 
 	public void setPrzystanek(Przystanek param) {
-	    this.przystanek = param;
+		this.przystanek = param;
+	}
+
+	public int getNumer() {
+		return numer;
+	}
+
+	public void setNumer(int param) {
+		this.numer = param;
 	}
 
 }

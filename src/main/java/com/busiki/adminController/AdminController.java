@@ -316,37 +316,19 @@ public class AdminController {
 	public String scheduleConfigure(@RequestParam(value = "rid") long rid,
 			@RequestParam(value = "tid") long tid, Model m) {
 		m.addAttribute("r_info", rozkladInfoService.getById(rid));
+		m.addAttribute("rozklad", rozkladService.getRozkladByTrasaNumer(tid));
 		m.addAttribute("dni", dniKursuService.getAll());
 		m.addAttribute("trasa", trasaPrzystanekService.getByNumerTrasaInfo(tid));
 		m.addAttribute("przystanki", trasaPrzystanekService
 				.getAllPrzystankiTrasy((TrasaInfo) trasaPrzystanekService
 						.getByNumerTrasaInfo(tid)));
-		logger.debug("Trasa: ");
+		logger.debug("Trasa: " + rozkladService.getRozkladByTrasaNumer(tid));
 		return "scheduleConfigure";
 	}
 
 	@RequestMapping(value = "scheduleGenerateCourses", method = RequestMethod.GET)
 	public String scheduleGenerateCourses(@RequestParam(value = "rid") long rid) {
-		Kurs kurs = new Kurs();
 		
-		Date dataPoczatku = rozkladInfoService.getById(rid).getDataOd();
-		DateFormat df = DateFormat.getDateInstance();
-		Date dataKonca = rozkladInfoService.getById(rid).getDataDo(); 		
-		Calendar start = Calendar.getInstance();	Calendar end = Calendar.getInstance(); 
-		start.setTime(dataPoczatku); 	end.setTime(dataKonca);
-		
-		for (Date date = start.getTime(); !start.after(end); start.add(Calendar.DATE, 1), date = start.getTime()) { //dla kazdego dnia na ktory trzeba stworzyc kursy			
-			for (Rozklad r : rozkladService.getAllByRozkladInfoID(rid)) {
-				if (r.getDniKursu().getId() == start.get(Calendar.DAY_OF_WEEK)) { //sprawdza czy rozklad przeznaczony jest dla danego dnia tygodnia
-					String dat = df.format(date); 	
-					dat += (" " + r.getGodzina());
-					kurs.setDataKursu(dat);	
-					//kurs.setTrasaInfo(r.getTrasaInfo());
-					
-					kursService.create(kurs);
-				}
-			}
-		}
 		
 		return "redirect:/scheduleEdit?rid=" + rid;
 	}

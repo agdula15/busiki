@@ -49,11 +49,11 @@
 				<div class="panel-body">
 					<p> Od:
 <%-- 						<fmt:formatDate pattern="yyyy-MM-dd" value="${r.dataOd}" /> --%>
-<fmt:formatDate pattern="dd-MM-yyyy" value="${r.dataOd}" />
+<fmt:formatDate pattern="yyyy-MM-dd" value="${r.dataOd}" />
 					</p>
 					<p> Do:
 <%-- 						<fmt:formatDate pattern="yyyy-MM-dd" value="${r.dataDo}" /> --%>
-<fmt:formatDate pattern="dd-MM-yyyy" value="${r.dataDo}" />
+<fmt:formatDate pattern="yyyy-MM-dd" value="${r.dataDo}" />
 					</p>
 						<a href="<spring:url value="scheduleEdit?rid=${r.id}" />" class="btn btn-primary">Uzupełniaj</a> <a
 							href="<spring:url value="schedule/delete/${r.id}" />"
