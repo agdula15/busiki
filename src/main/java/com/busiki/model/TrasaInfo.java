@@ -32,7 +32,6 @@ public class TrasaInfo implements Serializable {
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(name = "przystanki_trasy", joinColumns = { @JoinColumn(name = "TRASA_INFO_ID", referencedColumnName = "ID") }, inverseJoinColumns = { @JoinColumn(name = "PRZYSTANEK_ID", referencedColumnName = "ID") })
 	private Collection<Przystanek> przystanki = new ArrayList <Przystanek>();
-
 	public long getId() {
 		return id;
 	}
