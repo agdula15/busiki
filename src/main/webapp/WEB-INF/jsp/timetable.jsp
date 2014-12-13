@@ -14,28 +14,25 @@
 		<form>
 			<div class="form-group">
 				<div class="row">
-					<div class="col-lg-4" id="divData">
-						<label>Data: </label> <input class="form-control" id="selectData">
+					<div class="col-lg-2" id="divData">
+						<label>Data: </label><input type="text" class="form-control"
+							name="data" placeholder="RRRR-MM-DD" id="data"
+							required="required">
 					</div>
-					<div class="col-lg-4" id="divPrzystanekPoczatkowy"
-						style="display: none">
-						<label>Przystanek początkowy: </label> <select
-							class="form-control" id="selectPrzystanekPoczatkowy">
-							<option></option>
-							<c:forEach items="${przystanki}" var="przystanek">
-								<option>${przystanek.nazwa}</option>
-							</c:forEach>
-						</select>
+					<div class="col-lg-2" id="divGodzina">
+						<label>Godzina: </label><input type="text" class="form-control"
+							pattern="^([01]?[0-9]|2[0-3]):[0-5][0-9]$" name="godzina"
+							placeholder="Godzina:" id="godzina">
 					</div>
-					<div class="col-lg-4" id="divPrzystanekKoncowy"
-						style="display: none">
-						<label>Przystanek końcowy: </label> <select class="form-control"
-							id="selectPrzystanekKoncowy">
-							<option></option>
-							<c:forEach items="${przystanki}" var="przystanek">
-								<option>${przystanek.nazwa}</option>
-							</c:forEach>
-						</select>
+					<div class="col-lg-4" id="divSearchFrom">
+						<label>Przystanek początkowy: </label> <input class="form-control"
+							name="search" id="searchFrom" type="search" placeholder="Z:"
+							required="required"></input>
+					</div>
+					<div class="col-lg-4" id="divSearchTo">
+						<label>Przystanek końcowy: </label> <input class="form-control"
+							name="search" id="searchTo" type="search" placeholder="Do:"
+							required="required" />
 					</div>
 				</div>
 			</div>
@@ -59,7 +56,7 @@
 						<td>13:00</td>
 						<td><select>
 								<c:forEach items="${ulgi}" var="ulga">
-								<option>${ulga.opis} - ${ulga.wartoscUlgi * 100}%</option>
+									<option>${ulga.opis}-${ulga.wartoscUlgi * 100}%</option>
 								</c:forEach>
 						</select></td>
 						<td>45 PLN</td>
@@ -71,7 +68,7 @@
 						<td>15:15</td>
 						<td><select>
 								<c:forEach items="${ulgi}" var="ulga">
-									<option>${ulga.opis}- ${ulga.wartoscUlgi * 100}%</option>
+									<option>${ulga.opis}-${ulga.wartoscUlgi * 100}%</option>
 								</c:forEach>
 						</select></td>
 						<td>45 PLN</td>
@@ -83,7 +80,7 @@
 						<td>17:30</td>
 						<td><select>
 								<c:forEach items="${ulgi}" var="ulga">
-									<option>${ulga.opis}- ${ulga.wartoscUlgi * 100}%</option>
+									<option>${ulga.opis}-${ulga.wartoscUlgi * 100}%</option>
 								</c:forEach>
 						</select></td>
 						<td>35 PLN</td>
@@ -95,7 +92,6 @@
 	</div>
 </body>
 
-<script src="resources/js/jquery.js"></script>
 <script type="text/javascript"
 	src="resources/js/bootstrap-datepicker.js"></script>
 <script type="text/javascript"
@@ -104,14 +100,66 @@
 
 <script>
 	$(function() {
-		$('#selectData').datepicker({
-			format : "dd-mm-yyyy",
+		$('#divSearchTo').hide();
+		$('#data').datepicker({
+			format : "yyyy-mm-dd",
 			language : "pl"
 		});
+		$("#searchFrom").autocomplete({
+			source : function(request, response) {
+				$.ajax({
+					method : "POST",
+					url : "autocomplete",
+					dataType : "json",
+					data : {
+						'term' : request.term
+					},
+					success : response
+				});
+			},
+			minLength : 2
+		});
+		$("#searchTo").autocomplete({
+			source : function(request, response) {
+				$.ajax({
+					method : "POST",
+					url : "autocomplete2",
+					dataType : "json",
+					data : {
+						'term1' : $("#searchFrom").val(),
+						'term2' : request.term
+					},
+					success : response
+				});
+			},
+			minLength : 2
+		});
+		function validate() {
+			alert("Hello");
+		}
+		$(function() {
+			$("#searchFrom").blur(function() {
+				$.ajax({
+					type : "GET",
+					url : "searchController/validateInputValue",
+					contentType: "charset=utf-8",
+					data : {
+							przystanek: $(this).val()
+					},
+					success : function(b) {
+						if(b === true){
+							$('#divSearchTo').slideDown("fast");
+						}
+						if(b === false){
+							$('#divSearchTo').slideUp("fast");
+						}
+					},
+				});
+			});
+		});
 	});
-</script>
-<script>
-	$(function() {
+
+	/* $(function() {
 		$("#divPrzystanekPoczatkowy").change(function() {
 			ToggleDropdown();
 		});
@@ -152,5 +200,5 @@
 			$("#divPrzystanekPoczatkowy").show();
 		}
 
-	};
+	}; */
 </script>

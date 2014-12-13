@@ -19,6 +19,10 @@ public class RozkladInfoService {
 	public void create(RozkladInfo rozkladInfo) {
 		rozkladInfoDaoImpl.create(rozkladInfo);
 	}
+	
+	public void update(RozkladInfo rozkladInfo) {
+		rozkladInfoDaoImpl.update(rozkladInfo);
+	}
 
 	public List<RozkladInfo> getAll() {
 		return rozkladInfoDaoImpl.getAll();

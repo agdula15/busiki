@@ -1,15 +1,13 @@
 package com.busiki.model;
 
 import java.io.Serializable;
-import java.util.Collection;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
+import com.busiki.model.Bus;
+import com.busiki.model.Rezerwacja;
 
 @Entity
 public class Kurs implements Serializable {
@@ -20,14 +18,18 @@ public class Kurs implements Serializable {
 	}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue
 	private long id;
 	private String wolneSiedzace;
 	private String wolneStojace;
-	@OneToMany
-	@JoinTable(name = "kurs_rezerwacje", joinColumns = { @JoinColumn(name = "kurs_id") }, inverseJoinColumns = @JoinColumn(name = "rezerwacjas_id"))
-	private Collection<Rezerwacja> rezerwacja;
 	private String dataKursu;
+	@ManyToOne
+	private Rozklad rozklad;
+	@ManyToOne
+	private Bus bus;
+	@ManyToOne
+	private Rezerwacja rezerwacja;
+
 	public long getId() {
 		return id;
 	}
@@ -52,14 +54,6 @@ public class Kurs implements Serializable {
 		this.wolneStojace = param;
 	}
 
-	public Collection<Rezerwacja> getRezerwacja() {
-		return rezerwacja;
-	}
-
-	public void setRezerwacja(Collection<Rezerwacja> param) {
-		this.rezerwacja = param;
-	}
-
 	public String getDataKursu() {
 		return dataKursu;
 	}
@@ -67,5 +61,37 @@ public class Kurs implements Serializable {
 	public void setDataKursu(String data) {
 		this.dataKursu = data;
 	}
+
+	public Rozklad getRozklad() {
+	    return rozklad;
+	}
+
+	public void setRozklad(Rozklad param) {
+	    this.rozklad = param;
+	}
+
+	public Bus getBus() {
+	    return bus;
+	}
+
+	public void setBus(Bus param) {
+	    this.bus = param;
+	}
+
+	public Rezerwacja getRezerwacja() {
+	    return rezerwacja;
+	}
+
+	public void setRezerwacja(Rezerwacja param) {
+	    this.rezerwacja = param;
+	}
+
+/*	public Rezerwacja getRezerwacja() {
+	    return rezerwacja;
+	}
+
+	public void setRezerwacja(Rezerwacja param) {
+	    this.rezerwacja = param;
+	}*/
 
 }

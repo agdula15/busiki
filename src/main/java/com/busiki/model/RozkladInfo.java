@@ -15,8 +15,7 @@ import javax.persistence.Table;
 public class RozkladInfo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
-	
+
 	public RozkladInfo() {
 	}
 
@@ -26,6 +25,8 @@ public class RozkladInfo implements Serializable {
 	private long id;
 	private Date dataOd;
 	private Date dataDo;
+	private boolean zatwierdzony;
+
 	public long getId() {
 		return id;
 	}
@@ -39,7 +40,7 @@ public class RozkladInfo implements Serializable {
 	}
 
 	public void setDataOd(Date dataPoczatku) {
-		
+
 		this.dataOd = dataPoczatku;
 	}
 
@@ -49,6 +50,14 @@ public class RozkladInfo implements Serializable {
 
 	public void setDataDo(Date param) {
 		this.dataDo = param;
+	}
+
+	public boolean getZatwierdzony() {
+		return zatwierdzony;
+	}
+
+	public void setZatwierdzony(boolean param) {
+		this.zatwierdzony = param;
 	}
 
 }

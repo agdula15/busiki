@@ -5,7 +5,6 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -20,16 +19,12 @@ public class Rezerwacja implements Serializable {
 	}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue
 	@Column(name = "ID")
 	private long id;
 	private String data_rezerwacji;
 	@ManyToOne
-	private Kurs kurs;
-
-	@ManyToOne
 	private User user;
-
 	public long getId() {
 		return id;
 	}
@@ -44,14 +39,6 @@ public class Rezerwacja implements Serializable {
 
 	public void setData_rezerwacji(String param) {
 		this.data_rezerwacji = param;
-	}
-
-	public Kurs getKurs() {
-		return kurs;
-	}
-
-	public void setKurs(Kurs param) {
-		this.kurs = param;
 	}
 
 }

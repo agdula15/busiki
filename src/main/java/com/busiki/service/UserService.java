@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.busiki.dao.RoleDao;
 import com.busiki.implDao.UserDaoImpl;
+import com.busiki.implDao.UserDetailsDaoImpl;
 import com.busiki.model.Role;
 import com.busiki.model.User;
 
@@ -24,6 +25,9 @@ public class UserService {
 
 	@Autowired
 	private UserDaoImpl userDaoImpl;
+	
+	@Autowired
+	private UserDetailsDaoImpl userDetailsDaoImpl;
 
 	@Autowired 
 	private RoleDao roleDao;
@@ -41,7 +45,6 @@ public class UserService {
 		userDaoImpl.create(user, password);
 	}
 
-	//getByUsername i podaje siê email?
 	public User getAccountByUsername(String email) {
 		User user = userDaoImpl.findByEmail(email);
 		if (user != null) {
@@ -85,5 +88,9 @@ public class UserService {
 			}
 		}
 		return l2;
+	}
+	
+	public String getPasswordByEmail(String email) {
+		return userDetailsDaoImpl.findPasswordByEmail(email);
 	}
 }
