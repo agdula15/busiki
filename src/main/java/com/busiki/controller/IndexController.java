@@ -1,5 +1,6 @@
 package com.busiki.controller;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +19,7 @@ import com.busiki.model.Przystanek;
 import com.busiki.service.NewsService;
 import com.busiki.service.TrasaPrzystanekService;
 import com.busiki.service.UlgaService;
+import com.busiki.service.UserService;
 
 @Controller
 public class IndexController {
@@ -32,6 +34,9 @@ public class IndexController {
 
 	@Autowired
 	private UlgaService ulgaService;
+	
+	@Autowired
+	private UserService userService;
 
 	@RequestMapping("index")
 	public String index(Model model) {
@@ -50,6 +55,12 @@ public class IndexController {
 				trasaPrzystanekService.getAllPrzystanek());
 		model.addAttribute("ulgi", ulgaService.getAll());
 		return "timetable";
+	}
+	
+	@RequestMapping("userProfile")
+	public String userProfile(Model model, Principal principal) {
+		model.addAttribute("user", userService.getAccountByUsername(principal.getName())); //principal.getName() zwraca email zalogowanego u¿ytkownika
+		return "userProfile";
 	}
 
 	// autocomplete:

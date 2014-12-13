@@ -1,16 +1,12 @@
 package com.busiki.model;
 
 import java.io.Serializable;
-import java.util.Collection;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -26,10 +22,8 @@ public class Przystanek implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID")
 	private long id;
-	private String numer;
+	private int numer;
 	private String nazwa;
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy="przystanki")
-	private Collection<TrasaInfo> trasaInfo;
 	public long getId() {
 		return id;
 	}
@@ -38,11 +32,11 @@ public class Przystanek implements Serializable {
 		this.id = id;
 	}
 
-	public String getNumer() {
+	public int getNumer() {
 		return numer;
 	}
 
-	public void setNumer(String param) {
+	public void setNumer(int param) {
 		this.numer = param;
 	}
 
@@ -52,14 +46,6 @@ public class Przystanek implements Serializable {
 
 	public void setNazwa(String param) {
 		this.nazwa = param;
-	}
-
-	public Collection<TrasaInfo> getTrasaInfo() {
-		return trasaInfo;
-	}
-
-	public void setTrasaInfo(Collection<TrasaInfo> param) {
-		this.trasaInfo = param;
 	}
 
 }

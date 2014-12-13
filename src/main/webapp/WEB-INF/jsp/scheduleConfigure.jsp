@@ -60,8 +60,8 @@
 						var wr = 0; //numer wiersza
 						var godziny = []; //godziny odjazdów
 
-						<c:forEach var="p" items="${przystanki}">
-						przystanki.push('${p.nazwa}');
+						<c:forEach var="pt" items="${przystankitrasy}">
+						przystanki.push('${pt.przystanek.nazwa}');
 						</c:forEach>
 						var dniDalej = dni;
 						var pattern = /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/i;
@@ -139,11 +139,11 @@
 								
 								var k = 0;
 								var kk = 0;
-								<c:forEach var="p" items="${przystanki}">
+								<c:forEach var="p" items="${przystankitrasy}">
 								rgodziny[k] = [];
 
 								<c:forEach var="r" items="${rozklad}">
-								if ('${r.przystanek.id}' == '${p.id}'
+								if ('${r.przystanek.id}' == '${p.przystanek.id}'
 										&& rDzien == '${r.dniKursu.id}') {
 									rgodziny[k].push('${r.godzina}');
 									kk++;

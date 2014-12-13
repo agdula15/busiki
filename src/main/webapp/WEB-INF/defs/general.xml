@@ -47,4 +47,9 @@
 		<put-attribute name="body" value="/WEB-INF/jsp/timetable.jsp" />
 		<put-attribute name="current" value="timetable" />
 	</definition>
+		<definition name="userProfile" extends="common">
+		<put-attribute name="title" value="Profil" />
+		<put-attribute name="body" value="/WEB-INF/jsp/userProfile.jsp" />
+		<put-attribute name="current" value="userProfile" />
+	</definition>
 </tiles-definitions>

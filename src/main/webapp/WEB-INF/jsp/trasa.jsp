@@ -1,3 +1,6 @@
+<%@page import="java.util.HashMap"%>
+<%@page import="java.util.Map"%>
+<%@page import="com.busiki.model.PrzystankiTrasy"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.busiki.model.TrasaInfo"%>
 <%@page import="com.busiki.model.Przystanek"%>
@@ -34,41 +37,53 @@
 							<th>Numer</th>
 							<th>Początek</th>
 							<th>Koniec</th>
-							<th>Długość</th>
+							<th>Operacje</th>
 						</tr>
 					</thead>
 					<tbody>
 						<%
-							List<TrasaInfo> t2 = new ArrayList<TrasaInfo>();
-							t2 = (ArrayList<TrasaInfo>)request.getAttribute("trasy");
-							for (TrasaInfo t: t2){
-								 List<Przystanek> p = new ArrayList<Przystanek>(t.getPrzystanek());
+							List<TrasaInfo> t = new ArrayList<TrasaInfo>();
+							t = (ArrayList<TrasaInfo>)request.getAttribute("trasy");
+			
+							Map<Integer, String> p2 = new HashMap<Integer, String>();
+							
+							List<PrzystankiTrasy> pt = new ArrayList<PrzystankiTrasy>();
+							pt = (ArrayList<PrzystankiTrasy>)request.getAttribute("przystankitrasy");
+							
+							for (TrasaInfo tr: t){
 						%>
 
 						<tr>
 							<td><i class="fa fa-list"
-								onclick="rozwin(<%=t.getNumer()%>)"></i></td>
-							<td><%=t.getNumer()%></td>
-							<td><%=p.get(0).getNazwa()%></td>
-							<td><%=p.get(p.size()-1).getNazwa()%></td>
-							<td></td>
+								onclick="rozwin(<%=tr.getNumer()%>)"></i></td>
+							<td><%=tr.getNumer()%></td>
+							<td><%=tr.getPoczatek()%></td>
+							<td><%=tr.getKoniec()%></td>
+							<td><a href="trasa/remove/<%=tr.getId()%>" class="btn btn-sm btn-danger ">Usuń</a></td>
 						</tr>
 						<%
-							for(int i = 0; i<p.size(); i++){
+							for (PrzystankiTrasy ptr: pt){
+								if(ptr.getTrasaInfo().getId() == tr.getId()){
+									p2.put(ptr.getNumerPrzystanku(), ptr.getPrzystanek().getNazwa());
+								}}
 						%>
-						<tr class="collapse out <%=t.getNumer()%>" id="row1">
+						<tr class="collapse out <%=tr.getNumer()%>" id="row1">
 							<td colspan="5">
 								<table>
+								<%for (Integer i :p2.keySet()){ %>
+	
 									<tr>
-										<td width="20px;"><%=(i+1)%></td>
-										<td><%=p.get(i).getNazwa()%></td>
+										<td width="20px;"><%=i %></td>
+										<td><%=p2.get(i) %></td>
 										<td></td>
 									</tr>
+								<%}%>
 								</table>
 							</td>
 						</tr>
 						<%
-							}}
+							p2.clear();
+							}
 						%>
 						<%-- 	</c:forEach> --%>
 						<%-- </c:forEach> --%>

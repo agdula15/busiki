@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.busiki.dao.RoleDao;
 import com.busiki.implDao.UserDaoImpl;
+import com.busiki.implDao.UserDetailsDaoImpl;
 import com.busiki.model.Role;
 import com.busiki.model.User;
 
@@ -25,6 +26,9 @@ public class UserService {
 	@Autowired
 	private UserDaoImpl userDaoImpl;
 
+	@Autowired
+	private UserDetailsDaoImpl userDetailsDaoImpl;
+	
 	@Autowired 
 	private RoleDao roleDao;
 	 
@@ -68,7 +72,7 @@ public class UserService {
 	}
 	
 	public void delete(long id){
-		userDaoImpl.deleteCustomer(id);
+		userDaoImpl.delete(userDaoImpl.getById(id));
 	}
 
 	public void updateUser(User t) {
@@ -85,5 +89,8 @@ public class UserService {
 			}
 		}
 		return l2;
+	}
+	public String getPasswordByEmail(String email) {
+		return userDetailsDaoImpl.findPasswordByEmail(email);
 	}
 }

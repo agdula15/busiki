@@ -5,6 +5,7 @@
 
 <head>
 <link rel="stylesheet" href="resources/css/bootstrap.css" media="screen">
+<link href="resources/css/bootstrap-dialog.css" rel="stylesheet">
 </head>
 
 <body>
@@ -24,16 +25,24 @@
 							pattern="^([01]?[0-9]|2[0-3]):[0-5][0-9]$" name="godzina"
 							placeholder="Godzina:" id="godzina">
 					</div>
-					<div class="col-lg-4" id="divSearchFrom">
+					<div class="col-lg-3" id="divSearchFrom">
 						<label>Przystanek początkowy: </label> <input class="form-control"
 							name="search" id="searchFrom" type="search" placeholder="Z:"
 							required="required"></input>
 					</div>
-					<div class="col-lg-4" id="divSearchTo">
+					<div class="col-lg-3" id="divSearchTo">
 						<label>Przystanek końcowy: </label> <input class="form-control"
 							name="search" id="searchTo" type="search" placeholder="Do:"
 							required="required" />
 					</div>
+					<div class="col-lg-1" id="divSearchButton">
+						<button class="btn btn-success" id="searchButton" type="button"
+							style="margin-top: 26px;">
+							Szukaj <span class="glyphicon glyphicon-chevron-right"
+								aria-hidden="true"></span>
+						</button>
+					</div>
+
 				</div>
 			</div>
 		</form>
@@ -91,7 +100,7 @@
 		</div>
 	</div>
 </body>
-
+<script src="resources/js/bootstrap-dialog.js"></script>
 <script type="text/javascript"
 	src="resources/js/bootstrap-datepicker.js"></script>
 <script type="text/javascript"
@@ -100,7 +109,10 @@
 
 <script>
 	$(function() {
+		var pattern = /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/i;
+		var pattern2 = /^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/i;
 		$('#divSearchTo').hide();
+		$('#divSearchButton').hide();
 		$('#data').datepicker({
 			format : "yyyy-mm-dd",
 			language : "pl"
@@ -134,28 +146,81 @@
 			},
 			minLength : 2
 		});
-		function validate() {
-			alert("Hello");
-		}
-		$(function() {
-			$("#searchFrom").blur(function() {
-				$.ajax({
-					type : "GET",
-					url : "searchController/validateInputValue",
-					contentType: "charset=utf-8",
-					data : {
-							przystanek: $(this).val()
-					},
-					success : function(b) {
-						if(b === true){
-							$('#divSearchTo').slideDown("fast");
-						}
-						if(b === false){
-							$('#divSearchTo').slideUp("fast");
-						}
-					},
-				});
+		$("#searchFrom").blur(function() {
+			$.ajax({
+				type : "GET",
+				url : "searchController/validateInputValue",
+				contentType : "charset=utf-8",
+				data : {
+					przystanek : $(this).val()
+				},
+				success : function(b) {
+					if (b === true) {
+						$('#divSearchTo').slideDown("fast");
+
+					}
+					if (b === false) {
+						$('#divSearchTo').slideUp("fast");
+						$('#divSearchButton').slideUp("fast");
+					}
+					$('#searchTo').val("");
+				},
 			});
+		});
+		$("#searchTo").blur(function() {
+			$.ajax({
+				type : "GET",
+				url : "searchController/validateInputValue",
+				contentType : "charset=utf-8",
+				data : {
+					przystanek : $(this).val()
+				},
+				success : function(b) {
+					if (b === true) {
+						$('#divSearchButton').slideDown("fast");
+					}
+					if (b === false) {
+						$('#divSearchButton').slideUp("fast");
+					}
+				},
+			});
+		});
+		$("#searchTo").focus(function() {
+			$('#divSearchButton').slideUp("fast");
+		});
+		function validateCzas() {
+			if (!pattern.exec($("#godzina").val())
+					|| !pattern2.exec($("#data").val())) {
+				BootstrapDialog.show({
+					message : 'Zła godzina lub data!'
+				});
+				return false;
+			}
+			return true;
+		}
+		$("#searchButton").click(function() {
+			if (validateCzas()) {
+				alert("ok");
+				$.ajax({
+					type : "POST",
+					url : "searchController/searchRezerwacja",
+					data : {
+						godz : $("#godzina").val(),
+						dzien : $("#data").val(),
+						start : $("#searchFrom").val(),
+						end : $("#searchTo").val()
+					},
+					success : function(data) {
+						alert("ok");
+						<c:forEach var="t" items="${trasy}">
+						alert(<c:out value="${t.id}"/>);
+						</c:forEach>
+					},
+					error : function(e) {
+						alert("nie ok");
+					}
+				});
+			}
 		});
 	});
 

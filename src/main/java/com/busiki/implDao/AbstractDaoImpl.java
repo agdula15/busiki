@@ -72,6 +72,7 @@ public abstract class AbstractDaoImpl<T extends Object> implements Dao<T> {
 		return getSession().createQuery("from " + getDomainClassName()).list();
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public T getById(long id ) {
 		return (T) getSession().createQuery("from " + getDomainClassName() + " where id = " + id).uniqueResult();

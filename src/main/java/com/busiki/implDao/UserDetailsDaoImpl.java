@@ -13,6 +13,7 @@ public class UserDetailsDaoImpl implements UserDetailsDao {
 	@Inject
 	private JdbcTemplate jdbcTemplate;
 	private static final String FIND_PASSWORD_SQL = "select password from users where email = ?";
+	
 	@Override
 	public String findPasswordByEmail(String email) {
 		// TODO Auto-generated method stub

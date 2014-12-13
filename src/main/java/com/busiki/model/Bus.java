@@ -22,7 +22,7 @@ public class Bus implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID")
 	private long id;
-	private String nr;
+	private int nr;
 	private String nazwa;
 	public String getNazwa() {
 		return nazwa;
@@ -32,8 +32,8 @@ public class Bus implements Serializable {
 		this.nazwa = nazwa;
 	}
 
-	private String miejscaSiedzace;
-	private String miejscaStojace;
+	private int miejscaSiedzace;
+	private int miejscaStojace;
 	public long getId() {
 		return id;
 	}
@@ -42,27 +42,27 @@ public class Bus implements Serializable {
 		this.id = id;
 	}
 
-	public String getNr() {
+	public int getNr() {
 		return nr;
 	}
 
-	public void setNr(String param) {
+	public void setNr(int param) {
 		this.nr = param;
 	}
 
-	public String getMiejscaSiedzace() {
+	public int getMiejscaSiedzace() {
 		return miejscaSiedzace;
 	}
 
-	public void setMiejscaSiedzace(String param) {
+	public void setMiejscaSiedzace(int param) {
 		this.miejscaSiedzace = param;
 	}
 
-	public String getMiejscaStojace() {
+	public int getMiejscaStojace() {
 		return miejscaStojace;
 	}
 
-	public void setMiejscaStojace(String param) {
+	public void setMiejscaStojace(int param) {
 		this.miejscaStojace = param;
 	}
 }

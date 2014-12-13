@@ -36,21 +36,10 @@ public class UserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
 		jdbcTemplate.update(UPDATE_PASSWORD_SQL, password, user.getEmail());
 	}
 	
-	public void deleteCustomer(long id) {
-		  getSession().createQuery("delete User where id = " + id).executeUpdate();
-	}
-	
 	@Override
 	public User findByEmail(String email) {
 		return (User) getSession().getNamedQuery("findUserByEmail")
 				.setParameter("email", email).uniqueResult();
 	}
-
-	public void myUserDelete(User byId) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
 
 }

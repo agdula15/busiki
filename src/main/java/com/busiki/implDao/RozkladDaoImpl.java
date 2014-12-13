@@ -16,32 +16,32 @@ public class RozkladDaoImpl extends AbstractDaoImpl<Rozklad> {
 
 	protected static Logger logger = Logger.getLogger(RozkladDaoImpl.class);
 	
-	private String temp = "";
-	private String temp2 = "";
 	private String godz[], godz2[];
 	private Set<Integer> gSort;
 	private List<Integer> gNieSort;
-	private int gDoBazy, numer;
+	private int gDoBazy;
 	private Integer przed;
 	private int result, last;
-	private long id2;
 	private List<Rozklad> r;
-	private Rozklad r2;
 
+
+	@SuppressWarnings("unchecked")
 	public List<Rozklad> getAllByRozkladInfoID(long riid) {
 		return getSession()
 				.createQuery("from Rozklad where rozkladinfo_id = :riid")
 				.setParameter("riid", riid).list();
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Rozklad> getRozkladByTrasaId(long id) {
 		return getSession()
 				.createQuery("from Rozklad where trasa_info_id = :id")
 				.setParameter("id", id).list();
 	}
 
+	@SuppressWarnings("unchecked")
 	public int getRozkladNumerByTrasaIdAndDni(long trasa, DniKursu dniKursu,
-			String g, long pId, int k) {
+			String g, long pId) {
 		gSort = new TreeSet<Integer>();
 		gNieSort = new ArrayList<Integer>();
 		godz = null;
@@ -51,7 +51,6 @@ public class RozkladDaoImpl extends AbstractDaoImpl<Rozklad> {
 		result = 1;
 		przed = null;
 		last = 0;
-		numer = 0;
 		r = new ArrayList<Rozklad>();
 		r.addAll(getSession()
 				.createQuery(
@@ -78,48 +77,34 @@ public class RozkladDaoImpl extends AbstractDaoImpl<Rozklad> {
 		if (przed == null && last != 0) {
 			++last;
 			return last;
-		} else {
+		} 
+		if (przed !=null && last != 0){
+			
 			for (Rozklad rozklad : r) {
 				godz = rozklad.getGodzina().split(":");
 				if (Integer.parseInt(godz[0] + godz[1]) == przed) {
 					result = rozklad.getNumer();
-					numer = result + 1;
 				}
 			}
-			temp = "";
-			for (Integer h : gNieSort) {
-				temp2 = "";
-				if (przed <= h) {
-					temp2 = "" + h;
-					if (temp2.length() == 3) {
-						temp = Character.toString(temp2.charAt(0)) + ":" + ""
-								+ Character.toString(temp2.charAt(1)) + ""
-								+ Character.toString(temp2.charAt(2));
-					} else {
-						temp = Character.toString(temp2.charAt(0))
-								+ Character.toString(temp2.charAt(1)) + ":"
-								+ Character.toString(temp2.charAt(2))
-								+ Character.toString(temp2.charAt(3));
-					}
-					r2 = (Rozklad) getSession()
-							.createQuery(
-									"from Rozklad where trasa_info_id = :id AND dnikursu_id = :idDni AND przystanek_id = :pId AND godzina = :temp")
-							.setParameter("id", trasa)
-							.setParameter("idDni", dniKursu.getId())
-							.setParameter("pId", pId)
-							.setParameter("temp", temp).uniqueResult();
-					id2 = r2.getId();
-					for (int i = 0; i < k; i++) {
-						getSession()
-								.createQuery(
-										"update Rozklad set numer = :numer where id = :id ")
-								.setParameter("id", id2 + i)
-								.setParameter("numer", numer).executeUpdate();
-
-					}
-					numer++;
+			logger.debug("result: "  + result + " last " + last);
+			r.clear();
+			int temp;
+			while(result<=last){
+				temp = last;
+				r.addAll(getSession()
+						.createQuery(
+								"from Rozklad where trasa_info_id = :id AND dnikursu_id = :idDni AND numer = :n")
+						.setParameter("id", trasa)
+						.setParameter("idDni", dniKursu.getId())
+						.setParameter("n", last).list());
+				for (Rozklad r : r) {
+					r.setNumer(temp+1);
+					update(r);
 				}
+				r.clear();
+				last--;
 			}
+			logger.debug("OK");
 		}
 		return result;
 	}

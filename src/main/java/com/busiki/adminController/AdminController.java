@@ -2,13 +2,9 @@ package com.busiki.adminController;
 
 import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,10 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.busiki.model.Bus;
-import com.busiki.model.Kurs;
 import com.busiki.model.News;
 import com.busiki.model.Przystanek;
-import com.busiki.model.Rozklad;
+import com.busiki.model.PrzystankiTrasy;
 import com.busiki.model.RozkladInfo;
 import com.busiki.model.TrasaInfo;
 import com.busiki.model.Ulga;
@@ -147,13 +142,19 @@ public class AdminController {
 
 	@RequestMapping("trasa")
 	public String trasa(Model model) {
-		List<TrasaInfo> a = trasaPrzystanekService.getAllTrasy();
-		for (TrasaInfo t : a) {
-			Hibernate.initialize(t.getPrzystanek());
-		}
-		model.addAttribute("trasy", a);
+		List<TrasaInfo> t = trasaPrzystanekService.getAllTrasy();
+		List<PrzystankiTrasy> pt = trasaPrzystanekService.getAllPrzystankiTrasy();
+		model.addAttribute("trasy", t);
+		model.addAttribute("przystankitrasy", pt);
 		return "trasa";
 	}
+	
+	@RequestMapping("trasa/remove/{id}")
+	public String removeTrasa(@PathVariable long id) {
+		trasaPrzystanekService.removeTrasa(id);
+		return "redirect:/trasa";
+	}
+	
 
 	@RequestMapping("trasaadd")
 	public String trasaAdd(Model model) {
@@ -184,7 +185,6 @@ public class AdminController {
 			p2.setNazwa(p.getNazwa());
 			p2.setNumer(p.getNumer());
 			trasaPrzystanekService.updatePrzystanek(p2);
-
 		} else {
 			Przystanek p3 = new Przystanek();
 			p3.setNazwa(p.getNazwa());
@@ -197,10 +197,13 @@ public class AdminController {
 
 	@RequestMapping("przystanek/delete/{id}")
 	public String removePrzystanek(@PathVariable long id) {
-		Przystanek p = trasaPrzystanekService.getByIdPrzystanek(id);
-		logger.debug("Próba usuniêcia przystanka");
-		if (p.getTrasaInfo().isEmpty())
-			trasaPrzystanekService.deletePrzystanek(id);
+		List <PrzystankiTrasy> pt = trasaPrzystanekService.getAllPrzystankiTrasy();
+		for (PrzystankiTrasy przystankiTrasy : pt) {
+			if(przystankiTrasy.getPrzystanek().getId() == id){
+				return "redirect:/przystanek";
+			}
+		}
+		trasaPrzystanekService.deletePrzystanek(id);
 		return "redirect:/przystanek";
 	}
 
@@ -257,8 +260,6 @@ public class AdminController {
 			@RequestParam("wartosc") String wartosc) {
 		Ulga ulga = ulgaService.getById(id);
 		ulga.setOpis(opis);
-
-		// Ta czesc logiki powinna pojsc do ulgaService????
 		String string = wartosc.replace('%', ' ');
 		logger.debug("STRING VALUE " + string);
 
@@ -316,20 +317,11 @@ public class AdminController {
 	public String scheduleConfigure(@RequestParam(value = "rid") long rid,
 			@RequestParam(value = "tid") long tid, Model m) {
 		m.addAttribute("r_info", rozkladInfoService.getById(rid));
-		m.addAttribute("rozklad", rozkladService.getRozkladByTrasaNumer(tid));
+		m.addAttribute("rozklad", rozkladService.getRozkladByTrasaId(tid));
 		m.addAttribute("dni", dniKursuService.getAll());
-		m.addAttribute("trasa", trasaPrzystanekService.getByNumerTrasaInfo(tid));
-		m.addAttribute("przystanki", trasaPrzystanekService
-				.getAllPrzystankiTrasy((TrasaInfo) trasaPrzystanekService
-						.getByNumerTrasaInfo(tid)));
-		logger.debug("Trasa: " + rozkladService.getRozkladByTrasaNumer(tid));
+		m.addAttribute("trasa", trasaPrzystanekService.getByIdTrasaInfo(tid));
+		m.addAttribute("przystankitrasy", trasaPrzystanekService.getPrzystankiTrasyByTrasaInfoId(tid));
 		return "scheduleConfigure";
 	}
 
-	@RequestMapping(value = "scheduleGenerateCourses", method = RequestMethod.GET)
-	public String scheduleGenerateCourses(@RequestParam(value = "rid") long rid) {
-		
-		
-		return "redirect:/scheduleEdit?rid=" + rid;
-	}
 }

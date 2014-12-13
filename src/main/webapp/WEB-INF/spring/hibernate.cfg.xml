@@ -12,6 +12,8 @@
 		<property name="hibernate.connection.defaultNChar">true</property>
 		<property name="hibernate.connection.useUnicode">true</property>
 		<property name="hibernate.hbm2ddl.auto">update</property>
+		<property name="hibernate.query.factory_class">org.hibernate.hql.internal.classic.ClassicQueryTranslatorFactory</property>
+		
 		<mapping class="com.busiki.model.User" />
 		<mapping class="com.busiki.model.Role" />
 		<mapping class="com.busiki.model.Kurs" />
@@ -24,5 +26,6 @@
 		<mapping class="com.busiki.model.Ulga" />
 		<mapping class="com.busiki.model.RozkladInfo" />
 		<mapping class="com.busiki.model.DniKursu" />
+		<mapping class="com.busiki.model.PrzystankiTrasy" />
 	</session-factory>
 </hibernate-configuration>

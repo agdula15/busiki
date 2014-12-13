@@ -41,7 +41,7 @@ public class RozkladService {
 
 	public int updateNumerKursu(String g, long trasa, DniKursu dniKursu, long pId) {
 		logger.debug("RozkladService-> updateNumerKursu g:" +  g + " dzien " +  dniKursu.getDzien() +" trasa " +  trasa + " przystanek " + pId);
-		return rozkladDaoImpl.getRozkladNumerByTrasaIdAndDni(trasa, dniKursu, g, pId, trasaPrzystanekService.getAllPrzystankiTrasy(trasaPrzystanekService.getByIdTrasaInfo(trasa)).size());
+		return rozkladDaoImpl.getRozkladNumerByTrasaIdAndDni(trasa, dniKursu, g, pId);
 	}
 
 

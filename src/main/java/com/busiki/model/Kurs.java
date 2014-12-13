@@ -20,8 +20,8 @@ public class Kurs implements Serializable {
 	@Id
 	@GeneratedValue
 	private long id;
-	private String wolneSiedzace;
-	private String wolneStojace;
+	private int wolneSiedzace;
+	private int wolneStojace;
 	private String dataKursu;
 	@ManyToOne
 	private Rozklad rozklad;
@@ -38,19 +38,19 @@ public class Kurs implements Serializable {
 		this.id = id;
 	}
 
-	public String getWolneSiedzace() {
+	public int getWolneSiedzace() {
 		return wolneSiedzace;
 	}
 
-	public void setWolneSiedzace(String param) {
+	public void setWolneSiedzace(int param) {
 		this.wolneSiedzace = param;
 	}
 
-	public String getWolneStojace() {
+	public int getWolneStojace() {
 		return wolneStojace;
 	}
 
-	public void setWolneStojace(String param) {
+	public void setWolneStojace(int param) {
 		this.wolneStojace = param;
 	}
 
