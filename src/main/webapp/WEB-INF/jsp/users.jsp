@@ -222,22 +222,23 @@
 										});
 					});
 	function postData() {
-		var form = $("#formEdit");
-		if ($("#firstName").val() === $('#' + $("#id").val())
-				.find('.firstName').text()
-				&& $("#lastName").val() === $('#' + $("#id").val()).find(
-						'.lastName').text()
-				&& $("#email").val() === $('#' + $("#id").val()).find('.email')
-						.text()
-				&& $("#phoneNumber").val() === $('#' + $("#id").val()).find(
-						'.phoneNumber').text()
-				&& $("#idCardNumber").val() === $('#' + $("#id").val()).find(
-						'.idCardNumber').text()) {
-			alert("Nic niezmieniłeś!");
-		} else {
-			alert("Wyedytowałeś dane użytkownika o id = " +  $("#id").val());
-			form.submit();
-		}
+		alert("	<c:out value="${newsy.dataUtworzenia}" />");
+// 		var form = $("#formEdit");
+// 		if ($("#firstName").val() === $('#' + $("#id").val())
+// 				.find('.firstName').text()
+// 				&& $("#lastName").val() === $('#' + $("#id").val()).find(
+// 						'.lastName').text()
+// 				&& $("#email").val() === $('#' + $("#id").val()).find('.email')
+// 						.text()
+// 				&& $("#phoneNumber").val() === $('#' + $("#id").val()).find(
+// 						'.phoneNumber').text()
+// 				&& $("#idCardNumber").val() === $('#' + $("#id").val()).find(
+// 						'.idCardNumber').text()) {
+// 			alert("Nic niezmieniłeś!");
+// 		} else {
+// 			alert("Wyedytowałeś dane użytkownika o id = " +  $("#id").val());
+// 			form.submit();
+// 		}
 	}
 </script>
 

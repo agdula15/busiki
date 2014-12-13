@@ -47,6 +47,8 @@ public class User implements Serializable {
 	private String phoneNumber;
 	@Column(name = "ID_CARD_NUMBER")
 	private String idCardNumber;
+	@Column(name = "ADDRESS")
+	private String address;
 	@Column(name = "PASSWORD")
 	private String password;
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -123,6 +125,14 @@ public class User implements Serializable {
 		this.idCardNumber = idCardNumber;
 	}
 
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	
 	public String getEmail() {
 		return email;
 	}

@@ -35,29 +35,31 @@
 </form>
 
 <h4 class="page-header">Istniejące:</h4>
-<br>
-<br>
 <div class="row">
 	<c:forEach var="r" items="${rozklady}">
 		<div class="col-lg-4">
 			<div class="panel panel-primary">
 				<div class="panel-heading">
-					<p class="newId">
+					<p class="rId">
 						<c:out value="${r.id}" />
 					</p>
 				</div>
 				<div class="panel-body">
-					<p> Od:
-<%-- 						<fmt:formatDate pattern="yyyy-MM-dd" value="${r.dataOd}" /> --%>
-<fmt:formatDate pattern="dd-MM-yyyy" value="${r.dataOd}" />
+					<p>
+						Od:
+						<fmt:formatDate pattern="yyyy-MM-dd" value="${r.dataOd}" />
 					</p>
-					<p> Do:
-<%-- 						<fmt:formatDate pattern="yyyy-MM-dd" value="${r.dataDo}" /> --%>
-<fmt:formatDate pattern="dd-MM-yyyy" value="${r.dataDo}" />
+					<p>
+						Do:
+						<fmt:formatDate pattern="yyyy-MM-dd" value="${r.dataDo}" />
 					</p>
-						<a href="<spring:url value="scheduleEdit?rid=${r.id}" />" class="btn btn-primary">Uzupełniaj</a> <a
-							href="<spring:url value="schedule/delete/${r.id}" />"
-							class="btn btn-danger" type="button">Usuń</a>
+					<c:if test='${r.zatwierdzony != true}'>
+						<a href="<spring:url value="scheduleEdit?rid=${r.id}" />"
+							class="btn btn-primary">Uzupełniaj</a>
+						<a id='zatwierdz' class="btn btn-success"> Zatwierdź </a>
+					</c:if>
+					<a href="<spring:url value="schedule/delete/${r.id}" />"
+						class="btn btn-danger" type="button">Usuń</a>
 				</div>
 			</div>
 		</div>
@@ -79,16 +81,11 @@
 			format : "yyyy-mm-dd",
 			language : "pl"
 		});
-	});
-	$(function() {
 		$('#dp2').datepicker({
 			format : "yyyy-mm-dd",
 			language : "pl"
 		});
-	});
-
-	$(function() { //cos jest zle - sprobuj wklepac date rozpoczecia 12-11-2014 i konca 22-11-2014
-		$('#dodajRozkladButton').click(function() { //sprawdza czy data końca rozkladu jest wieksza niz poczatku rozkladu, jesli tak to przekierowuje
+		$('#dodajRozkladButton').click(function() {
 			var start = Date.parse($("#dp1").val());
 			var end = Date.parse($("#dp2").val());
 			if (start == null || end == null) {
@@ -105,5 +102,67 @@
 				$("#form1").submit();
 			}
 		});
+		var rid;
+		$(function() {
+			$('#zatwierdz')
+					.click(
+							function() {
+								rid = $(this).closest('.panel').find('.rId')
+										.text();
+								/* http://nakupanda.github.io/bootstrap3-dialog/ */
+								BootstrapDialog
+										.show({
+											message : 'Może to potrwać do kilku minut, w zależności od długości rozkładu. Po tym czasie Klienci bedą mogli rezerwować miejsca w danym rozkladzie!',
+											buttons : [
+													{
+														icon : 'glyphicon glyphicon-send',
+														label : 'Zatwierdź rozkład',
+														cssClass : 'btn-primary',
+														autospin : true,
+														action : function(
+																dialogRef) {
+
+															dialogRef
+																	.enableButtons(false);
+															dialogRef
+																	.setClosable(false);
+															dialogRef
+																	.getModalBody()
+																	.html(
+																			rid
+																					+ 'Zatwierdzanie rozkladu...Może to potrwać do kilkunastu minut, w zależności od długości rozkładu. Nie odświeżaj strony');
+															setTimeout(function() {
+																$
+																		.ajax({
+																			type : "GET",
+																			url : "serviceConfigureDynamic/zatwierdz",
+																			data : "rid="
+																					+ rid,
+																			success : function(
+																					data) {
+																				dialogRef
+																						.close();
+																				 location.reload();
+																			},
+																			error : function(
+																					e) {
+																				alert(e);
+
+																			}
+																		});
+															});
+														}
+													},
+													{
+														label : 'Close',
+														action : function(
+																dialogRef) {
+															dialogRef.close();
+														}
+													} ]
+										});
+							});
+		});
+
 	});
 </script>
