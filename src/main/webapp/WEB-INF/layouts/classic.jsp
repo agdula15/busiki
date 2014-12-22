@@ -29,10 +29,6 @@
 <link rel="stylesheet" href="resources/css/bootswatch.min.css">
 <link rel="stylesheet" href="resources/css/datepicker3.css"></link>
 
-
-<!-- <link rel="stylesheet/less" type="text/css" href="resources/css/bootswatch.less">
-<link rel="stylesheet/less" type="text/css" href="resources/css/variables.less"> -->
-
 <script src="resources/js/bootstrap.min.js"></script>
 <script src="resources/js/bootswatch.js"></script>
 
@@ -60,6 +56,9 @@
 					<li><a href="timetable">Rozkład</a></li>
 					<li><a href="contact">Kontakt</a></li>
 					<li><a href="register">Rejestracja</a></li>
+					<security:authorize access="(!hasRole('ROLE_USER') or hasRole('ROLE_KIEROWCA')) and isAuthenticated()">
+						<li><a href="reservationForCourse">Rezerwacje Dla Kursu</a></li>
+					</security:authorize>
 				</ul>
 
 

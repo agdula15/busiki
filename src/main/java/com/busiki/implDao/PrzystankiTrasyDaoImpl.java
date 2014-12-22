@@ -26,6 +26,7 @@ public class PrzystankiTrasyDaoImpl extends AbstractDaoImpl<PrzystankiTrasy> {
 	}
 
 	public Set<TrasaInfo> getTrasyByNazwyPrzystankow(long s, long e) {
+		logger.debug("test7 " + s + " " + e);
 		Set<TrasaInfo> result = new HashSet<TrasaInfo>();
 		@SuppressWarnings("unchecked")
 		List<TrasaInfo> trasyId = getSession()

@@ -1,7 +1,9 @@
 package com.busiki.service;
 
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,10 +54,17 @@ public class RozkladService {
 				g, pId);
 	}
 
-	public List<Rozklad> getRozkladByCriteriaSearch(
-			 String dzien, RozkladInfo rozkladInfo,
-			TrasaInfo t) {
-		return rozkladDaoImpl.getRozkladByCriteriaSearch( dzien, rozkladInfo ,  t);
+	public List<Rozklad> getRozkladByCriteriaSearch(String dzien,
+			RozkladInfo rozkladInfo, TrasaInfo t) {
+		return rozkladDaoImpl.getRozkladByCriteriaSearch(dzien, rozkladInfo, t);
 	}
 
+	public List<Rozklad> getAllByRozkladInfoIdAndTrasyId(String data, RozkladInfo r,
+			Set<TrasaInfo> trasy) {
+		List<Rozklad> result = new ArrayList<Rozklad>();
+		for (TrasaInfo t : trasy) {
+			result.addAll(getRozkladByCriteriaSearch(data, r, t));
+		}
+		return result;
+	}
 }

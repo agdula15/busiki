@@ -86,7 +86,6 @@ public class RozkladDaoImpl extends AbstractDaoImpl<Rozklad> {
 			return last;
 		}
 		if (przed != null && last != 0) {
-
 			for (Rozklad rozklad : r) {
 				godz = rozklad.getGodzina().split(":");
 				if (Integer.parseInt(godz[0] + godz[1]) == przed) {
@@ -148,4 +147,5 @@ public class RozkladDaoImpl extends AbstractDaoImpl<Rozklad> {
 								+ " and dnikursu_id = " 
 								+ d )).list();
 	}
+
 }

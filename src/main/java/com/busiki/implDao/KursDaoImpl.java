@@ -50,13 +50,6 @@ public class KursDaoImpl extends AbstractDaoImpl<Kurs> {
 					rozklad.getId()));
 		}
 		logger.debug(" size : " + kursy.size());
-
-		/*
-		 * for (Kurs kurs : kursy) { if (k.getId() < kurs.getId() && k2.getId()
-		 * > kurs.getId()) { miejscaZajete.addAll(kurs.getMiejscaZajete());
-		 * logger.debug("if 1 "); } logger.debug("kurs id: " + kurs.getId()); }
-		 */
-
 		for (int i = 0; i < kursy.size(); i++) {
 			if (k.getId() < kursy.get(i).getId()
 					&& k2.getId() > kursy.get(i).getId()) {
@@ -75,9 +68,7 @@ public class KursDaoImpl extends AbstractDaoImpl<Kurs> {
 					}
 				}
 			}
-
 		}
-
 		return miejscaZajete;
 	}
 }

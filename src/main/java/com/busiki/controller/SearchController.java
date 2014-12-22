@@ -52,6 +52,20 @@ public class SearchController {
 		}
 		return false;
 	}
+	
+	@RequestMapping(value = "/validateInputValue2", method = RequestMethod.GET)
+	public boolean validateInputValue2(HttpServletRequest req) {
+		String temp = "";
+		Set<String> result = new HashSet<String>();
+		for (TrasaInfo tr : trasaPrzystanekService.getAllTrasy()) {
+			temp = tr.getPoczatek() + "-" + tr.getKoniec();
+			result.add(temp);
+		}
+		if (result.contains(req.getParameter("trasa"))) {
+			return true;
+		}
+		return false;
+	}
 
 	@RequestMapping(value = "/searchRezerwacja", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
 	public String searchRezerwacja(HttpServletRequest req) {
@@ -73,8 +87,6 @@ public class SearchController {
 		}
 		JSONObject jsonObject1 = new JSONObject();
 		jsonObject1.put("kurs", kurs);
-		
-		logger.debug("Json result kurs: " + jsonObject1.toString() );
 		return jsonObject1.toString();
 	}
 }

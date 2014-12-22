@@ -3,6 +3,8 @@ package com.busiki.controller;
 import java.security.Principal;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,14 +16,23 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.busiki.model.Bus;
 import com.busiki.model.Kurs;
+import com.busiki.model.Przystanek;
+import com.busiki.model.PrzystankiTrasy;
 import com.busiki.model.Rezerwacja;
+import com.busiki.model.Rozklad;
+import com.busiki.model.RozkladInfo;
+import com.busiki.model.TrasaInfo;
 import com.busiki.model.User;
 import com.busiki.service.BusService;
 import com.busiki.service.KursService;
 import com.busiki.service.RezerwacjaService;
+import com.busiki.service.RozkladInfoService;
+import com.busiki.service.RozkladService;
+import com.busiki.service.TrasaPrzystanekService;
 import com.busiki.service.UserService;
 
 @Controller
@@ -41,6 +52,15 @@ public class ReservationController {
 
 	@Autowired
 	private UserService userService;
+
+	@Autowired
+	private RozkladService rozkladService;
+
+	@Autowired
+	private RozkladInfoService rozkladInfoService;
+
+	@Autowired
+	private TrasaPrzystanekService trasaPrzystanekService;
 
 	@RequestMapping(value = "rezerwacja")
 	public String rezerwuj(
@@ -91,4 +111,67 @@ public class ReservationController {
 		rezerwacjaService.create(r);
 		return "userProfile";
 	}
+
+	@RequestMapping(value = "reservationForCourse")
+	public String rezerwacjeDlaKursu() {
+		return "reservationForCourse";
+	}
+
+	@RequestMapping(value = "reservationForCourse/autocomplete", method = RequestMethod.POST, produces = "application/json", headers = "Accept=*/*")
+	public @ResponseBody Set<String> dajTrasy(
+			@RequestParam(value = "term1") String t1) {
+		String temp = "";
+		Set<String> result = new HashSet<String>();
+		for (TrasaInfo tr : trasaPrzystanekService.getAllTrasy()) {
+			temp = tr.getPoczatek() + "-" + tr.getKoniec();
+			if (temp.toLowerCase().contains(t1.toLowerCase()))
+				result.add(temp);
+		}
+		return result;
+	}
+
+	@RequestMapping(value = "reservationForCourse/autocomplete2", method = RequestMethod.POST, produces = "application/json", headers = "Accept=*/*")
+	public @ResponseBody Set<String> dajGodziny(
+			@RequestParam(value = "term1") String g,
+			@RequestParam(value = "term2") String data,
+			@RequestParam(value = "term3") String trasa) {
+		String[] trasaString = trasa.split("-");
+		String temp0 = "";
+		String temp1 = "";
+		int temp2 = 0;
+		Set<String> result = new HashSet<String>();
+		Przystanek p1 = trasaPrzystanekService
+				.getPrzystanekByName(trasaString[0]);
+		Przystanek p2 = trasaPrzystanekService
+				.getPrzystanekByName(trasaString[1]);
+		RozkladInfo rinfo = rozkladInfoService.getByDate(data);
+		for (TrasaInfo t : trasaPrzystanekService.getTrasyByNazwyPrzystankow(
+				trasaString[0], trasaString[1])) {
+			List<Rozklad> rozklad = rozkladService.getRozkladByCriteriaSearch(
+					data, rinfo, t);
+			for (Rozklad r : rozklad) {
+				for (Rozklad r2 : rozklad) {
+					if (r.getNumer() == r2.getNumer()
+							&& r2.getPrzystanek().getId() == p1.getId()) {
+						temp0 += r2.getNumer() + ". " + r2.getGodzina() + "-";
+						temp2++;
+					}
+					if (r.getNumer() == r2.getNumer()
+							&& r2.getPrzystanek().getId() == p2.getId()) {
+						temp1 += r2.getGodzina();
+						temp2++;
+					}
+					if (temp2 == 2) {
+						temp0 += temp1;
+						result.add(temp0);
+						temp0 = "";
+						temp1 = "";
+						temp2 = 0;
+					}
+				}
+			}
+		}
+		return result;
+	}
+
 }
