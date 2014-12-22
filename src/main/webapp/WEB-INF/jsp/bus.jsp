@@ -27,10 +27,10 @@
 						<thead>
 							<tr>
 								<th>ID</th>
-								<td>Numer</td>
 								<th>Marka</th>
 								<th>Miejsca siędzące</th>
 								<th>Miejsca stojące</th>
+								<th>Opis</th>
 								<th>Opcje</th>
 							</tr>
 						</thead>
@@ -39,19 +39,16 @@
 							<c:forEach items="${bus}" var="b">
 								<tr class="even gradeC" id="${b.id}">
 									<td class="id">${b.id}</td>
-									<td class="numer">${b.nr}</td>
 									<td class="nazwa">${b.nazwa}</td>
 									<td class="siedzace">${b.miejscaSiedzace}</td>
-									<td class="stojące">${b.miejscaStojace}</td>
+									<td class="stojace">${b.miejscaStojace}</td>
+									<td class="opis">${b.opis}</td>
 									<td id="opcje"><a
 										class="btn-sm btn-warning btn-primary edit" id="">Edytuj</a><a
 										href="<spring:url value="/bus/delete/${b.id}" />"
 										class="btn-sm btn-danger">Usuń</a></td>
 								</tr>
-
-
 							</c:forEach>
-
 						</tbody>
 					</table>
 				</div>
@@ -80,10 +77,6 @@
 							readonly />
 					</div>
 					<div class="form-group">
-						<label>Numer: </label> <input class="form-control" type='text'
-							name='nr' />
-					</div>
-					<div class="form-group">
 						<label>Nazwa: </label> <input class="form-control" type='text' name="nazwa" ></input>
 					</div>
 					<div class="form-group">
@@ -91,6 +84,10 @@
 					</div>
 					<div class="form-group">
 						<label>Miejsca stojące: </label> <input class="form-control" type='text' name="miejscaStojace" ></input>
+					</div>
+					<div class="form-group">
+						<label>Opis: </label> <input class="form-control" type='text'
+							name='opis' />
 					</div>
 					<div style="width: 200px; margin: auto;">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Anuluj</button>

@@ -3,6 +3,7 @@ package com.busiki.controller;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -77,7 +78,7 @@ public class IndexController {
 	}
 
 	@RequestMapping(value = "autocomplete2", method = RequestMethod.POST, produces = "application/json", headers = "Accept=*/*")
-	public @ResponseBody List<String> dajPrzystankiDo(
+	public @ResponseBody Set<String> dajPrzystankiDo(
 			@RequestParam(value = "term1") String p1,
 			@RequestParam(value = "term2") String p2) {
 		return trasaPrzystanekService.dajPrzystankiDo(p1, p2);

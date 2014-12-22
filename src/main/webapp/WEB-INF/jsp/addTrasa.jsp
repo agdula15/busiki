@@ -49,10 +49,21 @@
 				id='numer' />
 		</div>
 	</div>
+<!-- 	<div class="form-group ">
+		<div class=" col-lg-3">
+		<label>Pojazd:</label>
+			 <select class="selectpicker form-control" 
+				id='pojazd'>
+				<option>Duży</option>
+				<option>Średni</option>
+				<option>Mały</option>
+			</select> 
+		</div>
+	</div> -->
 	<div class="form-group">
 		<div class="input-group col-lg-12">
 			<input class="form-control trasa" type="text" id='string'
-				name='string' placeholder="Trasa:" readonly/> <span
+				name='string' placeholder="Trasa:" readonly /> <span
 				class="input-group-btn">
 				<button class="btn btn-default remove" type="button">
 					<i class="fa fa-minus"></i>
@@ -61,6 +72,7 @@
 
 		</div>
 	</div>
+
 	<div class="form-group">
 		<input type="submit" value="Wykonaj" class="btn btn-primary">
 	</div>
@@ -69,7 +81,10 @@
 <!-- /.panel -->
 <!-- /.col-lg-12 -->
 
-<script src="//cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js" type="text/javascript"> </script>
+<script src="//cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js"
+	type="text/javascript">
+	
+</script>
 <script>
 	$(document).ready(function() {
 		$('#dodawanieTras').dataTable({

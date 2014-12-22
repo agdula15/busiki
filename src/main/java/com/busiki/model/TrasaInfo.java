@@ -25,7 +25,8 @@ public class TrasaInfo implements Serializable {
 	private int numer;
 	private String poczatek;
 	private String koniec;
-
+	@Column(precision=10, scale=1)
+	private float wspolczynnikKosztu;
 	public long getId() {
 		return id;
 	}
@@ -57,5 +58,15 @@ public class TrasaInfo implements Serializable {
 	public void setKoniec(String param) {
 		this.koniec = param;
 	}
+
+	public float getWspolczynnikKosztu() {
+		return wspolczynnikKosztu;
+	}
+
+	public void setWspolczynnikKosztu(float wspolczynnikKosztu) {
+		this.wspolczynnikKosztu = wspolczynnikKosztu;
+	}
+
+	
 
 }

@@ -215,21 +215,22 @@ public class AdminController {
 
 	@RequestMapping(value = "bus/addorupdate", method = RequestMethod.POST)
 	public String addorupdatebus(@ModelAttribute("bus") Bus b) {
+		Bus b2;
 		if (busService.getById(b.getId()) != null) {
-			Bus b2 = busService.getById(b.getId());
+			b2 = busService.getById(b.getId());
 			b2.setNazwa(b.getNazwa());
-			b2.setNr(b.getNr());
+			b2.setOpis(b.getOpis());
 			b2.setMiejscaSiedzace(b.getMiejscaSiedzace());
 			b2.setMiejscaStojace(b.getMiejscaStojace());
 			busService.updateBus(b2);
 
 		} else {
-			Bus b3 = new Bus();
-			b3.setNazwa(b.getNazwa());
-			b3.setNr(b.getNr());
-			b3.setMiejscaSiedzace(b.getMiejscaSiedzace());
-			b3.setMiejscaStojace(b.getMiejscaStojace());
-			busService.create(b3);
+			b2 = new Bus();
+			b2.setNazwa(b.getNazwa());
+			b2.setOpis(b.getOpis());
+			b2.setMiejscaSiedzace(b.getMiejscaSiedzace());
+			b2.setMiejscaStojace(b.getMiejscaStojace());
+			busService.create(b2);
 		}
 		return "redirect:/bus";
 	}
@@ -287,11 +288,9 @@ public class AdminController {
 			@RequestParam("dp2") String dataKonca) {
 		RozkladInfo rozkladInfo = new RozkladInfo();
 		DateFormat df = DateFormat.getDateInstance();
-		
 		try {
 			rozkladInfo.setDataOd(df.parse(dataPoczatku));
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	
@@ -315,12 +314,16 @@ public class AdminController {
 
 	@RequestMapping(value = "scheduleConfigure", method = RequestMethod.GET)
 	public String scheduleConfigure(@RequestParam(value = "rid") long rid,
-			@RequestParam(value = "tid") long tid, Model m) {
+			@RequestParam(value = "tid") long tid,@RequestParam(value = "tid2") long tid2, Model m) {
 		m.addAttribute("r_info", rozkladInfoService.getById(rid));
 		m.addAttribute("rozklad", rozkladService.getRozkladByTrasaId(tid));
+		m.addAttribute("rozklad2", rozkladService.getRozkladByTrasaId(tid2));
 		m.addAttribute("dni", dniKursuService.getAll());
 		m.addAttribute("trasa", trasaPrzystanekService.getByIdTrasaInfo(tid));
+		m.addAttribute("trasa2", trasaPrzystanekService.getByIdTrasaInfo(tid2));
 		m.addAttribute("przystankitrasy", trasaPrzystanekService.getPrzystankiTrasyByTrasaInfoId(tid));
+		m.addAttribute("przystankitrasy2", trasaPrzystanekService.getPrzystankiTrasyByTrasaInfoId(tid2));
+		m.addAttribute("pojazd", busService.getAll());
 		return "scheduleConfigure";
 	}
 

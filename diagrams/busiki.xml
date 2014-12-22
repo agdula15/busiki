@@ -12,10 +12,10 @@
 
 	<entity>
 		<entity-name>com.busiki.model.Rezerwacja</entity-name>
-		<entity-width>121</entity-width>
-		<entity-height>146</entity-height>
-		<entity-X-Coordinate>410</entity-X-Coordinate>
-		<entity-Y-Coordinate>36</entity-Y-Coordinate>
+		<entity-width>163</entity-width>
+		<entity-height>248</entity-height>
+		<entity-X-Coordinate>360</entity-X-Coordinate>
+		<entity-Y-Coordinate>37</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
 		<relation-collapsed>false</relation-collapsed>
 		<basic-collapsed>false</basic-collapsed>
@@ -35,7 +35,7 @@
 	<entity>
 		<entity-name>com.busiki.model.Kurs</entity-name>
 		<entity-width>147</entity-width>
-		<entity-height>226</entity-height>
+		<entity-height>206</entity-height>
 		<entity-X-Coordinate>636</entity-X-Coordinate>
 		<entity-Y-Coordinate>58</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
@@ -46,9 +46,9 @@
 	<entity>
 		<entity-name>com.busiki.model.TrasaInfo</entity-name>
 		<entity-width>161</entity-width>
-		<entity-height>148</entity-height>
-		<entity-X-Coordinate>890</entity-X-Coordinate>
-		<entity-Y-Coordinate>239</entity-Y-Coordinate>
+		<entity-height>168</entity-height>
+		<entity-X-Coordinate>852</entity-X-Coordinate>
+		<entity-Y-Coordinate>219</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
 		<relation-collapsed>false</relation-collapsed>
 		<basic-collapsed>false</basic-collapsed>
@@ -58,8 +58,8 @@
 		<entity-name>com.busiki.model.RozkladInfo</entity-name>
 		<entity-width>120</entity-width>
 		<entity-height>148</entity-height>
-		<entity-X-Coordinate>140</entity-X-Coordinate>
-		<entity-Y-Coordinate>557</entity-Y-Coordinate>
+		<entity-X-Coordinate>84</entity-X-Coordinate>
+		<entity-Y-Coordinate>563</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
 		<relation-collapsed>false</relation-collapsed>
 		<basic-collapsed>false</basic-collapsed>
@@ -69,8 +69,8 @@
 		<entity-name>com.busiki.model.Bus</entity-name>
 		<entity-width>111</entity-width>
 		<entity-height>168</entity-height>
-		<entity-X-Coordinate>1054</entity-X-Coordinate>
-		<entity-Y-Coordinate>9</entity-Y-Coordinate>
+		<entity-X-Coordinate>894</entity-X-Coordinate>
+		<entity-Y-Coordinate>-11</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
 		<relation-collapsed>false</relation-collapsed>
 		<basic-collapsed>false</basic-collapsed>
@@ -90,12 +90,12 @@
 	<entity>
 		<entity-name>com.busiki.model.User</entity-name>
 		<entity-width>120</entity-width>
-		<entity-height>141</entity-height>
+		<entity-height>306</entity-height>
 		<entity-X-Coordinate>183</entity-X-Coordinate>
 		<entity-Y-Coordinate>-7</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
 		<relation-collapsed>false</relation-collapsed>
-		<basic-collapsed>true</basic-collapsed>
+		<basic-collapsed>false</basic-collapsed>
 	</entity>
 
 	<entity>
@@ -113,8 +113,8 @@
 		<entity-name>com.busiki.model.DniKursu</entity-name>
 		<entity-width>120</entity-width>
 		<entity-height>108</entity-height>
-		<entity-X-Coordinate>158</entity-X-Coordinate>
-		<entity-Y-Coordinate>343</entity-Y-Coordinate>
+		<entity-X-Coordinate>55</entity-X-Coordinate>
+		<entity-Y-Coordinate>380</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
 		<relation-collapsed>false</relation-collapsed>
 		<basic-collapsed>false</basic-collapsed>

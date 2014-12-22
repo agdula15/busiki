@@ -39,4 +39,8 @@ public class BusService {
 		busDaoImpl.update(t);
 	}
 
+	public Bus getByName(String pojazd) {
+		return  busDaoImpl.getByName(pojazd);
+	}
+
 }

@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="bus")
+@Table(name = "bus")
 public class Bus implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -22,8 +22,8 @@ public class Bus implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID")
 	private long id;
-	private int nr;
 	private String nazwa;
+
 	public String getNazwa() {
 		return nazwa;
 	}
@@ -34,20 +34,13 @@ public class Bus implements Serializable {
 
 	private int miejscaSiedzace;
 	private int miejscaStojace;
+	private String opis;
 	public long getId() {
 		return id;
 	}
 
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	public int getNr() {
-		return nr;
-	}
-
-	public void setNr(int param) {
-		this.nr = param;
 	}
 
 	public int getMiejscaSiedzace() {
@@ -64,5 +57,13 @@ public class Bus implements Serializable {
 
 	public void setMiejscaStojace(int param) {
 		this.miejscaStojace = param;
+	}
+
+	public String getOpis() {
+		return opis;
+	}
+
+	public void setOpis(String param) {
+		this.opis = param;
 	}
 }

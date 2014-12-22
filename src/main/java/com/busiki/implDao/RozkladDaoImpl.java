@@ -1,21 +1,29 @@
 package com.busiki.implDao;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
 import org.apache.log4j.Logger;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import com.busiki.model.DniKursu;
+import com.busiki.model.Przystanek;
+import com.busiki.model.PrzystankiTrasy;
 import com.busiki.model.Rozklad;
+import com.busiki.model.RozkladInfo;
+import com.busiki.model.TrasaInfo;
 
 @Repository
 public class RozkladDaoImpl extends AbstractDaoImpl<Rozklad> {
 
 	protected static Logger logger = Logger.getLogger(RozkladDaoImpl.class);
-	
+
 	private String godz[], godz2[];
 	private Set<Integer> gSort;
 	private List<Integer> gNieSort;
@@ -23,7 +31,6 @@ public class RozkladDaoImpl extends AbstractDaoImpl<Rozklad> {
 	private Integer przed;
 	private int result, last;
 	private List<Rozklad> r;
-
 
 	@SuppressWarnings("unchecked")
 	public List<Rozklad> getAllByRozkladInfoID(long riid) {
@@ -77,19 +84,19 @@ public class RozkladDaoImpl extends AbstractDaoImpl<Rozklad> {
 		if (przed == null && last != 0) {
 			++last;
 			return last;
-		} 
-		if (przed !=null && last != 0){
-			
+		}
+		if (przed != null && last != 0) {
+
 			for (Rozklad rozklad : r) {
 				godz = rozklad.getGodzina().split(":");
 				if (Integer.parseInt(godz[0] + godz[1]) == przed) {
 					result = rozklad.getNumer();
 				}
 			}
-			logger.debug("result: "  + result + " last " + last);
+			logger.debug("result: " + result + " last " + last);
 			r.clear();
 			int temp;
-			while(result<=last){
+			while (result <= last) {
 				temp = last;
 				r.addAll(getSession()
 						.createQuery(
@@ -98,7 +105,7 @@ public class RozkladDaoImpl extends AbstractDaoImpl<Rozklad> {
 						.setParameter("idDni", dniKursu.getId())
 						.setParameter("n", last).list());
 				for (Rozklad r : r) {
-					r.setNumer(temp+1);
+					r.setNumer(temp + 1);
 					update(r);
 				}
 				r.clear();
@@ -107,5 +114,38 @@ public class RozkladDaoImpl extends AbstractDaoImpl<Rozklad> {
 			logger.debug("OK");
 		}
 		return result;
+	}
+
+	public List<Rozklad> getRozkladByCriteriaSearch(
+			String dzien, RozkladInfo rozkladInfo, TrasaInfo t) {
+		DateFormat df = DateFormat.getDateInstance();
+		int d=0;
+		int d2;
+		try {
+			d2 = df.parse(dzien).getDay();
+			if(d2 == 1 || d2 == 2 || d2 == 3 || d2 == 4 || d2 == 5){
+				d= 1; 
+			}
+			if(d2 == 6){
+				d= 2; 
+			}
+			if(d2 == 0){
+				d= 3; 
+			}
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return getSession()
+				.createCriteria(Rozklad.class)
+				.add(Restrictions
+						.sqlRestriction(
+								" trasa_info_id = " 
+								+ t.getId()
+								+ " and rozkladinfo_id = " 
+								+ rozkladInfo.getId()
+								+ " and dnikursu_id = " 
+								+ d )).list();
 	}
 }

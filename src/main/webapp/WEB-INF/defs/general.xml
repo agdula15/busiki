@@ -52,4 +52,9 @@
 		<put-attribute name="body" value="/WEB-INF/jsp/userProfile.jsp" />
 		<put-attribute name="current" value="userProfile" />
 	</definition>
+	<definition name="rezerwacja" extends="common">
+		<put-attribute name="title" value="Rezerwacja" />
+		<put-attribute name="body" value="/WEB-INF/jsp/rezerwacja.jsp" />
+		<put-attribute name="current" value="rezerwacja" />
+	</definition>
 </tiles-definitions>

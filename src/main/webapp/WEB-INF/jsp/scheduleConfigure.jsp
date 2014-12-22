@@ -18,6 +18,7 @@
 	<fmt:formatDate pattern="yyyy-MM-dd" value="${r_info.dataDo}" />
 	dla trasy:
 	<c:out value="${trasa.numer}" />
+	i <c:out value="${trasa2.numer}" />
 	<!-- /.row -->
 <div class="row">
 	<div class="col-lg-12">
@@ -43,8 +44,8 @@
 					function() {
 						var dni = []; //wszystki dni dla który usupełniam rozkład
 						var rgodziny = [];
-						var rgodziny2 = [];0
-						var b = false; 
+						var rgodziny2 = [];
+						var b = false;
 						var rDni = new Set();
 						<c:forEach var="r" items="${rozklad}">
 						rDni.add('${r.dniKursu.id}');
@@ -57,19 +58,25 @@
 						var dniLabel = []; //dni wyświetlane w kolejnym polu checkboxów
 						var tb = 1; //numer tabeli
 						var przystanki = []; //wszystkie przystanki 
+						var przystanki2 = []; //wszystkie przystanki 
 						var wr = 0; //numer wiersza
 						var godziny = []; //godziny odjazdów
 
 						<c:forEach var="pt" items="${przystankitrasy}">
 						przystanki.push('${pt.przystanek.nazwa}');
 						</c:forEach>
+						<c:forEach var="pt" items="${przystankitrasy2}">
+						przystanki2.push('${pt.przystanek.nazwa}');
+						</c:forEach>
+						var trasa1='${trasa.id}';
+						var trasa2='${trasa2.id}';
 						var dniDalej = dni;
 						var pattern = /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/i;
 						var rDzien;
 						if (rDni.size != 0) {
 							rDni.forEach(function(value) {
-								b=true;
-								dniLabel=[];
+								b = true;
+								dniLabel = [];
 								rDzien = value;
 								<c:forEach var="d" items="${dni}">
 								if (rDzien == '${d.id}') {
@@ -77,14 +84,15 @@
 								}
 								</c:forEach>
 								wypisztabele(przystanki, tb);
+								tb = tb + 1;
+								wypisztabele2(przystanki2, tb);
 								$('#zakoncz' + tb).remove();
 								tb++;
 							});
 						}
-						b=false;
+						b = false;
 						wypiszChecBoxy(dni, tb); //pierwsze checkboxy
 						function wypiszChecBoxy(d, numer) {
-
 							if (!dniDalej.length == 0) {
 								$("#panel-body")
 										.append(
@@ -113,14 +121,16 @@
 											uzupełniajDni(numer);
 											$(this).slideUp("slow");
 											wypisztabele(przystanki, tb);
+											tb = tb + 1;
+											wypisztabele2(przystanki2, tb);
 										});
 							}
 						}
-						function wypisztabele(p, numer, r) {
+						function wypisztabele(p, numer) {
 							$("#fieldset" + numer).prop("disabled", true);
 							$("#panel-body")
 									.append(
-											"<div class='table-responsive'><label id='labeltable" + numer + "'></label><table id='table" + numer + "' class='table table-hover'><thead><tr id='trthead" + numer + "'><th>#</th>");
+											"<div class='table-responsive'><label id='trasa" + numer + "'> ${trasa.id}</label> <label id='labeltable" + numer + "'></label> <table id='table" + numer + "' class='table table-hover'><thead><tr id='trthead" + numer + "'><th>#</th>");
 							for (var i = 0; i < dniLabel.length; i++) {
 								$("#labeltable" + numer).append(
 										dniLabel[i] + " ");
@@ -129,22 +139,22 @@
 								$("#trthead" + numer).append(
 										"<th>" + p[i] + " </th> ");
 							}
-							$("#panel-body")
-									.append(
-											"</tr></thead></table><button class='btn btn-success col-sm-offset-10 zakoncz' id='zakoncz" + numer + "'type='button'>Dalej</button></div>");
+							$("#trthead" + numer).append("<th>Pojazd</th> ");
+							$("#panel-body").append(
+									"</tr></thead></table></div>");
 							$("#table" + numer).append(
 									"<tbody id='tbody" + numer + "'></tbody>");
-							
+
 							if (rDni.size != 0 && b) {
-								
+
 								var k = 0;
 								var kk = 0;
 								<c:forEach var="p" items="${przystankitrasy}">
 								rgodziny[k] = [];
-
 								<c:forEach var="r" items="${rozklad}">
 								if ('${r.przystanek.id}' == '${p.przystanek.id}'
-										&& rDzien == '${r.dniKursu.id}') {
+										&& rDzien == '${r.dniKursu.id}'
+										&& '${trasa.id}' == '${r.trasaInfo.id}') {
 									rgodziny[k].push('${r.godzina}');
 									kk++;
 								}
@@ -159,7 +169,62 @@
 										rgodziny2.push(rgodziny[int][k])
 									}
 									wr += 1;
-									dodajwiersz(p, numer, wr, rgodziny2);
+									dodajwiersz(p, numer, wr,trasa1);
+									rgodziny2 = [];
+									k++;
+								}
+
+							}
+
+							wr += 1;
+							dodajwiersz(p, numer, wr, trasa1);
+
+						}
+						function wypisztabele2(p, numer) {
+							$("#fieldset" + numer).prop("disabled", true);
+							$("#panel-body")
+									.append(
+											"<div class='table-responsive'><label id='trasa" + numer + "'> ${trasa2.id}</label> <label id='labeltable" + numer + "'></label> <table id='table" + numer + "' class='table table-hover'><thead><tr id='trthead" + numer + "'><th>#</th>");
+							for (var i = 0; i < dniLabel.length; i++) {
+								$("#labeltable" + numer).append(
+										dniLabel[i] + " ");
+							}
+							for (var i = 0; i < p.length; i++) {
+								$("#trthead" + numer).append(
+										"<th>" + p[i] + " </th> ");
+							}
+							$("#trthead" + numer).append("<th>Pojazd</th>");
+							$("#panel-body")
+									.append(
+											"</tr></thead></table><button class='btn btn-success col-sm-offset-10 zakoncz' id='zakoncz" + numer + "'type='button'>Dalej</button></div>");
+							$("#table" + numer).append(
+									"<tbody id='tbody" + numer + "'></tbody>");
+							if (rDni.size != 0 && b) {
+								var k = 0;
+								var kk = 0;
+								<c:forEach var="p" items="${przystankitrasy2}">
+								rgodziny[k] = [];
+								<c:forEach var="r" items="${rozklad2}">
+								if ('${r.przystanek.id}' == '${p.przystanek.id}'
+										&& rDzien == '${r.dniKursu.id}'
+										&& '${trasa2.id}' == '${r.trasaInfo.id}') {
+									rgodziny[k].push('${r.godzina}');
+									kk++;
+								}
+								</c:forEach>
+								k++;
+								kk = 0;
+								</c:forEach>
+								
+								rgodziny2 = [];
+								
+								k = 0;
+								for (var int2 = 0; int2 < rgodziny[0].length; int2++) {
+									for (var int = 0; int < rgodziny.length; int++) {
+										rgodziny2.push(rgodziny[int][k])
+									}
+									wr += 1;
+									dodajwiersz(p, numer, wr, trasa2);
 									rgodziny2 = [];
 									k++;
 								}
@@ -175,47 +240,55 @@
 							});
 
 						}
-						function dodajwiersz(p, numer, numerwiersza) {
+						function dodajwiersz(p, numer, numerwiersza, trasa) {
 							$("#tbody" + numer)
 									.append(
 											"<tr id='trbody" + numer + numerwiersza + "'><td><button class='btn btn-default btn-circle' id='dodajwiersz" + numer + numerwiersza + "' type='button'><i class='fa fa-plus'></i></button></td>");
 							for (var i = 0; i < p.length; i++) {
 								$("#trbody" + numer + numerwiersza)
 										.append(
-												"<td><input name='godzina"
+												"<td><input class='' name='godzina"
 														+ numer
 														+ numerwiersza
 														+ "' pattern='^([01]?[0-9]|2[0-3]):[0-5][0-9]' type='text' placeholder='GG:MM' value=''> </td> ");
-							
-								
-								 if (rgodziny2.length != 0 && b ) {
+
+								if (p.length == (i + 1)) {
+									$('#trbody' + numer + numerwiersza)
+											.append(
+													'<td><select name="pojazd" id="pojazd' + numer+ numerwiersza + '">');
+									<c:forEach var="poj" items="${pojazd}">
+									$('#pojazd' + numer + numerwiersza).append(
+											'<option>${poj.nazwa}</option>');
+									</c:forEach>
+
+									$('#trbody' + numer + numerwiersza + ' ')
+											.append('</select></td>');
+								}
+								if (rgodziny2.length != 0 && b) {
 									$("#dodajwiersz" + numer + numerwiersza)
 											.remove();
-									temp=0;
+									$('#pojazd' + numer + numerwiersza)
+											.remove();
+									temp = 0;
 									$(
-											'input[name="godzina'
-													+ numer
-													+ numerwiersza
-													+ '"]')
-											.each(
-													function() {
-														
-														$(this).val(rgodziny2[temp])
-														$(
-																this)
-																.prop(
-																		"disabled",
-																		true);
-														temp++;
-													});
-								}  
+											'input[name="godzina' + numer
+													+ numerwiersza + '"]')
+											.each(function() {
+												$(this).val(rgodziny2[temp])
+												$(this).prop("disabled", true);
+												temp++;
+											});
+
+								}
 							}
+
 							$("#tbody" + numer).append("</tr>");
 
-							$("#dodajwiersz" + numer + numerwiersza)
+							$("#dodajwiersz" + numer + numerwiersza )
 									.bind(
 											"click",
 											function() {
+												
 												godziny = [];
 												$(
 														'input[name="godzina'
@@ -269,9 +342,15 @@
 																		dniTemp
 																				.push(this.value);
 																	});
-													if(dniTemp.length == 0 ){
-														dniTemp.push($('#labeltable'+numer).text().trim());
-														
+													
+													if (dniTemp.length == 0) {
+														dniTemp
+																.push($(
+																		'#labeltable'
+																				+ numer)
+																		.text()
+																		.trim());
+
 													}
 													var daneInfo = {
 														"godz" : godziny,
@@ -284,7 +363,8 @@
 																data : {
 																	godz : godziny,
 																	dni : dniTemp,
-																	trasa : "<c:out value='${trasa.id}' />",
+																	pojazd:  $('#pojazd'+numer+numerwiersza).val(),
+																	t: $('#trasa'+numer).text(),
 																	r_info : "<c:out value='${r_info.id}' />"
 																},
 																success : function() {
@@ -293,6 +373,8 @@
 																			p,
 																			numer,
 																			wr);
+																	$('#pojazd' + numer + numerwiersza)
+																	.remove();
 
 																},
 																error : function(
