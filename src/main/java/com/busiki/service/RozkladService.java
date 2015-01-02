@@ -1,6 +1,9 @@
 package com.busiki.service;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.busiki.implDao.RozkladDaoImpl;
 import com.busiki.model.DniKursu;
 import com.busiki.model.Rozklad;
+import com.busiki.model.RozkladInfo;
+import com.busiki.model.TrasaInfo;
 
 @Service
 @Transactional
@@ -19,7 +24,7 @@ public class RozkladService {
 
 	@Autowired
 	private RozkladDaoImpl rozkladDaoImpl;
-	
+
 	@Autowired
 	private TrasaPrzystanekService trasaPrzystanekService;
 
@@ -32,17 +37,38 @@ public class RozkladService {
 	}
 
 	public List<Rozklad> getRozkladByTrasaNumer(long tid) {
-		return rozkladDaoImpl.getRozkladByTrasaId(trasaPrzystanekService.getIdByNumerTrasy(tid));
+		return rozkladDaoImpl.getRozkladByTrasaId(trasaPrzystanekService
+				.getIdByNumerTrasy(tid));
 	}
-	
+
 	public List<Rozklad> getRozkladByTrasaId(long tid) {
 		return rozkladDaoImpl.getRozkladByTrasaId(tid);
 	}
-
-	public int updateNumerKursu(String g, long trasa, DniKursu dniKursu, long pId) {
-		logger.debug("RozkladService-> updateNumerKursu g:" +  g + " dzien " +  dniKursu.getDzien() +" trasa " +  trasa + " przystanek " + pId);
-		return rozkladDaoImpl.getRozkladNumerByTrasaIdAndDni(trasa, dniKursu, g, pId, trasaPrzystanekService.getAllPrzystankiTrasy(trasaPrzystanekService.getByIdTrasaInfo(trasa)).size());
+	
+	public Rozklad getRozkladById(long id) {
+		return rozkladDaoImpl.getById(id);
 	}
 
+	public int updateNumerKursu(String g, long trasa, DniKursu dniKursu,
+			long pId) {
+		logger.debug("RozkladService-> updateNumerKursu g:" + g + " dzien "
+				+ dniKursu.getDzien() + " trasa " + trasa + " przystanek "
+				+ pId);
+		return rozkladDaoImpl.getRozkladNumerByTrasaIdAndDni(trasa, dniKursu,
+				g, pId);
+	}
 
+	public List<Rozklad> getRozkladByCriteriaSearch(String dzien,
+			RozkladInfo rozkladInfo, TrasaInfo t) {
+		return rozkladDaoImpl.getRozkladByCriteriaSearch(dzien, rozkladInfo, t);
+	}
+
+	public List<Rozklad> getAllByRozkladInfoIdAndTrasyId(String data, RozkladInfo r,
+			Set<TrasaInfo> trasy) {
+		List<Rozklad> result = new ArrayList<Rozklad>();
+		for (TrasaInfo t : trasy) {
+			result.addAll(getRozkladByCriteriaSearch(data, r, t));
+		}
+		return result;
+	}
 }

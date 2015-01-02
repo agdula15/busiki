@@ -26,5 +26,6 @@
 		<mapping class="com.busiki.model.Ulga" />
 		<mapping class="com.busiki.model.RozkladInfo" />
 		<mapping class="com.busiki.model.DniKursu" />
+		<mapping class="com.busiki.model.PrzystankiTrasy" />
 	</session-factory>
 </hibernate-configuration>

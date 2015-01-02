@@ -2,13 +2,9 @@ package com.busiki.adminController;
 
 import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,10 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.busiki.model.Bus;
-import com.busiki.model.Kurs;
 import com.busiki.model.News;
 import com.busiki.model.Przystanek;
-import com.busiki.model.Rozklad;
+import com.busiki.model.PrzystankiTrasy;
 import com.busiki.model.RozkladInfo;
 import com.busiki.model.TrasaInfo;
 import com.busiki.model.Ulga;
@@ -147,13 +142,19 @@ public class AdminController {
 
 	@RequestMapping("trasa")
 	public String trasa(Model model) {
-		List<TrasaInfo> a = trasaPrzystanekService.getAllTrasy();
-		for (TrasaInfo t : a) {
-			Hibernate.initialize(t.getPrzystanek());
-		}
-		model.addAttribute("trasy", a);
+		List<TrasaInfo> t = trasaPrzystanekService.getAllTrasy();
+		List<PrzystankiTrasy> pt = trasaPrzystanekService.getAllPrzystankiTrasy();
+		model.addAttribute("trasy", t);
+		model.addAttribute("przystankitrasy", pt);
 		return "trasa";
 	}
+	
+	@RequestMapping("trasa/remove/{id}")
+	public String removeTrasa(@PathVariable long id) {
+		trasaPrzystanekService.removeTrasa(id);
+		return "redirect:/trasa";
+	}
+	
 
 	@RequestMapping("trasaadd")
 	public String trasaAdd(Model model) {
@@ -184,7 +185,6 @@ public class AdminController {
 			p2.setNazwa(p.getNazwa());
 			p2.setNumer(p.getNumer());
 			trasaPrzystanekService.updatePrzystanek(p2);
-
 		} else {
 			Przystanek p3 = new Przystanek();
 			p3.setNazwa(p.getNazwa());
@@ -197,10 +197,13 @@ public class AdminController {
 
 	@RequestMapping("przystanek/delete/{id}")
 	public String removePrzystanek(@PathVariable long id) {
-		Przystanek p = trasaPrzystanekService.getByIdPrzystanek(id);
-		logger.debug("Próba usuniêcia przystanka");
-		if (p.getTrasaInfo().isEmpty())
-			trasaPrzystanekService.deletePrzystanek(id);
+		List <PrzystankiTrasy> pt = trasaPrzystanekService.getAllPrzystankiTrasy();
+		for (PrzystankiTrasy przystankiTrasy : pt) {
+			if(przystankiTrasy.getPrzystanek().getId() == id){
+				return "redirect:/przystanek";
+			}
+		}
+		trasaPrzystanekService.deletePrzystanek(id);
 		return "redirect:/przystanek";
 	}
 
@@ -212,21 +215,22 @@ public class AdminController {
 
 	@RequestMapping(value = "bus/addorupdate", method = RequestMethod.POST)
 	public String addorupdatebus(@ModelAttribute("bus") Bus b) {
+		Bus b2;
 		if (busService.getById(b.getId()) != null) {
-			Bus b2 = busService.getById(b.getId());
+			b2 = busService.getById(b.getId());
 			b2.setNazwa(b.getNazwa());
-			b2.setNr(b.getNr());
+			b2.setOpis(b.getOpis());
 			b2.setMiejscaSiedzace(b.getMiejscaSiedzace());
 			b2.setMiejscaStojace(b.getMiejscaStojace());
 			busService.updateBus(b2);
 
 		} else {
-			Bus b3 = new Bus();
-			b3.setNazwa(b.getNazwa());
-			b3.setNr(b.getNr());
-			b3.setMiejscaSiedzace(b.getMiejscaSiedzace());
-			b3.setMiejscaStojace(b.getMiejscaStojace());
-			busService.create(b3);
+			b2 = new Bus();
+			b2.setNazwa(b.getNazwa());
+			b2.setOpis(b.getOpis());
+			b2.setMiejscaSiedzace(b.getMiejscaSiedzace());
+			b2.setMiejscaStojace(b.getMiejscaStojace());
+			busService.create(b2);
 		}
 		return "redirect:/bus";
 	}
@@ -257,8 +261,6 @@ public class AdminController {
 			@RequestParam("wartosc") String wartosc) {
 		Ulga ulga = ulgaService.getById(id);
 		ulga.setOpis(opis);
-
-		// Ta czesc logiki powinna pojsc do ulgaService????
 		String string = wartosc.replace('%', ' ');
 		logger.debug("STRING VALUE " + string);
 
@@ -286,11 +288,9 @@ public class AdminController {
 			@RequestParam("dp2") String dataKonca) {
 		RozkladInfo rozkladInfo = new RozkladInfo();
 		DateFormat df = DateFormat.getDateInstance();
-		
 		try {
 			rozkladInfo.setDataOd(df.parse(dataPoczatku));
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	
@@ -314,22 +314,17 @@ public class AdminController {
 
 	@RequestMapping(value = "scheduleConfigure", method = RequestMethod.GET)
 	public String scheduleConfigure(@RequestParam(value = "rid") long rid,
-			@RequestParam(value = "tid") long tid, Model m) {
+			@RequestParam(value = "tid") long tid,@RequestParam(value = "tid2") long tid2, Model m) {
 		m.addAttribute("r_info", rozkladInfoService.getById(rid));
-		m.addAttribute("rozklad", rozkladService.getRozkladByTrasaNumer(tid));
+		m.addAttribute("rozklad", rozkladService.getRozkladByTrasaId(tid));
+		m.addAttribute("rozklad2", rozkladService.getRozkladByTrasaId(tid2));
 		m.addAttribute("dni", dniKursuService.getAll());
-		m.addAttribute("trasa", trasaPrzystanekService.getByNumerTrasaInfo(tid));
-		m.addAttribute("przystanki", trasaPrzystanekService
-				.getAllPrzystankiTrasy((TrasaInfo) trasaPrzystanekService
-						.getByNumerTrasaInfo(tid)));
-		logger.debug("Trasa: " + rozkladService.getRozkladByTrasaNumer(tid));
+		m.addAttribute("trasa", trasaPrzystanekService.getByIdTrasaInfo(tid));
+		m.addAttribute("trasa2", trasaPrzystanekService.getByIdTrasaInfo(tid2));
+		m.addAttribute("przystankitrasy", trasaPrzystanekService.getPrzystankiTrasyByTrasaInfoId(tid));
+		m.addAttribute("przystankitrasy2", trasaPrzystanekService.getPrzystankiTrasyByTrasaInfoId(tid2));
+		m.addAttribute("pojazd", busService.getAll());
 		return "scheduleConfigure";
 	}
 
-	@RequestMapping(value = "scheduleGenerateCourses", method = RequestMethod.GET)
-	public String scheduleGenerateCourses(@RequestParam(value = "rid") long rid) {
-		
-		
-		return "redirect:/scheduleEdit?rid=" + rid;
-	}
 }

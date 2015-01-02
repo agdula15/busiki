@@ -37,9 +37,6 @@
 												idCardNumber : {
 													required : true
 												},
-												address : {
-													required : true
-												},
 												password : {
 													required : true,
 													minlength : 5
@@ -105,86 +102,85 @@
 .panel {
 	background-color: rgba(167, 209, 241, 0.14);
 }
+
 </style>
 
 <br>
 <br>
 <div class="container">
-	<!-- 	<div class="well well-sm"> -->
-	<div class="panel">
-		<form:form commandName="user"
-			cssClass="form-vertical registrationForm">
-			<div class="panel-heading">
-				<h3 class="text-center">
-					<spring:message code="registration.message.info" />
-				</h3>
-			</div>
-			<div class="form-group">
-				<div class="">
-					<form:input path="email" class="form-control" placeholder="Email:" />
-					<form:errors path="email" />
+<!-- 	<div class="well well-sm"> -->
+		<div class="panel">
+			<form:form commandName="user"
+				cssClass="form-vertical registrationForm">
+<!-- 				<h3 class="text-center header" style="font-family: 'The Times New Roman';"> -->
+<%-- 					<spring:message code="registration.message.info" /> --%>
+<!-- 				</h3> -->
+					<div class="panel-heading">
+						<h3 class="text-center">
+							<spring:message code="registration.message.info" />
+						</h3>
+					</div>
+				<div class="form-group">
+					<div class="">
+						<form:input path="email" class="form-control" placeholder="Email:" />
+						<form:errors path="email" />
+					</div>
 				</div>
-			</div>
-			<div class="form-group">
-				<div class="row">
-					<div class="col-sm-6">
-						<form:input path="firstName" class="form-control"
-							placeholder="Imię:" />
-						<form:errors path="firstName" />
+				<div class="form-group">
+					<div class="row">
+						<div class="col-sm-6">
+							<form:input path="firstName" class="form-control"
+								placeholder="Imię:" />
+							<form:errors path="firstName" />
 
+						</div>
+						<div class="col-sm-6">
+							<form:input path="lastName" class="form-control"
+								placeholder="Nazwisko:" />
+							<form:errors path="lastName" />
+						</div>
 					</div>
-					<div class="col-sm-6">
-						<form:input path="lastName" class="form-control"
-							placeholder="Nazwisko:" />
-						<form:errors path="lastName" />
+				</div>
+				<div class="form-group">
+					<div class="">
+						<form:input path="phoneNumber" class="form-control"
+							placeholder="Numer telefonu:" />
+						<form:errors path="phoneNumber" />
 					</div>
 				</div>
-			</div>
-			<div class="form-group">
-				<div class="">
-					<form:input path="phoneNumber" class="form-control"
-						placeholder="Numer telefonu:" />
-					<form:errors path="phoneNumber" />
+				<div class="form-group">
+					<div class="">
+						<form:input path="idCardNumber" class="form-control"
+							placeholder="Numer dokumentu potwierdzającego:" />
+						<form:errors path="idCardNumber" />
+					</div>
 				</div>
-			</div>
-			<div class="form-group">
-				<div class="">
-					<form:input path="idCardNumber" class="form-control"
-						placeholder="Numer dokumentu potwierdzającego:" />
-					<form:errors path="idCardNumber" />
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="">
-					<form:input path="address" class="form-control"
-						placeholder="Adres:" />
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="row">
-					<div class="col-sm-6">
-						<form:password path="password" class="form-control myform-control"
-							placeholder="Hasło:" />
-						<form:errors path="password" />
+				<div class="form-group">
+					<div class="row">
+						<div class="col-sm-6">
+							<form:password path="password"
+								class="form-control myform-control" placeholder="Hasło:" />
+							<form:errors path="password" />
 
-					</div>
-					<div class="col-sm-6">
-						<input type="password" name="password_again" id="password_again"
-							class="form-control " placeholder="Potwierdź hasło:" />
+						</div>
+						<div class="col-sm-6">
+							<input type="password" name="password_again" id="password_again"
+								class="form-control " placeholder="Potwierdź hasło:" />
+						</div>
 					</div>
 				</div>
+				<div class="form-group  ">
+					<input type="checkbox" name="checkbox1" id="checkbox1"
+						class="" /> <label for="checkbox1" class="">
+						Akceptuję regulamin</label>
+				</div>
+				<div>
+					<input type="submit" value="Zarejestruj"
+						class="btn btn-primary col-sm-offset-5-2" />
+				</div>
+				<br>
+			</form:form>
 			</div>
-			<div class="form-group  ">
-				<input type="checkbox" name="checkbox1" id="checkbox1" class="" />
-				<label for="checkbox1" class=""> Akceptuję regulamin</label>
-			</div>
-			<div>
-				<input type="submit" value="Zarejestruj"
-					class="btn btn-primary col-sm-offset-5-2" />
-			</div>
-			<br>
-		</form:form>
-	</div>
-	<!-- 	</div> -->
+<!-- 	</div> -->
 </div>
 <br>

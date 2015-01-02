@@ -35,6 +35,8 @@
 </form>
 
 <h4 class="page-header">Istniejące:</h4>
+<br>
+<br>
 <div class="row">
 	<c:forEach var="r" items="${rozklady}">
 		<div class="col-lg-4">

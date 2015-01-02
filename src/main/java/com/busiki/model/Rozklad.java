@@ -5,13 +5,10 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "Rozklad")
@@ -30,22 +27,18 @@ public class Rozklad implements Serializable {
 	private String godzina;
 
 	@ManyToOne
-	// @MapsId("id")
 	@JoinColumn(name = "DniKursu_ID", referencedColumnName = "ID")
 	private DniKursu dniKursu;
 
 	@ManyToOne
-	// @MapsId("id")
 	@JoinColumn(name = "RozkladInfo_ID", referencedColumnName = "ID")
 	private RozkladInfo rozkladInfo;
 
 	@ManyToOne
-	// @MapsId("id")
 	@JoinColumn(name = "Trasa_Info_ID", referencedColumnName = "ID")
 	private TrasaInfo trasaInfo;
 
 	@ManyToOne
-	// @MapsId("id")
 	@JoinColumn(name = "Przystanek_ID", referencedColumnName = "ID")
 	private Przystanek przystanek;
 

@@ -25,10 +25,10 @@ public class UserService {
 
 	@Autowired
 	private UserDaoImpl userDaoImpl;
-	
+
 	@Autowired
 	private UserDetailsDaoImpl userDetailsDaoImpl;
-
+	
 	@Autowired 
 	private RoleDao roleDao;
 	 
@@ -45,6 +45,7 @@ public class UserService {
 		userDaoImpl.create(user, password);
 	}
 
+	//getByUsername i podaje siê email?
 	public User getAccountByUsername(String email) {
 		User user = userDaoImpl.findByEmail(email);
 		if (user != null) {
@@ -71,7 +72,7 @@ public class UserService {
 	}
 	
 	public void delete(long id){
-		userDaoImpl.deleteCustomer(id);
+		userDaoImpl.delete(userDaoImpl.getById(id));
 	}
 
 	public void updateUser(User t) {
@@ -89,8 +90,11 @@ public class UserService {
 		}
 		return l2;
 	}
-	
 	public String getPasswordByEmail(String email) {
 		return userDetailsDaoImpl.findPasswordByEmail(email);
+	}
+	
+	public void changeUserDetails(String name, String surname, String phone, String email, String idnumber, String location) {
+		userDetailsDaoImpl.changeUserDetails(name, surname, phone, email, idnumber, location);
 	}
 }

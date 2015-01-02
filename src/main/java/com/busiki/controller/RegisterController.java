@@ -34,7 +34,7 @@ public class RegisterController {
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 		binder.setAllowedFields(new String[] { "firstName", "lastName",
-				"email", "phoneNumber", "idCardNumber", "address", "password",
+				"email", "phoneNumber", "idCardNumber", "password",
 				"password_again", "checkbox1" });
 	}
 

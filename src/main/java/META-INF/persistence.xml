@@ -7,6 +7,7 @@
 		<class>com.busiki.model.Kurs</class>
 		<class>com.busiki.model.News</class>
 		<class>com.busiki.model.Przystanek</class>
+		<class>com.busiki.model.PrzystankiTrasy</class>
 		<class>com.busiki.model.Rezerwacja</class>
 		<class>com.busiki.model.Role</class>
 		<class>com.busiki.model.Rozklad</class>

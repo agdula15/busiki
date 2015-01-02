@@ -15,8 +15,9 @@
 		<intercept-url pattern="/bus**" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/przystanek**" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/schedule**" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/rezerwacja**" access="hasAnyRole('ROLE_ADMIN','ROLE_PRACOWNIK','ROLE_KIEROWCA','ROLE_USER')" />
 		
-		<form-login login-page='/index' default-target-url="/loginok"
+		<form-login login-page='/login' default-target-url="/loginok"
 			authentication-failure-url="/loginfailed" />
 		<logout logout-success-url="/logoutok" />
 	</http>

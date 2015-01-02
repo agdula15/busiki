@@ -31,23 +31,33 @@
 						<%
 							List<TrasaInfo> t2 = new ArrayList<TrasaInfo>();
 						t2 = (ArrayList<TrasaInfo>) request.getAttribute("trasy");
-						for (TrasaInfo t : t2) {
-						List<Przystanek> p = new ArrayList<Przystanek>(
-						t.getPrzystanek());
-						%>
+						boolean temp=true;
+						String poczatek="",koniec="";
+						Integer numer = null;
+					    for(int i = 0 ; i < t2.size() ; i++){
+					    	
+							 if(temp){
+								poczatek=t2.get(i).getPoczatek();
+								koniec=t2.get(i).getKoniec();
+								numer= t2.get(i).getNumer();
+								temp=false;
+								
+							}
+							if(!(t2.get(i).getPoczatek().equals(koniec)) && !(t2.get(i).getKoniec().equals(poczatek)) && t2.get(i).getNumer()!=(numer+1)){
+						 %>
 						<tr>
-							<td><%=t.getNumer()%></td>
-							<td><%=p.get(0).getNazwa()%></td>
-							<td><%=p.get(p.size() - 1).getNazwa()%></td>
+							<td><%=t2.get(i).getNumer()%></td>
+							<td> <%=t2.get(i).getPoczatek()%></td>
+							<td><%=t2.get(i).getKoniec()%></td>
 							<td><a
-								href="scheduleConfigure?rid=${r_info.id}&tid=<%=t.getNumer()%>"
-								class="btn btn-sm btn-warning">Konfiguruj</a> <a
-								href="scheduleGenerateCourses?rid=${r_info.id}"
-								class="btn btn-sm btn-success" data-toggle="tooltip"
-								data-placement="right" title="Generuj skonfigurowany rozkład">Generuj
-									kursy</a></td>
+								href="scheduleConfigure?rid=${r_info.id}&tid=<%=t2.get(i).getId()%>&tid2=<%=t2.get(i+1).getId()%>"
+								class="btn btn-sm btn-warning">Konfiguruj</a></td>
 						</tr>
 						<%
+							}
+							if((t2.get(i).getPoczatek().equals(koniec)) && (t2.get(i).getKoniec().equals(poczatek))  && t2.get(i).getNumer()==(numer+1) ){
+								temp=true;
+							} 
 							}
 						%>
 					</tbody>

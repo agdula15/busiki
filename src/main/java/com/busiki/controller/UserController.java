@@ -2,8 +2,10 @@ package com.busiki.controller;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -17,8 +19,14 @@ public class UserController {
 	
 	@Autowired
 	private UserService userService;
+	
+	/*@RequestMapping("userProfile")
+	public String userProfile() {
+		logger.debug("USERRR: " + SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString());
+		return "userProfile";
+	}*/
 
-	@RequestMapping("userProfile/changeData")
+	@RequestMapping(value = "userProfile/changeData", method=RequestMethod.POST)
 	public String verifyPassword(@RequestParam("first_name") String name, 
 			@RequestParam("last_name") String surname, 
 			@RequestParam("phone") String phone, 
@@ -26,25 +34,16 @@ public class UserController {
 			@RequestParam("idnumber") String idnumber, 
 			@RequestParam("location") String location, 
 			@RequestParam("password") String password) {
-		logger.debug("SZCZEGOLY PRZED ZMIANA: " + name + " " + surname + " " + phone + " " + email + " " + idnumber + " " + location);
-		if (userService.getPasswordByEmail(email) == password) {
-			//changeUserDetails(name, surname, phone, email, idnumber, location);
-			logger.debug("SZCZEGOLY PRZED ZMIANA: " + name + " " + surname + " " + phone + " " + email + " " + idnumber + " " + location);
+
+		if (userService.getPasswordByEmail(email).equals(password)) {
+			userService.changeUserDetails(name, surname, phone, email, idnumber, location);
 			return "redirect:/userProfile";
 		}
-		else 
-			return "redirect:/userProfile"; //z bledem, zaraz sie dowiem jak zwrocic blad do View
+		else {
+			//bindingResult.rejectValue("password","password.notvalid","B³êdne has³o");
+			return "redirect:/userProfile"; //zwroc z informacja o blednym hasle
+		}
+
 	}
-	
-	/*private void changeUserDetails(String name, String surname, String phone, String email, String idnumber, String location) {
-		logger.debug("SZCZEGOLY PRZED ZMIANA: " + name + " " + surname + " " + phone + " " + email + " " + idnumber + " " + location);
-		
-		User user = userService.getAccountByUsername(email);
-			user.setFirstName(name);
-			user.setLastName(surname);
-			user.setPhoneNumber(phone);
-			user.setIdCardNumber(idnumber);
-			user.setAddress(location);
-	}*/
 	
 }

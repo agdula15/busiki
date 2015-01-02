@@ -1,19 +1,12 @@
 package com.busiki.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -29,11 +22,11 @@ public class TrasaInfo implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID")
 	private long id;
-	private String numer;
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinTable(name = "przystanki_trasy", joinColumns = { @JoinColumn(name = "TRASA_INFO_ID", referencedColumnName = "ID") }, inverseJoinColumns = { @JoinColumn(name = "PRZYSTANEK_ID", referencedColumnName = "ID") })
-	private Collection<Przystanek> przystanki = new ArrayList<Przystanek>();
-
+	private int numer;
+	private String poczatek;
+	private String koniec;
+	@Column(precision=10, scale=1)
+	private float wspolczynnikKosztu;
 	public long getId() {
 		return id;
 	}
@@ -42,24 +35,38 @@ public class TrasaInfo implements Serializable {
 		this.id = id;
 	}
 
-	public String getNumer() {
+	public int getNumer() {
 		return numer;
 	}
 
-	public void setNumer(String param) {
+	public void setNumer(int param) {
 		this.numer = param;
 	}
 
-	public Collection<Przystanek> getPrzystanek() {
-		return przystanki;
+	public String getPoczatek() {
+		return poczatek;
 	}
 
-	public void setPrzystanek(Collection<Przystanek> param) {
-		this.przystanki = param;
+	public void setPoczatek(String param) {
+		this.poczatek = param;
 	}
 
-	public int getCountPrzystanek() {
-		return this.przystanki.size();
+	public String getKoniec() {
+		return koniec;
 	}
+
+	public void setKoniec(String param) {
+		this.koniec = param;
+	}
+
+	public float getWspolczynnikKosztu() {
+		return wspolczynnikKosztu;
+	}
+
+	public void setWspolczynnikKosztu(float wspolczynnikKosztu) {
+		this.wspolczynnikKosztu = wspolczynnikKosztu;
+	}
+
+	
 
 }

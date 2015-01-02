@@ -29,10 +29,6 @@
 <link rel="stylesheet" href="resources/css/bootswatch.min.css">
 <link rel="stylesheet" href="resources/css/datepicker3.css"></link>
 
-
-<!-- <link rel="stylesheet/less" type="text/css" href="resources/css/bootswatch.less">
-<link rel="stylesheet/less" type="text/css" href="resources/css/variables.less"> -->
-
 <script src="resources/js/bootstrap.min.js"></script>
 <script src="resources/js/bootswatch.js"></script>
 
@@ -48,7 +44,7 @@
 	<div class="navbar navbar-default navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
-				<a href="./index" class="navbar-brand">Busiki</a>
+				<a href="./index" class="navbar-brand">Bus Sp. z o.o.</a>
 				<button class="navbar-toggle" type="button" data-toggle="collapse"
 					data-target="#navbar-main">
 					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
@@ -60,6 +56,9 @@
 					<li><a href="timetable">Rozkład</a></li>
 					<li><a href="contact">Kontakt</a></li>
 					<li><a href="register">Rejestracja</a></li>
+					<security:authorize access="(!hasRole('ROLE_USER') or hasRole('ROLE_KIEROWCA')) and isAuthenticated()">
+						<li><a href="reservationForCourse">Rezerwacje Dla Kursu</a></li>
+					</security:authorize>
 				</ul>
 
 
@@ -79,12 +78,12 @@
 						</a>
 							<ul class="dropdown-menu" aria-labelledby="account">
 								<security:authorize url="/admin">
+<!-- 									<li><a href="/busiki/admin">Panel administratora</a></li> -->
 									<li><a href="admin">Panel administratora</a></li>
 								</security:authorize>
 								<li><a href="userProfile">Profil</a></li>
 								<li><a href="${logoutUrl}">Wyloguj</a></li>
-							</ul>
-						</li>
+							</ul></li>
 
 					</security:authorize>
 

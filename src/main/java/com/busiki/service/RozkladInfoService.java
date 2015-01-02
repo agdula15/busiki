@@ -31,4 +31,9 @@ public class RozkladInfoService {
 	public RozkladInfo getById(long id) { 
 		return rozkladInfoDaoImpl.getById(id);
 	}
+	
+	//Daje RozkladInfo dla daty zawieraj¹cej siê w tym rozkladzie.
+	public RozkladInfo getByDate(String dzien) { 
+		return rozkladInfoDaoImpl.getByDate(dzien);
+	}
 }

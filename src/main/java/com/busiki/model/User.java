@@ -17,7 +17,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.Email;
@@ -58,14 +57,6 @@ public class User implements Serializable {
 	private Date dateCreated;
 	@Column(name = "enabled")
 	private boolean enabled;
-
-	@OneToMany
-	@JoinTable(name = "users_rezerwacje", 
-				joinColumns = {@JoinColumn( name ="user_id") },
-				inverseJoinColumns = @JoinColumn( name = "rezerwacja_id")
-	)
-	
-	private Collection<Rezerwacja> rezerwacja;
 
 	public User() {
 		super();
@@ -176,14 +167,6 @@ public class User implements Serializable {
 				+ phoneNumber + ", idCardNumber=" + idCardNumber + ", roles="
 				+ roles + ", dateCreated=" + dateCreated + ", enabled="
 				+ enabled + "]";
-	}
-
-	public Collection<Rezerwacja> getRezerwacja() {
-	    return rezerwacja;
-	}
-
-	public void setRezerwacja(Collection<Rezerwacja> param) {
-	    this.rezerwacja = param;
 	}
 	
 	
