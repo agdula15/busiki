@@ -81,12 +81,15 @@ public class SearchController {
 		for (TrasaInfo t : trasy) {
 			rozklad.addAll(rozkladService.getRozkladByCriteriaSearch(dzien, rI,
 					t));
+			logger.debug("Trasa1 : " + t.getId());
 		}
 		for (Rozklad r : rozklad) {
 			kurs.addAll(kursService.getKursByCriteriaSearch(dzien,r.getId()));
+			logger.debug("Rozklad1  : " + r.getId());
 		}
 		JSONObject jsonObject1 = new JSONObject();
 		jsonObject1.put("kurs", kurs);
+		logger.debug("Kursy json : " + jsonObject1.toString());
 		return jsonObject1.toString();
 	}
 }

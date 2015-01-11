@@ -1,6 +1,8 @@
 package com.busiki.controller;
 
 import java.security.Principal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -17,7 +19,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.busiki.model.Przystanek;
+import com.busiki.model.Rezerwacja;
+import com.busiki.service.KursService;
 import com.busiki.service.NewsService;
+import com.busiki.service.RezerwacjaService;
+import com.busiki.service.RozkladService;
 import com.busiki.service.TrasaPrzystanekService;
 import com.busiki.service.UlgaService;
 import com.busiki.service.UserService;
@@ -38,6 +44,15 @@ public class IndexController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private RezerwacjaService rezerwacjaService;
+	
+	@Autowired
+	private KursService kursService;
+	
+	@Autowired
+	private RozkladService rozkladService;
 
 	@RequestMapping("index")
 	public String index(Model model) {
@@ -61,8 +76,49 @@ public class IndexController {
 	@RequestMapping("userProfile")
 	public String userProfile(Model model, Principal principal) {
 		model.addAttribute("user", userService.getAccountByUsername(principal.getName())); //principal.getName() zwraca email zalogowanego u¿ytkownika
+		List<Rezerwacja> reses = rezerwacjaService.getReservationsByUserId( userService.getAccountByUsername(principal.getName()).getId() );
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm"); 
+		
+		//tabela reservations zawiera informacje potrzebne do wyswietlenia danych o rezerwacjach danego uzytkownika, kolejno:
+		//[][0] = Data Odjazdu, [][1] = Przystanek odjazdu, [][2] = Data przyjazdu, [][3] = Przystanek przyjazdu, [][4] = miejsce w busie, [][5] = true/false z informacja o stanie platnosci
+		Object[][] reservations = new Object[reses.size()][6]; 
+		for (int i=0; i<reses.size(); i++){
+			reservations[i][0] = df.format(reses.get(i).getKurs().getDataKursu());
+			reservations[i][1] = kursService.getById(reses.get(i).getKurs().getId()).getRozklad().getPrzystanek().getNazwa();
+			reservations[i][2] = df.format(reses.get(i).getKurs2().getDataKursu());
+			reservations[i][3] = kursService.getById(reses.get(i).getKurs2().getId()).getRozklad().getPrzystanek().getNazwa();
+			
+			/*List<Integer> miejscaNOs = rezerwacjaService.getSeatNumbersByReservationId(reses.get(i).getId());
+			logger.debug("JADZIEM: ");
+			for (int j=0; j<miejscaNOs.size(); j++) { 
+				logger.debug(miejscaNOs.get(j).toString());
+			}*/
+			//reservations[i][4] = "";
+			/*for (Integer j : miejscaNOs) {
+				reservations[i][4] = reservations[i][4] + (j + " ");
+			}*/ 
+			
+			reservations[i][5] = reses.get(i).getCzyZaplacone() ? "true" : "false"; //brzydki hack ale z jakiegos powodu w serwlecie w userProfile.jsp nie moglem dzia³aæ na booleanach
+		}
+		
+		model.addAttribute("reservationsInfo", reservations);
+		
+		/*logger.debug("JADZIEM: ");
+		for (int i=0; i<reservations.length; i++) {
+			for (int j=0; j<reservations[i].length; j++) {
+				logger.debug(reservations[i][j]);
+			}
+		}*/
+		
 		return "userProfile";
 	}
+	
+	@RequestMapping("reservationOk")
+	public String reservationOk() {
+		return "reservationOk";
+	}
+	
+	
 
 	// autocomplete:
 	@RequestMapping(value = "autocomplete", method = RequestMethod.POST, produces = "application/json", headers = "Accept=*/*")

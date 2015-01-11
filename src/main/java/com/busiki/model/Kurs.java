@@ -5,9 +5,11 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -32,7 +34,7 @@ public class Kurs implements Serializable {
 
 	private String szczegoly;
 	
-	@ElementCollection  
+	@ElementCollection
 	@Column(name="nr_miejsca_zajetego")
 	private Set<Integer> miejscaZajete = new HashSet<Integer>();
 

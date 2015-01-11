@@ -4,7 +4,6 @@ import java.security.Principal;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.busiki.model.Bus;
 import com.busiki.model.Kurs;
 import com.busiki.model.Przystanek;
-import com.busiki.model.PrzystankiTrasy;
 import com.busiki.model.Rezerwacja;
 import com.busiki.model.Rozklad;
 import com.busiki.model.RozkladInfo;
@@ -106,10 +104,11 @@ public class ReservationController {
 		r.setKurs(k1);
 		r.setKurs2(k2);
 		r.setUser(u);
+		r.setStatus(Rezerwacja.Status.ROZPOCZETA);
 		r.setIloscMiejscZarezerwowanych(miejsca.size());
 		// r.setKosztBiletu(10.2f);
 		rezerwacjaService.create(r);
-		return "userProfile";
+		return "reservationOk";
 	}
 
 	@RequestMapping(value = "reservationForCourse")

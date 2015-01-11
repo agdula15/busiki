@@ -43,13 +43,63 @@
 		<div class="col-sm-9">
 
 			<ul class="nav nav-tabs" id="myTab">
-				<li class="active"><a href="#promocje" data-toggle="tab">Promocje</a></li>
-				<li><a href="#settings" data-toggle="tab" class="edit">Edycja
-						danych</a></li>
+				<li class="active"><a href="#rezerwacje" data-toggle="tab">Aktualne rezerwacje</a></li>
+				<li><a href="#promocje" data-toggle="tab">Promocje</a></li>
+				<li><a href="#settings" data-toggle="tab" class="edit">Edycja danych</a></li>
 			</ul>
 
 			<div class="tab-content">
-				<div class="tab-pane active" id="promocje">
+				<div class="tab-pane active" id="rezerwacje">
+					<table class="table table-bordered">
+						<thead>
+							<tr>
+								<th>Data odjazdu</th>
+								<th>Skąd</th>
+								<th>Data przyjazdu</th>
+								<th>Dokąd</th>
+								<th>Miejsce nr</th>
+								<th>Płatność</th>
+								<th>Opcje</th>
+							</tr>
+						</thead>
+						<tbody>
+						<% 
+							Object[][] reservationsInfo;
+							reservationsInfo = (Object[][]) request.getAttribute("reservationsInfo");
+							for (int i=0; i<reservationsInfo.length; i++) {
+						%>
+						
+							<tr>
+								<% 
+									for (int j=0; j<reservationsInfo[i].length; j++) {
+								%>
+								
+									<td>
+ 										<% if (reservationsInfo[i][j]=="false") { %> 
+ 											<button type="button" class="btn btn-success">Zapłać</button>
+										<% }else if (reservationsInfo[i][j] == "true") { %>
+											<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+										<% }else { %>
+											<%= reservationsInfo[i][j] %>
+										<% } %>
+									</td>
+								<%
+									}
+								%>
+									<td>
+										<button type="button" class="btn btn-danger">Anuluj</button>
+									</td>
+							</tr>
+						
+						<%
+							}
+						%>
+						
+						</tbody>
+					</table>
+				</div>
+			
+				<div class="tab-pane" id="promocje">
 					<div class="col-md-11">Przeprowadzone rezerwacje:</div>
 					<div class="col-md-1">XX</div>
 

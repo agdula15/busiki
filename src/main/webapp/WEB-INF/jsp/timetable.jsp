@@ -3,11 +3,6 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<head>
-<link rel="stylesheet" href="resources/css/bootstrap.css" media="screen">
-<link href="resources/css/bootstrap-dialog.css" rel="stylesheet">
-</head>
-
 <body style="font-family: The Times New Roman;">
 	<br>
 	<div class="container">
@@ -56,7 +51,7 @@
 						<th><p class="text-center ">Godzina przyjazdu</p></th>
 						<th><p class="text-center ">Trasa</p></th>
 						<th><p class="text-center ">Pojazd</p></th>
-						<th><p class="text-center ">Wolne rezerwacje</p></th>
+						<!-- <th><p class="text-center ">Wolne rezerwacje</p></th> -->
 						<th><p class="text-center ">Opcje</p></th>
 					</tr>
 				</thead>
@@ -67,11 +62,6 @@
 		</div>
 	</div>
 </body>
-<script src="resources/js/bootstrap-dialog.js"></script>
-<script type="text/javascript"
-	src="resources/js/bootstrap-datepicker.js"></script>
-<script type="text/javascript"
-	src="resources/js/bootstrap-datepicker.pl.js"></script>
 
 <style>
 </style>
@@ -197,7 +187,6 @@
 													$('#bodyResultTable')
 															.remove();
 													wyswietlWyniki(wyniki);
-													alert(wyniki.rozklad.length);
 												}
 											},
 											error : function(e) {
@@ -262,7 +251,7 @@
 									+ w.kurs[i].bus.nazwa + ": "
 									+ w.kurs[i].bus.opis + '</p></td>');
 					//liczy wolne miejsca na wybranym kursie:
-					var suma = w.kurs[i].bus.miejscaSiedzace - 4;
+					/* var suma = w.kurs[i].bus.miejscaSiedzace - 4;
 					alert(suma + " " + kurs2 + " " + i);
 
 					var set = {};
@@ -275,18 +264,18 @@
 					}
 					for ( var s in set) {
 						suma=suma-1;
-					}
+					} */
 					
-					$('#tr' + licz).append(
+				/* 	$('#tr' + licz).append(
 							'<td class="wolne"><p class="text-center wolne">'
-									+ suma + '</p></td>');
+									+ suma + '</p></td>'); */
 					$('#tr' + licz)
 							.append(
 									'<td><a href="rezerwacja?kursIdStart='
 											+ w.kurs[i].id
 											+ "&kursIdEnd="
 											+ w.kurs[kurs2].id
-											+ '" style="margin-top: 3px;margin-bottom: 3px;" class="btn btn-sm btn-success rezerwuj" id="rezerwuj'
+											+ '" style="margin-top: 3px;margin-bottom: 3px;" class="col-xs-offset-5 btn btn-sm btn-success rezerwuj" id="rezerwuj'
 											+ w.kurs[i].rozklad.trasaInfo.id
 											+ 'numer'
 											+ w.kurs[i].rozklad.numer

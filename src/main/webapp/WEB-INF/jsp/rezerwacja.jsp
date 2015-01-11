@@ -190,7 +190,7 @@
 						kurs2 : "<c:out value='${kursEnd.id}' />"
 					},
 					success : function(data) {
-							window.location = "userProfile";
+							window.location = "reservationOk";
 					},
 					error : function(e) {
 						alert('Błąd: ' + e);

@@ -67,4 +67,12 @@ public class RozkladService {
 		}
 		return result;
 	}
+
+	public List<Rozklad> getAllByRozkladInfoIdAndTrasyIdAndNumerKursu(String dzien,
+			RozkladInfo rInfo, Set<TrasaInfo> trasy,
+			String numerKursu) {
+		return rozkladDaoImpl.getAllByRozkladInfoIdAndTrasyIdAndNumerKursu(dzien,
+				rInfo,  trasy,
+				 numerKursu);
+	}
 }

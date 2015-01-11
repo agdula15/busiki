@@ -13,7 +13,7 @@
 	<entity>
 		<entity-name>com.busiki.model.Rezerwacja</entity-name>
 		<entity-width>163</entity-width>
-		<entity-height>248</entity-height>
+		<entity-height>286</entity-height>
 		<entity-X-Coordinate>360</entity-X-Coordinate>
 		<entity-Y-Coordinate>37</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>

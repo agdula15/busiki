@@ -148,4 +148,41 @@ public class RozkladDaoImpl extends AbstractDaoImpl<Rozklad> {
 								+ d )).list();
 	}
 
+	public List<Rozklad> getAllByRozkladInfoIdAndTrasyIdAndNumerKursu(String dzien,
+			RozkladInfo rInfo, Set<TrasaInfo> trasy, String numerKursu) {
+		List <Rozklad> result = new ArrayList<Rozklad>();
+		DateFormat df = DateFormat.getDateInstance();
+		int d=0;
+		int d2;
+		try {
+			d2 = df.parse(dzien).getDay();
+			if(d2 == 1 || d2 == 2 || d2 == 3 || d2 == 4 || d2 == 5){
+				d= 1; 
+			}
+			if(d2 == 6){
+				d= 2; 
+			}
+			if(d2 == 0){
+				d= 3; 
+			}
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		for (TrasaInfo t : trasy) {
+			//logger.debug(" test rozklad dao impl " + t.getId() + " " + rInfo.getId() + " " + d + " " + Integer.parseInt(numerKursu));
+			result.addAll(getSession()
+				.createCriteria(Rozklad.class)
+				.add(Restrictions
+						.sqlRestriction(
+								" trasa_info_id = " 
+								+ t.getId()
+								+ " and rozkladinfo_id = " 
+								+ rInfo.getId()
+								+ " and dnikursu_id = " 
+								+ d )).add(Restrictions.eq("numer", Integer.parseInt(numerKursu))).list());
+		}
+		return result;
+	}
+
 }

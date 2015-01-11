@@ -12,7 +12,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
 import javax.persistence.Table;
 
 @Entity
@@ -20,6 +19,30 @@ import javax.persistence.Table;
 public class Rezerwacja implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+
+	public enum Status {
+		ZAKONCZONA_SUKCESEM("ZAKONCZONA_SUKCESEM"), ANULOWANA("ANULOWANA"), ZAKONCZONA_NIEPOWODZENIEM(
+				"ZAKONCZONA_NIEPOWODZENIEM"), ROZPOCZETA("ROZPOCZETA");
+		private final String text;
+
+		/**
+		 * @param text
+		 */
+		private Status(final String text) {
+			this.text = text;
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see java.lang.Enum#toString()
+		 */
+		@Override
+		public String toString() {
+			return text;
+		}
+	
+	}
 
 	public Rezerwacja() {
 	}
@@ -38,9 +61,10 @@ public class Rezerwacja implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "Kurs_id2", referencedColumnName = "ID")
 	private Kurs kurs2;
-	@ElementCollection  
-	@Column(name="nr_miejsca_zarezewowanego")
+	@ElementCollection
+	@Column(name = "nr_miejsca_zarezewowanego")
 	private Set<Integer> miejscaZarezerwowane = new HashSet<Integer>();
+
 	public void setMiejscaZarezerwowane(Set<Integer> miejscaZarezerwowane) {
 		this.miejscaZarezerwowane = miejscaZarezerwowane;
 	}
@@ -49,10 +73,21 @@ public class Rezerwacja implements Serializable {
 		return miejscaZarezerwowane;
 	}
 
-	@Column(precision=10, scale=2)
+	@Column(precision = 10, scale = 2)
 	private float kosztBiletu;
 	@Column(columnDefinition = "boolean default false")
 	private boolean czyZaplacone;
+
+	private String status;
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status rozpoczeta) {
+		this.status = rozpoczeta.toString();
+	}
+
 	private int iloscMiejscZarezerwowanych;
 
 	public long getId() {
@@ -94,6 +129,7 @@ public class Rezerwacja implements Serializable {
 	public void setDataRezerwacji(Date dataRezerwacji) {
 		this.dataRezerwacji = dataRezerwacji;
 	}
+
 	public float getKosztBiletu() {
 		return kosztBiletu;
 	}

@@ -62,4 +62,9 @@
 		<put-attribute name="body" value="/WEB-INF/jsp/reservationForCourse.jsp" />
 		<put-attribute name="current" value="reservationForCourse" />
 	</definition>
+	<definition name="reservationOk" extends="common">
+		<put-attribute name="title" value="Pomyślna rezerwacja" />
+		<put-attribute name="body" value="/WEB-INF/jsp/reservationOk.jsp" />
+		<put-attribute name="current" value="reservationOk" />
+	</definition>
 </tiles-definitions>
