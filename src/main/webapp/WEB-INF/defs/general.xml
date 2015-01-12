@@ -8,34 +8,14 @@
 		<put-attribute name="footer" value="/WEB-INF/layouts/footer.jsp" />
 	</definition>
 	<definition name="index" extends="common">
-		<put-attribute name="title" value="Busiki" />
+		<put-attribute name="title" value="Busy" />
 		<put-attribute name="body" value="/WEB-INF/jsp/index.jsp" />
 		<put-attribute name="current" value="index" />
-	</definition>
-	<definition name="login" extends="common">
-		<put-attribute name="title" value="Loguj" />
-		<put-attribute name="body" value="/WEB-INF/jsp/login.jsp" />
-		<put-attribute name="current" value="login" />
 	</definition>
 	<definition name="user-register" extends="common">
 		<put-attribute name="title" value="Rejestracja" />
 		<put-attribute name="body" value="/WEB-INF/jsp/user-register.jsp" />
 		<put-attribute name="current" value="register" />
-	</definition>
-	<definition name="registrationok" extends="common">
-		<put-attribute name="title" value="Pomyślna rejestracja" />
-		<put-attribute name="body" value="/WEB-INF/jsp/registrationok.jsp" />
-		<put-attribute name="current" value="registrationok" />
-	</definition>
-	<definition name="logoutok" extends="common">
-		<put-attribute name="title" value="Wylogowałeś się" />
-		<put-attribute name="body" value="/WEB-INF/jsp/logoutok.jsp" />
-		<put-attribute name="current" value="logoutok" />
-	</definition>
-	<definition name="loginfailed" extends="common">
-		<put-attribute name="title" value="Błędny login." />
-		<put-attribute name="body" value="/WEB-INF/jsp/loginfailed.jsp" />
-		<put-attribute name="current" value="loginfailed" />
 	</definition>
 	<definition name="contact" extends="common">
 		<put-attribute name="title" value="Kontakt" />
@@ -47,7 +27,7 @@
 		<put-attribute name="body" value="/WEB-INF/jsp/timetable.jsp" />
 		<put-attribute name="current" value="timetable" />
 	</definition>
-		<definition name="userProfile" extends="common">
+	<definition name="userProfile" extends="common">
 		<put-attribute name="title" value="Profil" />
 		<put-attribute name="body" value="/WEB-INF/jsp/userProfile.jsp" />
 		<put-attribute name="current" value="userProfile" />
@@ -62,9 +42,56 @@
 		<put-attribute name="body" value="/WEB-INF/jsp/reservationForCourse.jsp" />
 		<put-attribute name="current" value="reservationForCourse" />
 	</definition>
+
+
+	<!-- Messages: -->
+	<!-- !::::::::::::::::::::::::::::: !-->
+	<definition name="login" extends="common">
+		<put-attribute name="title" value="Prośba o zalogowanie" />
+		<put-attribute name="body">
+			<definition template="/WEB-INF/layouts/message.jsp">
+				<put-attribute name="alert" value="warning" />
+				<put-attribute name="content" value="Musisz być zalogowany" />
+			</definition>
+		</put-attribute>
+	</definition>
+	<definition name="registrationok" extends="common">
+		<put-attribute name="title" value="Pomyślna rejestracja" />
+		<put-attribute name="body">
+			<definition template="/WEB-INF/layouts/message.jsp">
+				<put-attribute name="alert" value="success" />
+				<put-attribute name="content" value="Rejestracja przebiegła pomyślnie. Dziękujemy." />
+			</definition>
+		</put-attribute>
+	</definition>
+	<definition name="logoutok" extends="common">
+		<put-attribute name="title" value="Wylogowałeś się" />
+		<put-attribute name="body">
+			<definition template="/WEB-INF/layouts/message.jsp">
+				<put-attribute name="alert" value="info" />
+				<put-attribute name="content" value="Wylogowałeś się pomyślnie." />
+			</definition>
+		</put-attribute>
+	</definition>
+	<definition name="loginfailed" extends="common">
+		<put-attribute name="title" value="Błędny login." />
+		<put-attribute name="body">
+			<definition template="/WEB-INF/layouts/message.jsp">
+				<put-attribute name="alert" value="warning" />
+				<put-attribute name="content" value="Błędny email lub hasło." />
+			</definition>
+		</put-attribute>
+	</definition>
 	<definition name="reservationOk" extends="common">
 		<put-attribute name="title" value="Pomyślna rezerwacja" />
-		<put-attribute name="body" value="/WEB-INF/jsp/reservationOk.jsp" />
-		<put-attribute name="current" value="reservationOk" />
+		<put-attribute name="body">
+			<definition template="/WEB-INF/layouts/message.jsp">
+				<put-attribute name="alert" value="success" />
+				<put-attribute name="content" value="Rezerwacja przebiegła pomyślnie ;)" />
+			</definition>
+		</put-attribute>
 	</definition>
+	
+	
+
 </tiles-definitions>

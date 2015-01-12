@@ -4,20 +4,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
- <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
-  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+
 <style>
 .mybackground {
 	background: url('resources/img/7.png') no-repeat scroll center center/cover transparent;
-	margin-top: 30px;
 	min-height: 600px;
 }
 </style>
 
 <div class="mybackground ">
 	<div class="container">
-
 		<div class="row">
 			<div class="col-sm-7 col-sm-offset-05 ">
 				<div class="quote">
@@ -32,9 +30,7 @@
 						<li class="" data-slide-to="2" data-target="#fade-quote-carousel"></li>
 					</ol>
 					<div class="carousel-inner">
-
 						<c:forEach items="${newsy}" var="item" varStatus="loop">
-
 							<c:if test="${loop.first}">
 								<div class="item active">
 									<blockquote>
@@ -51,11 +47,8 @@
 									</blockquote>
 								</div>
 							</c:if>
-
 						</c:forEach>
-
 					</div>
-
 				</div>
 			</div>
 			<div class="col-sm-4">
@@ -91,17 +84,11 @@
 							</button>
 						</div>
 					</form>
-
 				</div>
 			</div>
 		</div>
 	</div>
-
 </div>
-<script type="text/javascript"
-	src="resources/js/bootstrap-datepicker.js"></script>
-<script type="text/javascript"
-	src="resources/js/bootstrap-datepicker.pl.js"></script>
 <script>
 	$(function() {
 		$('#dp1').datepicker({

@@ -121,7 +121,10 @@ public class AdminController {
 
 	@RequestMapping("pracownicy")
 	public String pracownicy(Model model) {
-		model.addAttribute("pracownicy ", userService.getPracownicy());
+		model.addAttribute("pracownicy", userService.getPracownicy());
+		for (User u : userService.getPracownicy()) {
+			logger.debug("Pracownik: " + u.getFullName());
+		}
 		return "pracownicy";
 	}
 

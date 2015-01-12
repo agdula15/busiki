@@ -54,7 +54,7 @@ public class UserService {
 		return user;
 	}
 	public boolean findRoleByName(User user, String name ){
-		logger.debug("find role userservice: " + roleDao.findByName(name).getName() + user.getRoles().contains(roleDao.findByName(name)));
+		logger.debug("find role userservice: " + roleDao.findByName(name).getName() + user.getRoles().contains(roleDao.findByName(name)) + user.getFullName());
 		for (Role role : user.getRoles()) {
 			logger.debug(role.getName() + "!");
 			if (role.getName().equals(name))
@@ -83,10 +83,15 @@ public class UserService {
 		List<User> l = userDaoImpl.getAll();
 		List<User> l2 = new ArrayList<User>();
 		for (int i = 0; i < l.size(); i++) {
-			if(!findRoleByName(l.get(i), "ROLE_USER"));
+			logger.debug("User " + l.get(i).getFullName() + findRoleByName(l.get(i), "ROLE_USER"));
+			if(!findRoleByName(l.get(i), "ROLE_USER"))
 			{
+				logger.debug("if user " + findRoleByName(l.get(i), "ROLE_USER") + l.get(i).getFullName());
 				l2.add(l.get(i));
 			}
+		}
+		for (User user : l2) {
+			logger.debug("Return User " + user.getFullName() + findRoleByName(user, "ROLE_USER"));
 		}
 		return l2;
 	}

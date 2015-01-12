@@ -39,9 +39,7 @@ public class RegisterController {
 	}
 
 	@RequestMapping
-	// ("/register")
 	public String showRegister() {
-
 		return "user-register";
 	}
 
@@ -52,7 +50,6 @@ public class RegisterController {
 			return "user-register";
 		}
 		userService.createNewCustomer(user, user.getPassword());
-		logger.debug(user.toString() + " zosta³ dodany do bazy daych");
 		return "redirect:/registration_ok.html";
 	}
 

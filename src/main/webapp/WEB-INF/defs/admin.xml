@@ -4,9 +4,7 @@
        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
 	<definition name="common2" template="/WEB-INF/layouts/adminTemplate.jsp">
-		<put-attribute name="footer" value="/WEB-INF/layouts/footer.jsp" />
 	</definition>
-
 	<definition name="admin" extends="common2">
 		<put-attribute name="title" value="Busiki Admin" />
 		<put-attribute name="body" value="/WEB-INF/jsp/admin.jsp" />
@@ -16,6 +14,11 @@
 		<put-attribute name="title" value="Użytkownicy" />
 		<put-attribute name="body" value="/WEB-INF/jsp/users.jsp" />
 		<put-attribute name="current" value="users" />
+	</definition>
+	<definition name="pracownicy" extends="common2">
+		<put-attribute name="title" value="Pracownicy" />
+		<put-attribute name="body" value="/WEB-INF/jsp/employees.jsp" />
+		<put-attribute name="current" value="employees" />
 	</definition>
 	<definition name="news" extends="common2">
 		<put-attribute name="title" value="Aktualności" />
