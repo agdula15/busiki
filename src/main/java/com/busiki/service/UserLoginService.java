@@ -25,7 +25,7 @@ public class UserLoginService implements UserDetailsService {
 				logger.debug("null load user by username");
 				return null;
 			}
-			logger.debug("LoadUserByUsername2" + user.getEmail() +
+			logger.debug("LoadUserByEmail" + user.getEmail() +
 					  user.getPassword()+ " " + user.isEnabled()+ " " );
 			return new CustomUser(user);
 		} else {

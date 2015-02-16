@@ -42,29 +42,31 @@ public class SearchController {
 	@Autowired
 	private KursService kursService;
 	
-	@RequestMapping(value = "/validateInputValue", method = RequestMethod.GET)
-	public boolean validateInputValue(HttpServletRequest req) {
+	@RequestMapping(value = "/validateInputValue", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
+	public String validateInputValue(HttpServletRequest req) {
 		logger.debug("Parametr " + req.getParameter("przystanek"));
 		for (Przystanek s : trasaPrzystanekService.getAllPrzystanek()) {
 			if (s.getNazwa().equals(req.getParameter("przystanek"))) {
-				return true;
+				return "true";
 			}
 		}
-		return false;
+		return "false";
 	}
 	
-	@RequestMapping(value = "/validateInputValue2", method = RequestMethod.GET)
-	public boolean validateInputValue2(HttpServletRequest req) {
+	@RequestMapping(value = "/validateInputValue2", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
+	public String validateInputValue2(HttpServletRequest req) {
 		String temp = "";
 		Set<String> result = new HashSet<String>();
 		for (TrasaInfo tr : trasaPrzystanekService.getAllTrasy()) {
 			temp = tr.getPoczatek() + "-" + tr.getKoniec();
 			result.add(temp);
 		}
+		JSONObject jsonObject = new JSONObject();
+		logger.debug(" trasa " + req.getParameter("trasa"));
 		if (result.contains(req.getParameter("trasa"))) {
-			return true;
+			return "true";
 		}
-		return false;
+		return "false";
 	}
 
 	@RequestMapping(value = "/searchRezerwacja", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")

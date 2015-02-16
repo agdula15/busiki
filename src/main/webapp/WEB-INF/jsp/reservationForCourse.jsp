@@ -93,11 +93,12 @@
 		});
 		$("#trasa").blur(function() {
 			$.ajax({
-				type : "GET",
+				type : "POST",
 				url : "searchController/validateInputValue2",
-				contentType : "charset=utf-8",
+				dataType: 'json',   
+		        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
 				data : {
-					trasa : $(this).val()
+					'trasa' : $(this).val()
 				},
 				success : function(b) {
 					if (b === true) {

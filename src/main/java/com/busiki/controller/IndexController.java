@@ -88,15 +88,18 @@ public class IndexController {
 			reservations[i][2] = df.format(reses.get(i).getKurs2().getDataKursu());
 			reservations[i][3] = kursService.getById(reses.get(i).getKurs2().getId()).getRozklad().getPrzystanek().getNazwa();
 			
-			/*List<Integer> miejscaNOs = rezerwacjaService.getSeatNumbersByReservationId(reses.get(i).getId());
-			logger.debug("JADZIEM: ");
+			Set<Integer> miejscaNOs = reses.get(i).getMiejscaZarezerwowane();
+		/*	logger.debug("JADZIEM: ");
 			for (int j=0; j<miejscaNOs.size(); j++) { 
 				logger.debug(miejscaNOs.get(j).toString());
 			}*/
-			//reservations[i][4] = "";
-			/*for (Integer j : miejscaNOs) {
-				reservations[i][4] = reservations[i][4] + (j + " ");
-			}*/ 
+			StringBuilder sb = new StringBuilder();
+			
+			for (Integer j : miejscaNOs) {
+				sb.append(j);
+				sb.append(" ");
+			} 
+			reservations[i][4] = sb;
 			
 			reservations[i][5] = reses.get(i).getCzyZaplacone() ? "true" : "false"; //brzydki hack ale z jakiegos powodu w serwlecie w userProfile.jsp nie moglem dzia³aæ na booleanach
 		}
@@ -145,6 +148,11 @@ public class IndexController {
 		logger.debug("Dane: " + req.getParameter("searchFrom")
 				+ req.getParameter("searchTo") + req.getParameter("data")
 				+ req.getParameter("godzina"));
+		model.addAttribute("search_from", req.getParameter("searchFrom"));
+		model.addAttribute("search_to", req.getParameter("searchTo"));
+		model.addAttribute("data", req.getParameter("data") );
+		model.addAttribute("godzina", req.getParameter("godzina") );
+		logger.debug("");
 		return "timetable";
 	}
 

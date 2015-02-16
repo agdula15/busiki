@@ -67,15 +67,25 @@
 </style>
 <script>
 	$(function() {
+
 		$(document).tooltip();
+		'<c:if test="${!empty search_from}">'
+		$('#searchTo').val('<c:out value="${search_to}" />');
+		$("#searchFrom").val('<c:out value="${search_from}" />');
+		$('#data').val('<c:out value="${data}" />');
+		$('#godzina').val('<c:out value="${godzina}" />');
+		'</c:if>'
+		'<c:if test="${empty search_from}">'
 		$('#divResultTable').hide();
+		$('#divSearchTo').hide();
+		$('#divSearchButton').hide();
+		'</c:if>'
 		var pattern = /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/i;
 		var pattern2 = /^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/i;
 		var wyniki;
 		var tip;
 		var data, godzina, start, end;
-		$('#divSearchTo').hide();
-		$('#divSearchButton').hide();
+
 		$('#data').datepicker({
 			format : "yyyy-mm-dd",
 			language : "pl"
@@ -109,45 +119,58 @@
 			},
 			minLength : 2
 		});
-		$("#searchFrom").blur(function() {
-			$.ajax({
-				type : "GET",
-				url : "searchController/validateInputValue",
-				contentType : "charset=utf-8",
-				data : {
-					przystanek : $(this).val()
-				},
-				success : function(b) {
-					if (b === true) {
-						$('#divSearchTo').slideDown("fast");
+		$("#searchFrom")
+				.blur(
+						function() {
+							$
+									.ajax({
+										type : "POST",
+										url : "searchController/validateInputValue",
+										dataType : 'json',
+										contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+										data : {
+											'przystanek' : $(this).val()
+										},
+										success : function(b) {
+											if (b === true) {
+												$('#divSearchTo').slideDown(
+														"fast");
 
-					}
-					if (b === false) {
-						$('#divSearchTo').slideUp("fast");
-						$('#divSearchButton').slideUp("fast");
-					}
-					$('#searchTo').val("");
-				},
-			});
-		});
-		$("#searchTo").blur(function() {
-			$.ajax({
-				type : "GET",
-				url : "searchController/validateInputValue",
-				contentType : "charset=utf-8",
-				data : {
-					przystanek : $(this).val()
-				},
-				success : function(b) {
-					if (b === true) {
-						$('#divSearchButton').slideDown("fast");
-					}
-					if (b === false) {
-						$('#divSearchButton').slideUp("fast");
-					}
-				},
-			});
-		});
+											}
+											if (b === false) {
+												$('#divSearchTo').slideUp(
+														"fast");
+												$('#divSearchButton').slideUp(
+														"fast");
+											}
+											$('#searchTo').val("");
+										},
+									});
+						});
+		$("#searchTo")
+				.blur(
+						function() {
+							$
+									.ajax({
+										type : "POST",
+										url : "searchController/validateInputValue",
+										dataType : 'json',
+										contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+										data : {
+											'przystanek' : $(this).val()
+										},
+										success : function(b) {
+											if (b === true) {
+												$('#divSearchButton')
+														.slideDown("fast");
+											}
+											if (b === false) {
+												$('#divSearchButton').slideUp(
+														"fast");
+											}
+										},
+									});
+						});
 		$("#searchTo").focus(function() {
 			$('#divSearchButton').slideUp("fast");
 		});
@@ -265,10 +288,10 @@
 					for ( var s in set) {
 						suma=suma-1;
 					} */
-					
-				/* 	$('#tr' + licz).append(
-							'<td class="wolne"><p class="text-center wolne">'
-									+ suma + '</p></td>'); */
+
+					/* 	$('#tr' + licz).append(
+								'<td class="wolne"><p class="text-center wolne">'
+										+ suma + '</p></td>'); */
 					$('#tr' + licz)
 							.append(
 									'<td><a href="rezerwacja?kursIdStart='

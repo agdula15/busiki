@@ -4,8 +4,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
-<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 
 <style>
 .mybackground {
@@ -70,7 +68,7 @@
 								placeholder="Do:" required="required"></input>
 						</div>
 						<div class="form-group" style="margin-right: 5%;">
-							<input type="text"  class="form-control"  name="data"placeholder="Data:"
+							<input type="text"  class="form-control"  name="data" placeholder="Data:"
 								id="dp1" required="required">
 						</div>
 						<div class="form-group" style="margin-right: 5%;">

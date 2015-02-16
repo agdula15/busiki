@@ -178,8 +178,6 @@
 			$("#ilosc").text(iloscString + miejsca.length);
 		});
 		$("#rezerwuj").click(function() {
-			alert(miejsca.toString());
-			alert(miejsca);
 			if (miejsca.length != 0) {
 				$.ajax({
 					type : "POST",
